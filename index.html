@@ -983,9 +983,29 @@ body.theme-story #brand-splash,
 .ibtn{flex-shrink:0}
 body.theme-story #hdr{background:rgba(248,248,250,.85)}
 .hdr-icon{width:34px;height:34px;border-radius:9px;box-shadow:0 0 0 .5px rgba(0,0,0,.15)}
-#hdr-logo{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;font-size:18px;color:var(--txt)}
+/* Header content tightening so settings icon stays on screen */
+#hdr-logo{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;font-size:17px;color:var(--txt);flex-shrink:0;white-space:nowrap}
 body.theme-story #hdr-logo{color:#000}
-.theme-story #hdr-logo{font-size:18px}
+.hdr-icon{width:32px;height:32px;flex-shrink:0;border-radius:8px}
+#hdr-logo span{display:none}
+
+/* Compact mode toggle (Standard / Aura) */
+.mt-btn{padding:5px 10px;font-size:13px}
+
+/* Compact icon buttons on right */
+.ibtn{width:32px;height:32px;font-size:15px}
+
+@media(max-width:430px){
+  #hdr-logo{font-size:15px}
+  .mt-btn{padding:5px 9px;font-size:12px}
+  .ibtn{width:30px;height:30px;font-size:14px}
+}
+@media(max-width:380px){
+  #hdr-logo{display:none}
+  .hdr-icon{width:30px;height:30px}
+  .mt-btn{padding:4px 8px;font-size:12px;letter-spacing:-0.02em}
+  .ibtn{width:30px;height:30px}
+}
 
 /* iOS-style circular icon buttons in header */
 .ibtn{
