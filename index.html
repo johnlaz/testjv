@@ -969,12 +969,18 @@ body.theme-story #brand-splash,
 
 /* ---------- Header (nav bar) ---------- */
 #hdr{
-  padding:10px 14px;
+  padding:10px 10px;
   background:var(--bg2);
   backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
   border-bottom:.5px solid var(--sep);
   min-height:54px;
+  gap:6px;
+  box-sizing:border-box;
+  max-width:100vw;
+  overflow:hidden;
 }
+#hdr>*{min-width:0}
+.ibtn{flex-shrink:0}
 body.theme-story #hdr{background:rgba(248,248,250,.85)}
 .hdr-icon{width:34px;height:34px;border-radius:9px;box-shadow:0 0 0 .5px rgba(0,0,0,.15)}
 #hdr-logo{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;font-size:18px;color:var(--txt)}
@@ -1104,15 +1110,26 @@ body.theme-story .b-back{background:rgba(120,120,128,.12)}
 #vbar{
   background:var(--bg);
   border-bottom:.5px solid var(--sep);
-  padding:0 6px;gap:0;
+  padding:0 2px;gap:0;
+  overflow:hidden;
+  max-width:100vw;
+  box-sizing:border-box;
 }
 .vb{
-  padding:12px 14px;
-  font-family:var(--ios-font);font-size:13px;font-weight:600;
-  color:var(--txt2);letter-spacing:-0.01em;
+  padding:12px 4px;
+  font-family:var(--ios-font);font-size:12px;font-weight:600;
+  color:var(--txt2);letter-spacing:-0.02em;
   border-bottom:2px solid transparent;
   text-transform:none;
+  flex:1 1 0;
+  min-width:0;
+  text-align:center;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
+@media(min-width:380px){.vb{font-size:13px;padding:12px 8px}}
+@media(min-width:480px){.vb{font-size:14px;padding:12px 14px}}
 .vb.on{color:var(--accent);border-bottom-color:var(--accent)}
 body.theme-story #vb-aura.on{color:#af52de;border-bottom-color:#af52de}
 
