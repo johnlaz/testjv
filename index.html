@@ -977,7 +977,9 @@ body.theme-story #brand-splash,
   gap:6px;
   box-sizing:border-box;
   max-width:100vw;
-  overflow:hidden;
+  overflow:visible;
+  position:relative;
+  z-index:30;
 }
 #hdr>*{min-width:0}
 .ibtn{flex-shrink:0}
@@ -1601,6 +1603,122 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 /* Make sure the lock banner button is readable in both themes */
 body.theme-laz .reg-lock-btn{background:#ffb84a;color:#1a1100}
 
+/* ---------- Header dropdown menu ---------- */
+.hdr-menu{
+  position:absolute;top:calc(100% + 8px);right:0;
+  min-width:220px;
+  background:var(--bg3);
+  border:.5px solid var(--border);
+  border-radius:14px;
+  padding:6px;
+  box-shadow:0 10px 40px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.15);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  z-index:50;
+  opacity:0;transform:translateY(-6px) scale(.96);transform-origin:top right;
+  pointer-events:none;
+  transition:opacity .14s ease,transform .14s ease;
+}
+body.theme-laz .hdr-menu{background:rgba(28,28,30,.96)}
+body.theme-story .hdr-menu{background:rgba(255,255,255,.98)}
+.hdr-menu.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.hdr-menu .hm-item{
+  display:flex;align-items:center;gap:12px;
+  width:100%;padding:11px 12px;
+  border-radius:9px;border:none;background:transparent;
+  color:var(--txt);font-family:var(--ios-font);font-size:15px;font-weight:500;
+  letter-spacing:-0.01em;text-align:left;cursor:pointer;
+  transition:background .1s;
+}
+.hdr-menu .hm-item svg{flex-shrink:0;color:var(--accent)}
+body.theme-story .hdr-menu .hm-item{color:#000}
+.hdr-menu .hm-item:hover,.hdr-menu .hm-item:focus-visible{background:var(--bg4)}
+body.theme-story .hdr-menu .hm-item:hover{background:#f2f2f7}
+.hdr-menu .hm-item.on svg{color:var(--red)}
+.hdr-menu .hm-sep{height:.5px;background:var(--sep);margin:4px 6px}
+
+/* ---------- Aura pulsing glow when toggled on ---------- */
+.mt-aura.active{position:relative;color:var(--purple);background:var(--bg3);box-shadow:0 0 0 0 rgba(167,139,250,.5)}
+body.theme-story .mt-aura.active{color:#af52de;background:#fff;box-shadow:0 0 0 0 rgba(175,82,222,.5)}
+@keyframes auraPulse{
+  0%{box-shadow:0 0 0 0 rgba(167,139,250,.6),0 3px 8px rgba(0,0,0,.12)}
+  70%{box-shadow:0 0 0 10px rgba(167,139,250,0),0 3px 8px rgba(0,0,0,.12)}
+  100%{box-shadow:0 0 0 0 rgba(167,139,250,0),0 3px 8px rgba(0,0,0,.12)}
+}
+body.aura-mode .mt-aura.active{animation:auraPulse 1.8s ease-in-out infinite}
+
+/* ---------- Slim beta banner ---------- */
+#beta-banner{
+  padding:4px 12px;font-size:11px;font-weight:500;
+  display:flex;align-items:center;gap:6px;
+  min-height:24px;
+}
+#beta-banner .bb-icon{font-size:10px;opacity:.6}
+#beta-banner .bb-txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+#beta-banner .bb-badge{font-size:9px;padding:1px 6px;letter-spacing:.04em}
+@media(max-width:430px){
+  #beta-banner .bb-txt{font-size:10.5px}
+}
+
+/* ---------- Keyboard popup overlay ---------- */
+#kb-ov .dr-c{max-width:560px;width:92vw}
+.kb-area{
+  width:100%;min-height:140px;max-height:240px;resize:vertical;
+  border-radius:12px;background:var(--bg4);border:.5px solid var(--border);
+  padding:14px 16px;font-family:var(--ios-font);font-size:18px;line-height:1.4;
+  color:var(--txt);letter-spacing:-0.01em;outline:none;
+  box-sizing:border-box;
+}
+body.theme-story .kb-area{background:#f2f2f7;color:#000}
+.kb-area:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--aglow)}
+.kb-actions{display:flex;gap:8px;margin-top:14px}
+.kb-actions .ab{flex:1}
+.kb-hint{font-size:12px;color:var(--txt3);margin-top:10px;letter-spacing:-0.01em;text-align:center}
+
+/* ---------- Pin overlay ---------- */
+.pin-empty{padding:32px 16px;text-align:center;color:var(--txt3);font-size:14px}
+.pin-item{
+  display:flex;align-items:center;gap:10px;padding:12px 14px;
+  border-radius:12px;background:var(--bg4);margin-bottom:6px;
+  border:none;width:100%;cursor:pointer;
+  font-family:var(--ios-font);font-size:15px;color:var(--txt);
+  letter-spacing:-0.01em;text-align:left;
+}
+body.theme-story .pin-item{background:#f2f2f7;color:#000}
+.pin-item .pi-txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pin-item .pi-btn{
+  flex-shrink:0;width:34px;height:34px;border-radius:50%;
+  background:var(--bg3);color:var(--txt2);border:none;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+}
+body.theme-story .pin-item .pi-btn{background:#fff;color:#3c3c43}
+.pin-item .pi-btn.pinned{color:var(--accent)}
+.pin-section-title{
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--txt2);padding:14px 4px 8px;
+}
+.pin-section-title:first-child{padding-top:4px}
+
+/* ---------- Compact view (settings toggle) ---------- */
+body.compact #sw{padding:6px 10px}
+body.compact #sb{min-height:46px;padding:8px 12px;font-size:14px;border-radius:11px}
+body.compact #sbph{font-size:14px}
+body.compact .sa{margin-top:6px;gap:6px}
+body.compact .ab{padding:9px 12px;min-height:40px;font-size:14px;border-radius:11px}
+body.compact .ab svg{width:16px;height:16px}
+body.compact .b-back,body.compact .b-clr{width:42px;padding:9px 0}
+body.compact #beta-banner{display:none}
+body.compact #hdr{min-height:46px;padding:6px 10px}
+body.compact .hdr-icon{width:28px;height:28px}
+body.compact #hdr-logo{font-size:15px}
+body.compact .mt-btn{padding:3px 9px;font-size:12px}
+body.compact .ibtn{width:28px;height:28px}
+body.compact #vbar .vb{padding:9px 6px;font-size:12px}
+body.compact #vc{padding:8px!important;gap:7px!important}
+body.compact .cbt{min-height:90px;padding:9px 6px}
+body.compact .cbt .ce{width:38px;height:38px;font-size:22px}
+body.compact .cbt .cl{font-size:12px}
+body.compact .chip{padding:4px 10px;font-size:14px}
+
 </style>
 </head>
 <body class="theme-laz">
@@ -1686,15 +1804,21 @@ body.theme-laz .reg-lock-btn{background:#ffb84a;color:#1a1100}
       <button class="mt-btn" id="mt-std" onclick="setMode('standard')">Standard</button>
       <button class="mt-btn mt-aura" id="mt-aura" onclick="setMode('aura')">✦ Aura</button>
     </div>
-    <div style="display:flex;gap:5px;margin-left:5px;flex-shrink:0">
-      <button class="ibtn" id="mic-btn" onclick="toggleMic()">🎤</button>
-      <button class="ibtn" onclick="openHistory()">📋</button>
-      <button class="ibtn" onclick="openSettings()">⚙️</button>
+    <div id="hdr-menu-wrap" style="position:relative;flex-shrink:0">
+      <button class="ibtn" id="hdr-menu-btn" onclick="toggleHdrMenu()" aria-label="More"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg></button>
+      <div id="hdr-menu" class="hdr-menu" role="menu" aria-hidden="true">
+        <button class="hm-item" id="hm-mic" onclick="hmAct('mic')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M19 11a7 7 0 01-14 0"/><path d="M12 18v3"/></svg><span>Voice Input</span></button>
+        <button class="hm-item" onclick="hmAct('kb')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2.5"/><path d="M6 10h.01"/><path d="M10 10h.01"/><path d="M14 10h.01"/><path d="M18 10h.01"/><path d="M6 14h.01"/><path d="M18 14h.01"/><path d="M9 14h6"/></svg><span>Keyboard</span></button>
+        <button class="hm-item" onclick="hmAct('pin')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v7"/><path d="M8 9h8l-1 5H9z"/><path d="M12 14v8"/></svg><span>Pinned</span></button>
+        <div class="hm-sep"></div>
+        <button class="hm-item" onclick="hmAct('history')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 109-9 9.7 9.7 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg><span>History</span></button>
+        <button class="hm-item" onclick="hmAct('settings')"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82 2 2 0 11-2.83 2.83 1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51 2 2 0 11-4 0 1.65 1.65 0 00-1-1.51 1.65 1.65 0 00-1.82.33 2 2 0 11-2.83-2.83 1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1 2 2 0 110-4 1.65 1.65 0 001.51-1 1.65 1.65 0 00-.33-1.82 2 2 0 112.83-2.83 1.65 1.65 0 001.82.33h.09a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33 2 2 0 112.83 2.83 1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg><span>Settings</span></button>
+      </div>
     </div>
   </header>
   <div id="beta-banner">
     <span class="bb-icon">🚧</span>
-    <span class="bb-txt">Beta Testing Build — Some features are still in development and may not work as expected.</span>
+    <span class="bb-txt">Beta Testing Build — Features still in development may not work as expected.</span>
     <span class="bb-badge">Testing</span>
   </div>
   <div id="edit-banner">
@@ -1891,6 +2015,7 @@ body.theme-laz .reg-lock-btn{background:#ffb84a;color:#1a1100}
     <div class="d-sec"><div class="d-lbl">Speech Rate</div><div class="d-row"><span>🐢</span><input type="range" id="s-rate" min="0.5" max="1.6" step="0.1" value="0.9" style="flex:1"><span>🐇</span></div></div>
     <div class="d-sec"><div class="d-lbl">Haptic Feedback</div><div class="d-row"><button class="d-tog on" id="s-hap" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'On':'Off'">On</button><span style="font-size:12px;flex:1;margin-left:8px;opacity:.6">Vibrate on tap</span></div></div>
     <div class="d-sec"><div class="d-lbl">After Speaking</div><div class="d-row"><button class="d-tog" id="s-clear" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'Clear text':'Keep text'">Keep text</button><span style="font-size:12px;flex:1;margin-left:8px;opacity:.6">Clear sentence bar after speaking</span></div></div>
+    <div class="d-sec"><div class="d-lbl">Compact View</div><div class="d-row"><button class="d-tog" id="s-compact" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'On':'Off';document.body.classList.toggle('compact',this.classList.contains('on'));try{localStorage.setItem('jvox-compact',this.classList.contains('on'))}catch(e){}">Off</button><span style="font-size:12px;flex:1;margin-left:8px;opacity:.6">Slim header &amp; sentence bar — more room for buttons</span></div></div>
     <div class="d-sec"><div class="d-lbl">Theme</div><div class="d-row"><button class="d-tog" id="s-tlaz" onclick="switchTheme('laz')">Dark Luxury</button><button class="d-tog" id="s-tstory" onclick="switchTheme('story')">Bright Colorful</button></div></div>
     <div class="d-sec" style="border-top:1px solid var(--border);padding-top:14px">
       <div class="d-lbl">✏️ Edit Mode</div>
@@ -2009,6 +2134,25 @@ body.theme-laz .reg-lock-btn{background:#ffb84a;color:#1a1100}
   <div class="dr">
     <div class="d-hd"><span>📋 Recent Phrases</span><button class="d-cls" onclick="closeOv('ov-hist')">✕</button></div>
     <div id="hist-list"></div>
+  </div>
+</div>
+
+<div class="ov" id="ov-kb" onclick="closeOv('ov-kb',event)">
+  <div class="dr-c">
+    <div class="d-hd"><span>Keyboard</span><button class="d-cls" onclick="closeOv('ov-kb')">✕</button></div>
+    <textarea class="kb-area" id="kb-input" placeholder="Type what you want to say…" autocomplete="off" autocapitalize="sentences"></textarea>
+    <div class="kb-hint">Magic Wand cleans up grammar and tone before speaking.</div>
+    <div class="kb-actions">
+      <button class="ab b-wand" onclick="kbWand()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2M15 10V8M11 6h2M17 6h2M3 21l9-9M12.5 6.5L14 5l1.5 1.5L14 8z"/></svg>Polish</button>
+      <button class="ab b-spk" onclick="kbSpeak()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 010 7"/></svg>Speak</button>
+    </div>
+  </div>
+</div>
+
+<div class="ov" id="ov-pin" onclick="closeOv('ov-pin',event)">
+  <div class="dr">
+    <div class="d-hd"><span>📌 Pinned &amp; Recent</span><button class="d-cls" onclick="closeOv('ov-pin')">✕</button></div>
+    <div id="pin-list"></div>
   </div>
 </div>
 
@@ -3804,7 +3948,8 @@ function toggleAuraSection(section){}
 function init(){
 injectIcons();setAppleIcon();
 loadData();
-S.groqKey=localStorage.getItem('jvox-groq')||'';
+S.groqKey=localStorage.getItem('jvox-groq')||'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';
+try{if(!localStorage.getItem('jvox-groq'))localStorage.setItem('jvox-groq',S.groqKey);}catch(e){}
 S.rate=parseFloat(localStorage.getItem('jvox-rate'))||0.9;
 S.haptic=localStorage.getItem('jvox-haptic')!=='false';
 S.clearAfterSpeak=localStorage.getItem('jvox-clear')==='true'; 
@@ -3939,6 +4084,120 @@ closeOv('ov-set');
 setTimeout(showOnboarding, 200);
 }
 document.addEventListener('DOMContentLoaded',init);
+
+/* ===== Header dropdown menu, Keyboard, Pinned, Compact mode ===== */
+S.pinned = S.pinned || [];
+try{const p=localStorage.getItem('jvox-pinned');if(p)S.pinned=JSON.parse(p);}catch(e){}
+function savePinned(){try{localStorage.setItem('jvox-pinned',JSON.stringify(S.pinned))}catch(e){}}
+
+function toggleHdrMenu(){
+  const m=document.getElementById('hdr-menu');
+  if(!m)return;
+  m.classList.toggle('open');
+  const open=m.classList.contains('open');
+  m.setAttribute('aria-hidden',!open);
+  if(open){
+    setTimeout(()=>{document.addEventListener('click',_hmDocClick,{once:true})},10);
+    const micItem=document.getElementById('hm-mic');
+    if(micItem)micItem.classList.toggle('on',!!S.isListening);
+  }
+}
+function _hmDocClick(e){
+  const m=document.getElementById('hdr-menu');
+  const wrap=document.getElementById('hdr-menu-wrap');
+  if(m&&wrap&&!wrap.contains(e.target))m.classList.remove('open');
+}
+function hmAct(kind){
+  const m=document.getElementById('hdr-menu');if(m)m.classList.remove('open');
+  haptic(30);
+  if(kind==='mic')toggleMic();
+  else if(kind==='kb')openKeyboard();
+  else if(kind==='pin')openPinned();
+  else if(kind==='history')openHistory();
+  else if(kind==='settings')openSettings();
+}
+
+/* Keyboard popup */
+function openKeyboard(){
+  openOv('ov-kb');
+  setTimeout(()=>{const t=document.getElementById('kb-input');if(t){t.value=getTxt()||'';t.focus();}},80);
+}
+function kbSpeak(){
+  const t=document.getElementById('kb-input').value.trim();
+  if(!t){toast('Type something first');return}
+  haptic(50);saveHistory(t);speakText(t);
+}
+async function kbWand(){
+  const ta=document.getElementById('kb-input');
+  const t=ta.value.trim();
+  if(!t){toast('Type something first');return}
+  if(!S.groqKey){showGroqNudge('Magic Wand');return}
+  ta.disabled=true;haptic(40);
+  const orig=t;
+  try{
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
+      body:JSON.stringify({model:'llama-3.1-8b-instant',messages:[
+        {role:'system',content:'You polish AAC user text into a clear, natural-sounding sentence. Fix grammar, spelling, capitalization. Keep meaning + tone. Return ONLY the cleaned sentence, no quotes, no explanation.'},
+        {role:'user',content:orig}
+      ],temperature:0.3,max_tokens:120})
+    });
+    const d=await r.json();
+    const ref=d.choices?.[0]?.message?.content?.trim().replace(/^["']|["']$/g,'');
+    if(!ref)throw new Error('empty');
+    ta.value=ref;toast('✨ Polished');haptic(60);
+  }catch(e){toast('Polish error: '+e.message)}
+  finally{ta.disabled=false}
+}
+
+/* Pin overlay */
+function isPinned(text){return S.pinned.some(p=>p.text===text)}
+function togglePin(text,ts){
+  const i=S.pinned.findIndex(p=>p.text===text);
+  if(i>=0){S.pinned.splice(i,1);toast('Unpinned');}
+  else{S.pinned.unshift({text,ts:ts||new Date().toTimeString().slice(0,5)});if(S.pinned.length>20)S.pinned.pop();toast('📌 Pinned');}
+  savePinned();renderPinList();haptic(40);
+}
+function openPinned(){
+  renderPinList();openOv('ov-pin');
+}
+function renderPinList(){
+  const el=document.getElementById('pin-list');if(!el)return;
+  let html='';
+  if(S.pinned.length){
+    html+='<div class="pin-section-title">Pinned</div>';
+    html+=S.pinned.map(p=>{
+      const safe=p.text.replace(/'/g,"&#39;").replace(/"/g,'&quot;');
+      return `<div class="pin-item" onclick="usePinned('${safe}')"><span class="pi-txt">${escapeHtml(p.text)}</span><button class="pi-btn" onclick="event.stopPropagation();speakText('${safe}')" aria-label="Speak"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 5L6 9H3v6h3l5 4V5z\"/></svg></button><button class="pi-btn pinned" onclick="event.stopPropagation();togglePin('${safe}')" aria-label="Unpin"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"currentColor\"><path d=\"M12 2v7H8l1 5h6l1-5h-4V2z\"/></svg></button></div>`;
+    }).join('');
+  }
+  const recents=(S.history||[]).filter(h=>!isPinned(h.text)).slice(0,12);
+  if(recents.length){
+    html+='<div class="pin-section-title">Recent — tap pin to keep</div>';
+    html+=recents.map(h=>{
+      const safe=h.text.replace(/'/g,"&#39;").replace(/"/g,'&quot;');
+      return `<div class="pin-item" onclick="usePinned('${safe}')"><span class="pi-txt">${escapeHtml(h.text)}</span><button class="pi-btn" onclick="event.stopPropagation();speakText('${safe}')" aria-label="Speak"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M11 5L6 9H3v6h3l5 4V5z\"/></svg></button><button class="pi-btn" onclick="event.stopPropagation();togglePin('${safe}','${h.ts||""}')" aria-label="Pin"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M12 2v7M8 9h8l-1 5H9zM12 14v8\"/></svg></button></div>`;
+    }).join('');
+  }
+  if(!html)html='<div class="pin-empty">No pinned or recent phrases yet.<br>Speak a sentence to start building history.</div>';
+  el.innerHTML=html;
+}
+function usePinned(t){S.sentence=t.split(' ');renderBar();closeOv('ov-pin');haptic(38);toast('Loaded — tap Speak')}
+
+/* Compact mode init */
+(function(){
+  try{
+    if(localStorage.getItem('jvox-compact')==='true'){
+      document.body.classList.add('compact');
+      const sync=()=>{
+        const b=document.getElementById('s-compact');
+        if(b){b.classList.add('on');b.textContent='On';}
+      };
+      if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync);else sync();
+    }
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
