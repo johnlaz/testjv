@@ -1,49 +1,37 @@
 /**
- * J-VOX AAC v3 — Service Worker
- * Cache-first strategy for offline support.
- * Bump CACHE_NAME when deploying new releases to force clients to refresh.
+ * J-VOX Landing — Service Worker
+ * Cache-first for offline support. Required for PWA install prompts.
+ * Bump CACHE_NAME when deploying new releases.
  */
 
-const CACHE_NAME = 'jvox-v3.4';
+const CACHE_NAME = 'jvox-landing-v1';
 
 const PRECACHE_URLS = [
+  './',
   './index.html',
   './manifest.json',
-  './icon-48.png',
-  './icon-72.png',
-  './icon-96.png',
-  './icon-128.png',
-  './icon-192.png',
-  './icon-256.png',
-  './icon-384.png',
-  './icon-512.png',
-  
-  './screenshot-splash.jpg',
-  './screenshot-categories.jpg',
-  './screenshot-wordbuilder.jpg',
-  './screenshot-aura.jpg',
-  './screenshot-regulate.jpg',
-  './screenshot-wide.jpg',
-  './sw.js',
+  './assets/jvox_icon.png'
 ];
 
-// Allow the app to trigger immediate activation (e.g. "Update available" prompt)
 self.addEventListener('message', event => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
 });
 
-// ── Install ──────────────────────────────────────────────────────────────────
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(PRECACHE_URLS))
+      .then(cache => cache.addAll(PRECACHE_URLS).catch(() => {
+        // Don't fail install if a single asset is missing
+        return Promise.all(
+          PRECACHE_URLS.map(url => cache.add(url).catch(() => null))
+        );
+      }))
       .then(() => self.skipWaiting())
   );
 });
 
-// ── Activate: purge old caches ───────────────────────────────────────────────
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -52,22 +40,23 @@ self.addEventListener('activate', event => {
   );
 });
 
-// ── Fetch: cache-first, network fallback ─────────────────────────────────────
 self.addEventListener('fetch', event => {
   const url = new URL(event.request.url);
 
-  // Pass through external API calls — never cache
-  if (
-    url.hostname === 'api.groq.com' ||
-    url.hostname === 'nominatim.openstreetmap.org'
-  ) return;
+  // Pass through analytics worker — never cache
+  if (url.hostname.includes('workers.dev') || url.pathname.startsWith('/track') || url.pathname.startsWith('/stats')) {
+    return;
+  }
 
   // Network-first + cache for Google Fonts
   if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
     event.respondWith(
       caches.open(CACHE_NAME).then(cache =>
         cache.match(event.request).then(cached => {
-          const net = fetch(event.request).then(r => { if (r.ok) cache.put(event.request, r.clone()); return r; });
+          const net = fetch(event.request).then(r => {
+            if (r.ok) cache.put(event.request, r.clone());
+            return r;
+          });
           return cached || net;
         })
       )
@@ -75,7 +64,12 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Cache-first for everything else (app shell, icons, screenshots)
+  // Don't intercept /app/ — let the app's own SW handle it
+  if (url.pathname.startsWith('/app/') || url.pathname.includes('/app/')) {
+    return;
+  }
+
+  // Cache-first for everything else
   event.respondWith(
     caches.match(event.request).then(cached => {
       if (cached) return cached;
