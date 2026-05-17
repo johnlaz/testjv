@@ -1717,6 +1717,12 @@ footer {
 .ss-close{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;min-width:40px}
 .ss-close:hover{background:rgba(255,255,255,0.25)}
 @media(max-width:600px){.ss-modal{flex-direction:column;align-items:center}.ss-phone{width:160px}.ss-info h3{font-size:1.4rem}}
+.ss-nav{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:10px}
+.ss-nav-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+.ss-nav-btn:hover{background:rgba(255,255,255,0.25)}
+.ss-nav-dots{display:flex;gap:6px;align-items:center}
+.ss-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.3);transition:background 0.2s}
+.ss-dot.active{background:#fff}
 </style>
 </head>
 <body>
@@ -1776,24 +1782,24 @@ footer {
   <div class="section-wrap">
     <div class="impact-strip-label reveal" role="text">The Scale of the Problem</div>
     <h2 class="impact-strip-title reveal" id="impact-heading">A Global <em>Communication Crisis</em></h2>
-    <div class="stats-grid" role="list" aria-label="Global impact statistics">
+    <div class="stats-grid reveal" role="list" aria-label="Global impact statistics">
       <div class="stat-card" role="listitem">
-        <div class="stat-num" data-target="97" data-suffix="M+" aria-label="97 million plus">97M+</div>
+        <div class="stat-num" data-target="97" data-suffix="M+" aria-label="97 million plus">0</div>
         <div class="stat-label">People worldwide who cannot rely on natural speech</div>
         <div class="stat-source">WHO / Epidemiological Studies</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num gold" data-target="1" data-suffix="B" aria-label="1 billion">1B</div>
+        <div class="stat-num gold" data-target="1" data-suffix="B" aria-label="1 billion">0</div>
         <div class="stat-label">Could benefit from communication assistive technology</div>
         <div class="stat-source">World Health Organization</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num" data-target="10" data-suffix="%" aria-label="10 percent">10%</div>
+        <div class="stat-num" data-target="10" data-suffix="%" aria-label="10 percent">0</div>
         <div class="stat-label">Currently have access to the services they need</div>
         <div class="stat-source">WHO Access Gap Report</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num gold" data-target="5.7" data-suffix="M" aria-label="5.7 million">5.7M</div>
+        <div class="stat-num gold" data-target="5.7" data-suffix="M" aria-label="5.7 million">0</div>
         <div class="stat-label">New aphasia cases annually from stroke alone</div>
         <div class="stat-source">Global Stroke Council</div>
       </div>
@@ -1885,7 +1891,7 @@ footer {
       <span class="feature-tier tier-free-tag">✦ Core — Free</span>
       <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-zen.jpg','Regulate &amp; Zen Mode','Aura &mdash; Premium','Full-screen breathing sanctuary with Rain, Ocean, Forest, or Tones. Calm first, communicate second.')" tabindex="0" role="button" aria-label="Regulate and Zen Mode - tap to preview">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-regulate.jpg','Regulate &amp; Zen Mode','Aura &mdash; Premium','Full-screen breathing sanctuary with Rain, Ocean, Forest, or Tones. Calm first, communicate second.','assets/ss-zen.jpg')" tabindex="0" role="button" aria-label="Regulate and Zen Mode - tap to preview">
       <span class="feature-icon" aria-hidden="true">🌿</span>
       <div class="feature-name">Regulate &amp; Zen Mode</div>
       <div class="feature-desc">Ambient soundscapes, breathing guidance, and a full-screen Zen overlay — for when the body needs to calm before communication can flow.</div>
@@ -2238,6 +2244,10 @@ document.querySelectorAll(".reveal").forEach(el=>{
   el.classList.add("will-animate");
   obs.observe(el);
 });
+// stat-num elements are controlled by statObs — remove will-animate from them
+document.querySelectorAll(".stat-num[data-target]").forEach(el=>{
+  el.classList.remove("will-animate");
+});
 
 /* ── ANIMATED STAT COUNTERS ── */
 function animateCounter(el,target,suffix,duration=1800){
@@ -2252,27 +2262,27 @@ function animateCounter(el,target,suffix,duration=1800){
   };
   requestAnimationFrame(step);
 }
-// Animate stat counters on load
-window.addEventListener('load',function(){
-  setTimeout(function(){
-    document.querySelectorAll('.stat-num[data-target]').forEach(function(el){
-      var t=parseFloat(el.dataset.target);
-      var s=el.dataset.suffix||'';
-      var isDecimal=t%1!==0;
-      var start=null;
-      var duration=2600;
-      function step(ts){
-        if(!start)start=ts;
-        var p=Math.min((ts-start)/duration,1);
-        var ease=p<0.5?2*p*p:(4-2*p)*p-1;
-        el.textContent=(isDecimal?(t*ease).toFixed(1):Math.floor(t*ease))+s;
-        if(p<1)requestAnimationFrame(step);
-        else el.textContent=t+s;
-      }
-      requestAnimationFrame(step);
-    });
-  },800);
-});
+function animateCounter(el,target,suffix,duration=1800){
+  const isDecimal=target%1!==0;let start=null;
+  const step=ts=>{
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/duration,1);
+    const ease=p<0.5?2*p*p:(4-2*p)*p-1;
+    const val=target*ease;
+    el.textContent=(isDecimal?val.toFixed(1):Math.floor(val))+suffix;
+    if(p<1)requestAnimationFrame(step);else el.textContent=target+suffix;
+  };
+  requestAnimationFrame(step);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;const t=parseFloat(el.dataset.target);const s=el.dataset.suffix||"";
+      animateCounter(el,t,s);statObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll(".stat-num[data-target]").forEach(el=>statObs.observe(el));
 
 /* ── MODAL ── */
 function openResearch(){
@@ -2373,16 +2383,32 @@ document.querySelectorAll('a[href*="/app"],a[href*="./app"]').forEach(link=>{
 });
 
 /* ── SCREENSHOT MODAL ── */
-function openSS(src,title,tier,desc){
+var _ssImages=[];var _ssIndex=0;
+function openSS(src,title,tier,desc,src2){
+  _ssImages=src2?[src,src2]:[src];
+  _ssIndex=0;
   var o=document.getElementById('ssOverlay');
-  document.getElementById('ssImg').src=src;
+  var nav=document.getElementById('ssNav');
+  document.getElementById('ssImg').src=_ssImages[0];
   document.getElementById('ssImg').alt=title;
   document.getElementById('ssTitle').textContent=title;
   document.getElementById('ssTier').textContent=tier;
   document.getElementById('ssDesc').textContent=desc;
+  nav.style.display=_ssImages.length>1?'flex':'none';
+  updateSSDots();
   o.classList.add('open');
   document.body.style.overflow='hidden';
   setTimeout(function(){document.getElementById('ssCloseBtn').focus();},100);
+}
+function ssSlide(dir){
+  _ssIndex=(_ssIndex+dir+_ssImages.length)%_ssImages.length;
+  document.getElementById('ssImg').src=_ssImages[_ssIndex];
+  updateSSDots();
+}
+function updateSSDots(){
+  document.querySelectorAll('.ss-dot').forEach(function(d,i){
+    d.classList.toggle('active',i===_ssIndex);
+  });
 }
 function closeSS(){
   document.getElementById('ssOverlay').classList.remove('open');
@@ -2446,7 +2472,17 @@ function replayDemo(){runDemo();}
 <div class="ss-overlay" id="ssOverlay" role="dialog" aria-modal="true" aria-labelledby="ssTitle" onclick="if(event.target===this)closeSS()">
   <div class="ss-modal">
     <button class="ss-close" id="ssCloseBtn" onclick="closeSS()" aria-label="Close preview">&#x2715;</button>
-    <div class="ss-phone"><img id="ssImg" src="" alt="" loading="lazy"></div>
+    <div class="ss-phone">
+      <img id="ssImg" src="" alt="" loading="lazy">
+      <div class="ss-nav" id="ssNav" style="display:none">
+        <button class="ss-nav-btn" onclick="ssSlide(-1)" aria-label="Previous screenshot">&#8592;</button>
+        <div class="ss-nav-dots">
+          <span class="ss-dot active" id="ssDot0"></span>
+          <span class="ss-dot" id="ssDot1"></span>
+        </div>
+        <button class="ss-nav-btn" onclick="ssSlide(1)" aria-label="Next screenshot">&#8594;</button>
+      </div>
+    </div>
     <div class="ss-info">
       <span class="ss-label" id="ssTier"></span>
       <h3 id="ssTitle"></h3>
