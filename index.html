@@ -559,9 +559,13 @@ nav {
   to   { opacity: 1; transform: translateY(0); }
 }
 .reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.will-animate {
   opacity: 0;
   transform: translateY(26px);
-  transition: opacity 0.75s ease, transform 0.75s ease;
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -1669,6 +1673,50 @@ footer {
   font-weight: 500;
 }
 .modal-sources p { font-size: 0.82rem; color: var(--text3); line-height: 1.7; }
+
+/* ═══ PHONE DEMO ═══ */
+.phone-demo-wrap{display:flex;flex-direction:column;align-items:center;gap:28px;margin-top:48px}
+.phone-frame{width:260px;background:#1a1a2e;border-radius:44px;padding:12px;position:relative;box-shadow:0 0 0 1px rgba(0,0,0,0.18),0 20px 60px rgba(44,33,24,0.18),inset 0 0 0 2px rgba(255,255,255,0.06)}
+.phone-frame::before{content:'';position:absolute;top:20px;left:50%;transform:translateX(-50%);width:60px;height:6px;background:rgba(255,255,255,0.15);border-radius:3px;z-index:10}
+.phone-screen{border-radius:34px;overflow:hidden;position:relative;background:#f0f0f5;aspect-ratio:9/19.5}
+.phone-screenshot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity 0.6s ease}
+.phone-screenshot.active{opacity:1}
+.wand-flash{position:absolute;inset:0;background:rgba(255,165,0,0.2);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;border-radius:34px;transition:opacity 0.25s;z-index:5}
+.wand-flash.active{opacity:1}
+.wand-flash-inner{background:#f5a623;color:#fff;font-family:var(--font-body);font-size:1rem;font-weight:700;padding:10px 22px;border-radius:100px;box-shadow:0 4px 20px rgba(245,166,35,0.5);animation:wand-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both}
+@keyframes wand-pop{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}
+.demo-steps{display:flex;align-items:center;gap:10px;margin-top:4px}
+.demo-step{display:flex;flex-direction:column;align-items:center;gap:6px}
+.step-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background 0.4s,transform 0.4s}
+.demo-step.active .step-dot{background:var(--terra);transform:scale(1.3)}
+.step-label{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--text3);white-space:nowrap;font-weight:500}
+.demo-step.active .step-label{color:var(--terra)}
+.demo-step-arrow{color:var(--text3);font-size:0.9rem;margin-bottom:16px}
+.demo-caption{background:var(--surface);border:1px solid var(--border2);border-radius:var(--r-md);padding:16px 22px;max-width:380px;width:100%;text-align:center;box-sizing:border-box}
+.caption-step{display:block;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--terra);margin-bottom:8px;font-weight:500}
+.caption-text{font-size:0.9rem;color:var(--text2);line-height:1.7;font-weight:500}
+.demo-replay-btn{display:none;background:var(--surface);border:1.5px solid var(--border);color:var(--text2);padding:10px 24px;border-radius:100px;font-family:var(--font-mono);font-size:0.75rem;font-weight:500;letter-spacing:0.08em;cursor:pointer;transition:all 0.25s;min-height:44px;align-items:center;gap:8px}
+.demo-replay-btn.visible{display:inline-flex}
+.demo-replay-btn:hover{border-color:var(--terra);color:var(--terra);background:var(--terra-light)}
+/* ═══ CARD PREVIEW HINT ═══ */
+.card-preview-hint{margin-top:12px;font-family:var(--font-mono);font-size:0.68rem;letter-spacing:0.1em;color:var(--terra);font-weight:500;opacity:0;transition:opacity 0.2s}
+.feature-card:hover .card-preview-hint,.feature-card:focus .card-preview-hint{opacity:1}
+/* ═══ SCREENSHOT MODAL ═══ */
+.ss-overlay{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.35s ease;padding:24px;box-sizing:border-box}
+.ss-overlay.open{opacity:1;pointer-events:all}
+.ss-overlay::before{content:'';position:fixed;inset:0;background:rgba(20,10,5,0.80);backdrop-filter:blur(8px)}
+.ss-modal{position:relative;z-index:1;display:flex;gap:28px;align-items:flex-start;max-width:740px;width:100%;transform:translateY(24px);transition:transform 0.35s ease}
+.ss-overlay.open .ss-modal{transform:translateY(0)}
+.ss-phone{flex-shrink:0;width:200px;background:#1a1a2e;border-radius:36px;padding:10px;box-shadow:0 0 0 1px rgba(0,0,0,0.3),0 20px 50px rgba(0,0,0,0.5)}
+.ss-phone::before{content:'';display:block;width:48px;height:5px;background:rgba(255,255,255,0.15);border-radius:3px;margin:0 auto 8px}
+.ss-phone img{width:100%;border-radius:28px;display:block}
+.ss-info{flex:1;padding-top:8px}
+.ss-label{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--terra);margin-bottom:12px;font-weight:500;display:block}
+.ss-info h3{font-family:var(--font-display);font-size:1.9rem;font-weight:400;color:#fff;line-height:1.15;margin-bottom:12px}
+.ss-info p{font-size:0.88rem;color:rgba(255,255,255,0.75);line-height:1.8}
+.ss-close{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;min-width:40px}
+.ss-close:hover{background:rgba(255,255,255,0.25)}
+@media(max-width:600px){.ss-modal{flex-direction:column;align-items:center}.ss-phone{width:160px}.ss-info h3{font-size:1.4rem}}
 </style>
 </head>
 <body>
@@ -1728,24 +1776,24 @@ footer {
   <div class="section-wrap">
     <div class="impact-strip-label reveal" role="text">The Scale of the Problem</div>
     <h2 class="impact-strip-title reveal" id="impact-heading">A Global <em>Communication Crisis</em></h2>
-    <div class="stats-grid reveal" role="list" aria-label="Global impact statistics">
+    <div class="stats-grid" role="list" aria-label="Global impact statistics">
       <div class="stat-card" role="listitem">
-        <div class="stat-num" data-target="97" data-suffix="M+" aria-label="97 million plus">0</div>
+        <div class="stat-num" data-target="97" data-suffix="M+" aria-label="97 million plus">97M+</div>
         <div class="stat-label">People worldwide who cannot rely on natural speech</div>
         <div class="stat-source">WHO / Epidemiological Studies</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num gold" data-target="1" data-suffix="B" aria-label="1 billion">0</div>
+        <div class="stat-num gold" data-target="1" data-suffix="B" aria-label="1 billion">1B</div>
         <div class="stat-label">Could benefit from communication assistive technology</div>
         <div class="stat-source">World Health Organization</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num" data-target="10" data-suffix="%" aria-label="10 percent">0</div>
+        <div class="stat-num" data-target="10" data-suffix="%" aria-label="10 percent">10%</div>
         <div class="stat-label">Currently have access to the services they need</div>
         <div class="stat-source">WHO Access Gap Report</div>
       </div>
       <div class="stat-card" role="listitem">
-        <div class="stat-num gold" data-target="5.7" data-suffix="M" aria-label="5.7 million">0</div>
+        <div class="stat-num gold" data-target="5.7" data-suffix="M" aria-label="5.7 million">5.7M</div>
         <div class="stat-label">New aphasia cases annually from stroke alone</div>
         <div class="stat-source">Global Stroke Council</div>
       </div>
@@ -1787,44 +1835,30 @@ footer {
 <section id="demo" aria-labelledby="demo-heading">
   <div class="section-wrap">
     <div class="demo-header reveal">
-      <div class="section-label">Interactive Demo</div>
-      <h2 class="section-title" style="text-align:center" id="demo-heading">Feel how it<br><em>works</em></h2>
-      <p style="color:var(--text2);margin-top:14px;font-size:0.95rem;line-height:1.8">Tap any phrase to build a sentence. Experience the simplicity — and the power — of real communication.</p>
+      <div class="section-label">See It In Action</div>
+      <h2 class="section-title" style="text-align:center" id="demo-heading">The real app,<br><em>right here</em></h2>
+      <p style="color:var(--text2);margin-top:14px;font-size:0.95rem;line-height:1.8;font-weight:500;">Watch how three tapped words become a complete, natural sentence — powered by the Magic Wand AI Polish feature.</p>
     </div>
-  </div>
-  <div class="demo-frame reveal" role="application" aria-label="J-VOX AAC interactive demo">
-    <div class="demo-bar" aria-hidden="true">
-      <div class="demo-dots"><span></span><span></span><span></span></div>
-      <div class="demo-title-bar">J-VOX AAC v3 — Interactive Demo</div>
-    </div>
-    <div class="aac-demo">
-      <div class="aac-header">
-        <div class="aac-logo-demo">
-          <div class="aac-logo-icon"><img src="assets/jvox_icon.png" alt="J-VOX" onerror="this.parentElement.style.background='#f4ede8';this.style.display='none';"></div>
-          <div class="aac-logo-text">JVOX <span>AAC</span></div>
-        </div>
-        <div class="aac-status" aria-live="polite">
-          <div class="status-dot" aria-hidden="true"></div>
-          <div class="status-label">STANDARD</div>
+    <div class="phone-demo-wrap reveal">
+      <div class="phone-frame" aria-label="JVOX app demonstration">
+        <div class="phone-screen">
+          <img class="phone-screenshot active" id="demoStep1" src="assets/ss-buttons.jpg" alt="JVOX Word Builder with toy, thank you and help tapped">
+          <img class="phone-screenshot" id="demoStep2" src="assets/ss-wand.jpg" alt="JVOX Magic Wand transforms three words into a full natural sentence">
+          <div class="wand-flash" id="wandFlash" aria-hidden="true"><div class="wand-flash-inner">&#10024; Polish</div></div>
         </div>
       </div>
-      <div class="sentence-bar" id="sentenceBar" role="region" aria-label="Sentence builder" aria-live="polite">
-        <span class="sentence-placeholder" id="placeholder">Tap phrases below to build a sentence…</span>
-        <button class="speak-btn" id="speakBtn" onclick="speakSentence()" style="display:none" aria-label="Speak the sentence aloud">🔊 Speak</button>
+      <div class="demo-steps" aria-hidden="true">
+        <div class="demo-step active" id="stepDot1"><div class="step-dot"></div><div class="step-label">3 words tapped</div></div>
+        <div class="demo-step-arrow">&#8594;</div>
+        <div class="demo-step" id="stepDot2"><div class="step-dot"></div><div class="step-label">Magic Wand &#10024;</div></div>
+        <div class="demo-step-arrow">&#8594;</div>
+        <div class="demo-step" id="stepDot3"><div class="step-dot"></div><div class="step-label">Natural sentence</div></div>
       </div>
-      <div class="category-tabs" role="tablist" aria-label="Phrase categories">
-        <button class="cat-tab active" onclick="switchCat(this,'feelings')" role="tab" aria-selected="true">😊 Feelings</button>
-        <button class="cat-tab" onclick="switchCat(this,'needs')" role="tab" aria-selected="false">🙋 Needs</button>
-        <button class="cat-tab" onclick="switchCat(this,'social')" role="tab" aria-selected="false">💬 Social</button>
-        <button class="cat-tab" onclick="switchCat(this,'activities')" role="tab" aria-selected="false">🎮 Activities</button>
-        <button class="cat-tab" onclick="switchCat(this,'food')" role="tab" aria-selected="false">🍕 Food</button>
+      <div class="demo-caption" id="demoCaption" aria-live="polite">
+        <span class="caption-step">Step 1 of 3</span>
+        <span class="caption-text">User taps <strong>toy</strong>, <strong>thank you</strong>, and <strong>help</strong> &mdash; three simple words in the sentence bar.</span>
       </div>
-      <div class="phrase-grid" id="phraseGrid" role="group" aria-label="Phrase buttons"></div>
-      <div class="speech-bubble" id="speechBubble" aria-live="assertive" role="status">
-        <div class="speech-icon" aria-hidden="true">🔊</div>
-        <div class="speech-text" id="speechText"></div>
-      </div>
-      <div class="demo-hint" aria-label="Instructions">tap phrases to build · tap 🔊 Speak to hear your sentence · uses your device's voice</div>
+      <button class="demo-replay-btn" id="demoReplayBtn" onclick="replayDemo()" aria-label="Replay demonstration">&#8635; Watch Again</button>
     </div>
   </div>
 </section>
@@ -1837,47 +1871,54 @@ footer {
     <h2 class="section-title" style="text-align:center" id="features-heading">A complete voice,<br><em>not just buttons</em></h2>
   </div>
   <div class="features-grid">
-    <div class="feature-card reveal">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-words.jpg','Category Boards','Core &mdash; Free','Editable phrase libraries across 12 categories and 150+ phrases. Every button, label, and emoji personalized to your person.')" tabindex="0" role="button" aria-label="Category Boards - tap to preview">
       <span class="feature-icon" aria-hidden="true">📂</span>
       <div class="feature-name">Category Boards</div>
       <div class="feature-desc">Fully editable phrase libraries across feelings, needs, food, social, activities, and more. Every button personalized to the user.</div>
       <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-buttons.jpg','Word Builder','Core &mdash; Free','Build sentences word by word using scene-based vocabulary grids. Tap words into the sentence bar, then Speak or Polish.')" tabindex="0" role="button" aria-label="Word Builder - tap to preview">
       <span class="feature-icon" aria-hidden="true">🔤</span>
       <div class="feature-name">Word Builder</div>
       <div class="feature-desc">Build complex sentences symbol by symbol using core vocabulary grids and scene-based word sets for deeper compositional expression.</div>
       <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-zen.jpg','Regulate &amp; Zen Mode','Aura &mdash; Premium','Full-screen breathing sanctuary with Rain, Ocean, Forest, or Tones. Calm first, communicate second.')" tabindex="0" role="button" aria-label="Regulate and Zen Mode - tap to preview">
       <span class="feature-icon" aria-hidden="true">🌿</span>
       <div class="feature-name">Regulate &amp; Zen Mode</div>
       <div class="feature-desc">Ambient soundscapes, breathing guidance, and a full-screen Zen overlay — for when the body needs to calm before communication can flow.</div>
-      <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-about.jpg','About Me Profile','Core &mdash; Free','Name, age, emergency contacts, and family info so any caregiver, teacher, or first responder can connect immediately.')" tabindex="0" role="button" aria-label="About Me Profile - tap to preview">
       <span class="feature-icon" aria-hidden="true">🧒</span>
       <div class="feature-name">About Me Profile</div>
       <div class="feature-desc">Personalized identity cards — name, age, family, emergency contacts — so caregivers and strangers can connect immediately.</div>
       <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon" aria-hidden="true">📱</span>
-      <div class="feature-name">Installable PWA — Works Offline</div>
-      <div class="feature-desc">No app store. No download fees. Install to any home screen on iOS, Android, or desktop and use fully offline. Core communication works always.</div>
-      <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-situation.jpg','Situation Card Builder','Aura &mdash; Premium','Build custom phrase sets for any situation in 3 steps — name it, describe it, customize the questions and responses.')" tabindex="0" role="button" aria-label="Situation Card Builder - tap to preview">
+      <span class="feature-icon" aria-hidden="true">🎭</span>
+      <div class="feature-name">Situation Card Builder</div>
+      <div class="feature-desc">Create custom phrase packs for any social situation — a coffee date, a doctor visit, a classroom. JVOX builds the script, you own the conversation.</div>
+      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card reveal">
+    <div class="feature-card reveal" style="cursor:pointer" onclick="openSS('assets/ss-wand.jpg','Magic Wand AI','Aura &mdash; Premium','Three tapped words become a complete natural sentence. Intent preserved, language perfected, ready to speak.')" tabindex="0" role="button" aria-label="Magic Wand AI - tap to preview">
       <span class="feature-icon" aria-hidden="true">✨</span>
       <div class="feature-name">Magic Wand AI</div>
       <div class="feature-desc">AI refines your assembled sentence into natural, fluent language — preserving intent while perfecting expression before speaking.</div>
       <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
-    <div class="feature-card featured reveal">
+    <div class="feature-card featured reveal" style="cursor:pointer" onclick="openSS('assets/ss-aura.jpg','Aura Mode','Aura &mdash; Premium','Visual-Sense, Ambient-Sense, and Geo-Sense work together to surface the most relevant phrases automatically, in real time.')" tabindex="0" role="button" aria-label="Aura Mode - tap to preview">
       <span class="feature-icon" aria-hidden="true">✦</span>
       <div class="feature-name">Aura Mode — Environmental Intelligence</div>
-      <div class="feature-desc">J-VOX uses your camera, microphone, and location to understand your surroundings in real time — then surfaces the most contextually relevant phrases. At a restaurant, mealtime vocab rises. In a classroom, academic language appears.</div>
+      <div class="feature-desc">JVOX uses your camera, microphone, and location to understand your surroundings in real time — then surfaces the most contextually relevant phrases. At a restaurant, mealtime vocab rises. In a classroom, academic language appears.</div>
       <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
+      <div class="card-preview-hint">Tap to preview &rarr;</div>
     </div>
   </div>
 </div>
@@ -1903,7 +1944,6 @@ footer {
         <li><span class="tier-check" aria-hidden="true">✓</span> Full phrase editing &amp; customization</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> Word Builder with scene vocabularies</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> About Me profile &amp; emergency info</li>
-        <li><span class="tier-check" aria-hidden="true">✓</span> Regulate tools &amp; Zen Mode</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> Installs offline on any device</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> Dark Luxury + Bright Colorful themes</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> Full data backup &amp; restore</li>
@@ -1922,6 +1962,8 @@ footer {
         <li><span class="tier-check" aria-hidden="true">✓</span> 🎙 Ambient listening for situational suggestions</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> 📍 Geo-Sense location-based phrase boards</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> ✨ Magic Wand AI sentence refinement</li>
+        <li><span class="tier-check" aria-hidden="true">✓</span> 🎭 Situation Card Builder</li>
+        <li><span class="tier-check" aria-hidden="true">✓</span> 🌿 Regulate tools &amp; Zen Mode</li>
         <li><span class="tier-check" aria-hidden="true">✓</span> AI usage included — no API key needed</li>
       </ul>
     </div>
@@ -2192,7 +2234,10 @@ renderPhrases("feelings");
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);}});
 },{threshold:0.1});
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+document.querySelectorAll(".reveal").forEach(el=>{
+  el.classList.add("will-animate");
+  obs.observe(el);
+});
 
 /* ── ANIMATED STAT COUNTERS ── */
 function animateCounter(el,target,suffix,duration=1800){
@@ -2207,15 +2252,27 @@ function animateCounter(el,target,suffix,duration=1800){
   };
   requestAnimationFrame(step);
 }
-const statObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el=e.target;const t=parseFloat(el.dataset.target);const s=el.dataset.suffix||"";
-      animateCounter(el,t,s);statObs.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll(".stat-num[data-target]").forEach(el=>statObs.observe(el));
+// Animate stat counters on load
+window.addEventListener('load',function(){
+  setTimeout(function(){
+    document.querySelectorAll('.stat-num[data-target]').forEach(function(el){
+      var t=parseFloat(el.dataset.target);
+      var s=el.dataset.suffix||'';
+      var isDecimal=t%1!==0;
+      var start=null;
+      var duration=2600;
+      function step(ts){
+        if(!start)start=ts;
+        var p=Math.min((ts-start)/duration,1);
+        var ease=p<0.5?2*p*p:(4-2*p)*p-1;
+        el.textContent=(isDecimal?(t*ease).toFixed(1):Math.floor(t*ease))+s;
+        if(p<1)requestAnimationFrame(step);
+        else el.textContent=t+s;
+      }
+      requestAnimationFrame(step);
+    });
+  },800);
+});
 
 /* ── MODAL ── */
 function openResearch(){
@@ -2314,6 +2371,89 @@ function toggleTheme() {
 document.querySelectorAll('a[href*="/app"],a[href*="./app"]').forEach(link=>{
   link.addEventListener('click',()=>track('launch_clicks'));
 });
+
+/* ── SCREENSHOT MODAL ── */
+function openSS(src,title,tier,desc){
+  var o=document.getElementById('ssOverlay');
+  document.getElementById('ssImg').src=src;
+  document.getElementById('ssImg').alt=title;
+  document.getElementById('ssTitle').textContent=title;
+  document.getElementById('ssTier').textContent=tier;
+  document.getElementById('ssDesc').textContent=desc;
+  o.classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(function(){document.getElementById('ssCloseBtn').focus();},100);
+}
+function closeSS(){
+  document.getElementById('ssOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeSS();});
+
+/* ── PHONE DEMO ── */
+function runDemo(){
+  var r=document.getElementById('demoReplayBtn');
+  if(r)r.classList.remove('visible');
+  document.querySelectorAll('.phone-screenshot').forEach(function(el){el.classList.remove('active');});
+  document.querySelectorAll('.demo-step').forEach(function(el){el.classList.remove('active');});
+  var flash=document.getElementById('wandFlash');
+  if(flash)flash.classList.remove('active');
+  var s1=document.getElementById('demoStep1');
+  if(s1)s1.classList.add('active');
+  setDot('stepDot1');
+  setCaption('Step 1 of 3','User taps <strong>toy</strong>, <strong>thank you</strong>, and <strong>help</strong> \u2014 three simple words in the sentence bar.');
+  setTimeout(function(){
+    setDot('stepDot2');
+    setCaption('Step 2 of 3','<strong>\u2728 Magic Wand Polish</strong> is tapped \u2014 the AI expands three words into natural, fluent language.');
+    if(flash)flash.classList.add('active');
+  },2800);
+  setTimeout(function(){
+    if(flash)flash.classList.remove('active');
+    document.querySelectorAll('.phone-screenshot').forEach(function(el){el.classList.remove('active');});
+    var s2=document.getElementById('demoStep2');
+    if(s2)s2.classList.add('active');
+    setDot('stepDot3');
+    setCaption('Step 3 of 3','Three words become <em>\u201cI want a toy, please help me, thank you.\u201d</em> \u2014 complete, natural, ready to speak.');
+  },4200);
+  setTimeout(function(){if(r)r.classList.add('visible');},8400);
+}
+function setDot(id){
+  document.querySelectorAll('.demo-step').forEach(function(el){el.classList.remove('active');});
+  var el=document.getElementById(id);
+  if(el)el.classList.add('active');
+}
+function setCaption(step,text){
+  var cap=document.getElementById('demoCaption');
+  if(!cap)return;
+  var cs=cap.querySelector('.caption-step');
+  var ct=cap.querySelector('.caption-text');
+  if(cs)cs.textContent=step;
+  if(ct)ct.innerHTML=text;
+}
+function replayDemo(){runDemo();}
+(function(){
+  var _demoObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){setTimeout(runDemo,600);_demoObs.unobserve(e.target);}
+    });
+  },{threshold:0.3});
+  var sec=document.getElementById('demo');
+  if(sec)_demoObs.observe(sec);
+})();
 </script>
+
+<!-- SCREENSHOT MODAL -->
+<div class="ss-overlay" id="ssOverlay" role="dialog" aria-modal="true" aria-labelledby="ssTitle" onclick="if(event.target===this)closeSS()">
+  <div class="ss-modal">
+    <button class="ss-close" id="ssCloseBtn" onclick="closeSS()" aria-label="Close preview">&#x2715;</button>
+    <div class="ss-phone"><img id="ssImg" src="" alt="" loading="lazy"></div>
+    <div class="ss-info">
+      <span class="ss-label" id="ssTier"></span>
+      <h3 id="ssTitle"></h3>
+      <p id="ssDesc"></p>
+      <a href="./app/" class="btn-primary" style="margin-top:20px;display:inline-flex;font-size:0.85rem;padding:12px 22px;">&#8599; Open JVOX Free</a>
+    </div>
+  </div>
+</div>
 </body>
 </html>
