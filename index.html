@@ -332,25 +332,37 @@ nav {
   .theme-toggle #themeLabel { display: none; }
   .theme-toggle-icon { font-size: 1rem; }
 
-  /* Hero green tag — tighter font and padding */
+  /* Hero content — tighter side padding to give banners more room */
+  .hero-content { padding: 0 14px; }
+
+  /* Green tag — stretch full width, allow text to sit centered */
   .hero-tag {
-    font-size: 0.62rem;
-    letter-spacing: 0.07em;
-    padding: 4px 10px;
-  }
-
-  /* Hero brown pricing note — tighter pills, wrap gracefully */
-  .hero-pricing-note {
-    flex-wrap: wrap;
-    white-space: normal;
-    padding: 7px 12px;
-    gap: 3px 6px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     text-align: center;
+    white-space: normal;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    padding: 6px 12px;
   }
-  .pricing-pill { font-size: 0.6rem; letter-spacing: 0.05em; }
-  .pricing-divider { display: none; }
 
-  /* Research button — smaller text, allow wrap */
+  /* Brown pricing note — stretch full width, keep pills on one line with dividers */
+  .hero-pricing-note {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 7px 10px;
+    gap: 5px;
+    overflow: visible;
+  }
+  .pricing-pill { font-size: 0.6rem; letter-spacing: 0.04em; }
+  .pricing-divider { display: inline; font-size: 0.6rem; }
+
+  /* Research button */
   .btn-research {
     font-size: 0.72rem;
     padding: 12px 18px;
