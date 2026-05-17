@@ -106,6 +106,8 @@
 }
 [data-theme="dark"] .hero-arc { background: var(--bg2); }
 [data-theme="dark"] #impact-strip { background: linear-gradient(to bottom, var(--bg2), var(--bg)); }
+[data-theme="dark"] .stats-grid { gap: 2px; border-radius: 0; }
+[data-theme="dark"] .stat-card { border-radius: 0; box-shadow: none; }
 [data-theme="dark"] #demo { background: linear-gradient(to bottom, var(--bg2), var(--bg)); }
 [data-theme="dark"] #pricing { background: linear-gradient(to bottom, var(--bg2), var(--bg)); }
 [data-theme="dark"] #mission { background: var(--bg2); }
@@ -173,6 +175,19 @@
 .theme-toggle-icon { font-size: 0.9rem; transition: transform 0.4s ease; }
 [data-theme="dark"] .theme-toggle { background: var(--surface2); border-color: var(--border); color: var(--text2); }
 [data-theme="dark"] .theme-toggle:hover { border-color: var(--terra); color: var(--terra); }
+/* ── LIGHT MODE FONT SOFTENERS — data & UI elements use Nunito Sans, not serif ── */
+:root:not([data-theme="dark"]) .stat-num          { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .tier-price        { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .tier-name         { font-family: var(--font-body); font-weight: 600; }
+:root:not([data-theme="dark"]) .mission-stat-num  { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .donut-legend-pct  { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .modal-stat-num    { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .impact-ticker-num { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .feature-name      { font-family: var(--font-body); font-weight: 600; }
+:root:not([data-theme="dark"]) .modal-card-title  { font-family: var(--font-body); font-weight: 600; }
+:root:not([data-theme="dark"]) .aac-logo-text     { font-family: var(--font-body); font-weight: 700; }
+:root:not([data-theme="dark"]) .speech-text       { font-family: var(--font-body); font-weight: 500; font-style: italic; }
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 section[id] { scroll-margin-top: 88px; }
@@ -424,29 +439,31 @@ nav {
   line-height: 1.85;
   max-width: 520px;
   margin: 0 auto 20px;
-  font-weight: 400;
+  font-weight: 500;
   animation: fade-up 0.8s ease 0.2s both;
 }
 .hero-pricing-note {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: var(--terra-light);
   border: 1px solid rgba(176,90,58,0.2);
   border-radius: 100px;
-  padding: 8px 20px;
+  padding: 8px 18px;
   margin-bottom: 36px;
   max-width: 100%;
   animation: fade-up 0.8s ease 0.26s both;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
   justify-content: center;
+  white-space: nowrap;
 }
 .pricing-pill {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.13em;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 500;
 }
 .pricing-pill.free { color: var(--sage); }
 .pricing-pill.ai { color: var(--terra); }
@@ -574,19 +591,19 @@ nav {
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 3px;
-  border-radius: var(--r-md);
-  overflow: hidden;
-  box-shadow: 0 2px 24px rgba(44,33,24,0.08);
+  gap: 12px;
+  border-radius: var(--r-lg);
 }
 .stat-card {
   background: var(--surface);
+  border-radius: var(--r-md);
   padding: 36px 24px;
   text-align: center;
   position: relative;
   overflow: hidden;
   cursor: default;
   transition: background 0.25s;
+  box-shadow: 0 2px 12px rgba(44,33,24,0.06);
 }
 .stat-card:hover { background: var(--surface2); }
 .stat-card::after {
@@ -651,7 +668,7 @@ nav {
   transform: translateY(-1px);
 }
 @media (max-width: 768px) {
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   #impact-strip { padding: 56px 0; }
 }
 
@@ -924,8 +941,8 @@ nav {
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 0.03em;
-  min-height: 36px; /* ADA */
-  font-weight: 400;
+  min-height: 36px;
+  font-weight: 500;
 }
 .cat-tab:hover {
   border-color: rgba(176,90,58,0.35);
@@ -1187,10 +1204,12 @@ nav {
 .tier-standard .tier-price { color: var(--sage); }
 .tier-aura .tier-price { color: var(--terra); font-size: 2.1rem; }
 .tier-price-note {
-  font-size: 0.8rem;
-  color: var(--text3);
-  letter-spacing: 0.05em;
+  font-size: 0.82rem;
+  color: var(--text2);
+  letter-spacing: 0.03em;
   margin-bottom: 26px;
+  font-weight: 500;
+  line-height: 1.6;
 }
 .tier-desc {
   font-size: 0.9rem;
@@ -1510,14 +1529,14 @@ footer {
   margin-bottom: 12px;
   color: var(--text);
 }
-.modal-card p { font-size: 0.87rem; color: var(--text2); line-height: 1.8; }
+.modal-card p { font-size: 0.87rem; color: var(--text2); line-height: 1.85; font-weight: 500; }
 .modal-card p + p { margin-top: 10px; }
 
 /* World Map */
 .world-map-wrap {
   position: relative;
   background: var(--bg3);
-  border-radius: var(--r-sm);
+  border-radius: var(--r-md);
   overflow: hidden;
   padding: 16px;
 }
@@ -1529,7 +1548,7 @@ footer {
 .donut-legend { flex: 1; }
 .donut-legend-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
 .donut-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.donut-legend-label { font-size: 0.84rem; color: var(--text2); line-height: 1.4; }
+.donut-legend-label { font-size: 0.84rem; color: var(--text2); line-height: 1.5; font-weight: 500; }
 .donut-legend-pct {
   font-family: var(--font-display);
   font-size: 1.15rem;
@@ -1560,7 +1579,7 @@ footer {
   line-height: 1;
 }
 .modal-stat-num.gold { color: var(--sage); }
-.modal-stat-label { font-size: 0.75rem; color: var(--text2); margin-top: 7px; line-height: 1.45; }
+.modal-stat-label { font-size: 0.75rem; color: var(--text2); margin-top: 7px; line-height: 1.55; font-weight: 500; }
 
 /* Circle of Care */
 .coc-wrap { width: 100%; max-width: 420px; margin: 0 auto; }
@@ -1784,18 +1803,6 @@ footer {
     <h2 class="section-title" style="text-align:center" id="features-heading">A complete voice,<br><em>not just buttons</em></h2>
   </div>
   <div class="features-grid">
-    <div class="feature-card featured reveal">
-      <span class="feature-icon" aria-hidden="true">✦</span>
-      <div class="feature-name">Aura Mode — Environmental Intelligence</div>
-      <div class="feature-desc">J-VOX uses your camera, microphone, and location to understand your surroundings in real time — then surfaces the most contextually relevant phrases. At a restaurant, mealtime vocab rises. In a classroom, academic language appears.</div>
-      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
-    </div>
-    <div class="feature-card reveal">
-      <span class="feature-icon" aria-hidden="true">✨</span>
-      <div class="feature-name">Magic Wand AI</div>
-      <div class="feature-desc">AI refines your assembled sentence into natural, fluent language — preserving intent while perfecting expression before speaking.</div>
-      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
-    </div>
     <div class="feature-card reveal">
       <span class="feature-icon" aria-hidden="true">📂</span>
       <div class="feature-name">Category Boards</div>
@@ -1825,6 +1832,18 @@ footer {
       <div class="feature-name">Installable PWA — Works Offline</div>
       <div class="feature-desc">No app store. No download fees. Install to any home screen on iOS, Android, or desktop and use fully offline. Core communication works always.</div>
       <span class="feature-tier tier-free-tag">✦ Core — Free</span>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon" aria-hidden="true">✨</span>
+      <div class="feature-name">Magic Wand AI</div>
+      <div class="feature-desc">AI refines your assembled sentence into natural, fluent language — preserving intent while perfecting expression before speaking.</div>
+      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
+    </div>
+    <div class="feature-card featured reveal">
+      <span class="feature-icon" aria-hidden="true">✦</span>
+      <div class="feature-name">Aura Mode — Environmental Intelligence</div>
+      <div class="feature-desc">J-VOX uses your camera, microphone, and location to understand your surroundings in real time — then surfaces the most contextually relevant phrases. At a restaurant, mealtime vocab rises. In a classroom, academic language appears.</div>
+      <span class="feature-tier tier-aura-tag">✦ Aura — Premium Feature</span>
     </div>
   </div>
 </div>
