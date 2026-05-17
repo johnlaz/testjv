@@ -342,16 +342,23 @@ nav {
     line-height: 1.6;
   }
 
-  /* Brown pricing note — each pill on its own line, centered */
+  /* Brown pricing note — keep pills inline on one row, separated by dot dividers */
   .hero-pricing-note {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 4px;
-    padding: 10px 20px;
-    border-radius: 20px;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 100px;
   }
-  .pricing-divider { display: none; }
-  .pricing-pill { font-size: 0.65rem; letter-spacing: 0.06em; }
+  .pricing-divider { display: inline; }
+  .pricing-pill {
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    line-height: 1.35;
+  }
 
   /* Research button */
   .btn-research {
@@ -1768,7 +1775,7 @@ footer {
       <span class="pricing-divider" aria-hidden="true">·</span>
       <span class="pricing-pill ai">✨ Aura AI — Premium Access</span>
       <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill free" style="color:var(--text3)">No credit card to start</span>
+      <span class="pricing-pill free" style="color:var(--text3)">No Credit Card Required</span>
     </div>
     <div class="hero-actions">
       <a href="./app/" class="btn-primary">↗ Open J-VOX Free</a>
