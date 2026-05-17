@@ -332,18 +332,25 @@ nav {
   .theme-toggle #themeLabel { display: none; }
   .theme-toggle-icon { font-size: 1rem; }
 
-  /* Hero pricing note — stack to two lines on mobile */
+  /* Hero green tag — tighter font and padding */
+  .hero-tag {
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
+    padding: 4px 10px;
+  }
+
+  /* Hero brown pricing note — tighter pills, wrap gracefully */
   .hero-pricing-note {
     flex-wrap: wrap;
     white-space: normal;
-    padding: 8px 14px;
-    gap: 4px 8px;
+    padding: 7px 12px;
+    gap: 3px 6px;
     text-align: center;
   }
-  .pricing-pill { font-size: 0.62rem; letter-spacing: 0.06em; }
+  .pricing-pill { font-size: 0.6rem; letter-spacing: 0.05em; }
   .pricing-divider { display: none; }
 
-  /* Research button — smaller text, allow container to shrink */
+  /* Research button — smaller text, allow wrap */
   .btn-research {
     font-size: 0.72rem;
     padding: 12px 18px;
@@ -435,13 +442,13 @@ nav {
 .hero-tag {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.13em;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sage);
   background: var(--sage-light);
   border: 1px solid rgba(74,124,107,0.28);
-  padding: 5px 16px;
+  padding: 5px 14px;
   border-radius: 100px;
   margin-bottom: 32px;
   white-space: nowrap;
@@ -1701,15 +1708,15 @@ footer {
         <div class="hero-lockup-sub">Augmentative &amp; Alternative Communication</div>
       </div>
     </div>
-    <div class="hero-tag" role="text">AI-Powered · Built with Love · Free to Start</div>
+    <div class="hero-tag" role="text">AI-Powered · Built with Love · Free</div>
     <h1 class="hero-title" id="hero-heading">Every Person<br>Deserves a <em>Voice</em></h1>
     <p class="hero-sub">A full-featured AAC app for non-verbal individuals — free at its core, with optional AI-powered features that unlock deeper expression.</p>
     <div class="hero-pricing-note" aria-label="Pricing summary">
-      <span class="pricing-pill free">✦ Core — Always Free</span>
+      <span class="pricing-pill free">✦ Core — Free</span>
       <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill ai">✨ Aura AI — Premium Access</span>
+      <span class="pricing-pill ai">✨ Aura — Premium</span>
       <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill free" style="color:var(--text3)">No credit card to start</span>
+      <span class="pricing-pill free" style="color:var(--text3)">No card needed</span>
     </div>
     <div class="hero-actions">
       <a href="./app/" class="btn-primary">↗ Open J-VOX Free</a>
