@@ -189,7 +189,8 @@
 :root:not([data-theme="dark"]) .speech-text       { font-family: var(--font-body); font-weight: 500; font-style: italic; }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { overflow-x: hidden; }
 section[id] { scroll-margin-top: 88px; }
 
 /* ── BASE ── */
@@ -318,11 +319,39 @@ nav {
   .nav-links li:not(:last-child) { display: none; }
 }
 @media (max-width: 768px) {
-  nav { padding: 10px 16px; }
+  nav {
+    padding: 10px 14px;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .nav-brand { min-width: 0; flex-shrink: 1; }
+  .nav-wordmark { font-size: 1.1rem; }
   .nav-links { display: none; }
-  .theme-toggle { padding: 8px 10px; gap: 0; }
+  .theme-toggle { padding: 7px 9px; gap: 0; flex-shrink: 0; }
   .theme-toggle #themeLabel { display: none; }
-  .theme-toggle-icon { font-size: 1.1rem; }
+  .theme-toggle-icon { font-size: 1rem; }
+
+  /* Hero pricing note — stack to two lines on mobile */
+  .hero-pricing-note {
+    flex-wrap: wrap;
+    white-space: normal;
+    padding: 8px 14px;
+    gap: 4px 8px;
+    text-align: center;
+  }
+  .pricing-pill { font-size: 0.62rem; letter-spacing: 0.06em; }
+  .pricing-divider { display: none; }
+
+  /* Research button — smaller text, allow container to shrink */
+  .btn-research {
+    font-size: 0.72rem;
+    padding: 12px 18px;
+    letter-spacing: 0.02em;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.4;
+  }
 }
 
 /* ═══════════════════════════════════════
@@ -1718,7 +1747,7 @@ footer {
     </div>
     <div class="impact-cta reveal">
       <button class="btn-research" onclick="track('research_opens'); openResearch()" aria-expanded="false" aria-controls="researchModal">
-        <span aria-hidden="true">✦</span> See the Full Research &amp; Market Data
+        <span aria-hidden="true">✦</span> Full Research &amp; Market Data
       </button>
     </div>
   </div>
