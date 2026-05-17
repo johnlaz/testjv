@@ -332,35 +332,13 @@ nav {
   .theme-toggle #themeLabel { display: none; }
   .theme-toggle-icon { font-size: 1rem; }
 
-  /* Hero content — tighter side padding to give banners more room */
-  .hero-content { padding: 0 14px; }
+  /* Green tag — match original: smaller font + tighter spacing, no layout change */
+  .hero-tag { font-size: 0.58rem; letter-spacing: 0.12em; padding: 5px 12px; }
 
-  /* Green tag — stretch full width, allow text to sit centered */
-  .hero-tag {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    white-space: normal;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    padding: 6px 12px;
-  }
-
-  /* Brown pricing note — stretch full width, keep pills on one line with dividers */
-  .hero-pricing-note {
-    display: flex;
-    width: 100%;
-    box-sizing: border-box;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    justify-content: center;
-    padding: 7px 10px;
-    gap: 5px;
-    overflow: visible;
-  }
-  .pricing-pill { font-size: 0.6rem; letter-spacing: 0.04em; }
-  .pricing-divider { display: inline; font-size: 0.6rem; }
+  /* Brown pricing note — match original: just let max-width:100% do the work */
+  .hero-pricing-note { padding: 8px 14px; gap: 6px; }
+  .pricing-pill { font-size: 0.58rem; letter-spacing: 0.08em; }
+  .pricing-divider { font-size: 0.58rem; }
 
   /* Research button */
   .btn-research {
@@ -454,13 +432,13 @@ nav {
 .hero-tag {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--sage);
   background: var(--sage-light);
   border: 1px solid rgba(74,124,107,0.28);
-  padding: 5px 14px;
+  padding: 5px 16px;
   border-radius: 100px;
   margin-bottom: 32px;
   white-space: nowrap;
@@ -493,18 +471,14 @@ nav {
 .hero-pricing-note {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: var(--terra-light);
   border: 1px solid rgba(176,90,58,0.2);
   border-radius: 100px;
-  padding: 8px 18px;
+  padding: 8px 20px;
   margin-bottom: 36px;
   max-width: 100%;
   animation: fade-up 0.8s ease 0.26s both;
-  flex-wrap: nowrap;
-  overflow: hidden;
-  justify-content: center;
-  white-space: nowrap;
 }
 .pricing-pill {
   font-family: var(--font-mono);
@@ -1720,15 +1694,15 @@ footer {
         <div class="hero-lockup-sub">Augmentative &amp; Alternative Communication</div>
       </div>
     </div>
-    <div class="hero-tag" role="text">AI-Powered · Built with Love · Free</div>
+    <div class="hero-tag" role="text">AI-Powered · Built with Love · Free to Start</div>
     <h1 class="hero-title" id="hero-heading">Every Person<br>Deserves a <em>Voice</em></h1>
     <p class="hero-sub">A full-featured AAC app for non-verbal individuals — free at its core, with optional AI-powered features that unlock deeper expression.</p>
     <div class="hero-pricing-note" aria-label="Pricing summary">
-      <span class="pricing-pill free">✦ Core — Free</span>
+      <span class="pricing-pill free">✦ Core — Always Free</span>
       <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill ai">✨ Aura — Premium</span>
+      <span class="pricing-pill ai">✨ Aura AI — Premium Access</span>
       <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill free" style="color:var(--text3)">No card needed</span>
+      <span class="pricing-pill free" style="color:var(--text3)">No credit card to start</span>
     </div>
     <div class="hero-actions">
       <a href="./app/" class="btn-primary">↗ Open J-VOX Free</a>
