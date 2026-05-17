@@ -2183,6 +2183,7 @@ let sentence=[];
 
 function renderPhrases(cat){
   const g=document.getElementById("phraseGrid");
+  if(!g)return; // demo widget not present on this page
   g.innerHTML="";
   cats[cat].forEach(p=>{
     const b=document.createElement("button");
@@ -2249,40 +2250,52 @@ document.querySelectorAll(".stat-num[data-target]").forEach(el=>{
   el.classList.remove("will-animate");
 });
 
-/* ── ANIMATED STAT COUNTERS ── */
-function animateCounter(el,target,suffix,duration=1800){
-  const isDecimal=target%1!==0;let start=null;
+/* ── ANIMATED STAT COUNTERS ──
+   All counters in a .stats-grid animate in unison off a single shared
+   timeline, triggered when the grid (not the individual cards) enters
+   the viewport. Uses easeOutCubic for a clean decelerating feel. */
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function animateCounterGroup(els,duration=2200){
+  if(reduceMotion){
+    els.forEach(el=>{
+      const t=parseFloat(el.dataset.target);const s=el.dataset.suffix||"";
+      el.textContent=(t%1!==0?t.toFixed(1):t)+s;
+    });
+    return;
+  }
+  const items=Array.from(els).map(el=>({
+    el,
+    target:parseFloat(el.dataset.target),
+    suffix:el.dataset.suffix||"",
+    isDecimal:parseFloat(el.dataset.target)%1!==0
+  }));
+  let start=null;
   const step=ts=>{
     if(!start)start=ts;
     const p=Math.min((ts-start)/duration,1);
-    const ease=p<0.5?2*p*p:(4-2*p)*p-1;
-    const val=target*ease;
-    el.textContent=(isDecimal?val.toFixed(1):Math.floor(val))+suffix;
-    if(p<1)requestAnimationFrame(step);else el.textContent=target+suffix;
+    const ease=1-Math.pow(1-p,3); // easeOutCubic
+    items.forEach(it=>{
+      const val=it.target*ease;
+      it.el.textContent=(it.isDecimal?val.toFixed(1):Math.round(val))+it.suffix;
+    });
+    if(p<1)requestAnimationFrame(step);
+    else items.forEach(it=>{it.el.textContent=it.target+it.suffix;});
   };
   requestAnimationFrame(step);
 }
-function animateCounter(el,target,suffix,duration=1800){
-  const isDecimal=target%1!==0;let start=null;
-  const step=ts=>{
-    if(!start)start=ts;
-    const p=Math.min((ts-start)/duration,1);
-    const ease=p<0.5?2*p*p:(4-2*p)*p-1;
-    const val=target*ease;
-    el.textContent=(isDecimal?val.toFixed(1):Math.floor(val))+suffix;
-    if(p<1)requestAnimationFrame(step);else el.textContent=target+suffix;
-  };
-  requestAnimationFrame(step);
-}
-const statObs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      const el=e.target;const t=parseFloat(el.dataset.target);const s=el.dataset.suffix||"";
-      animateCounter(el,t,s);statObs.unobserve(el);
-    }
-  });
-},{threshold:0.5});
-document.querySelectorAll(".stat-num[data-target]").forEach(el=>statObs.observe(el));
+document.querySelectorAll(".stats-grid").forEach(grid=>{
+  const nums=grid.querySelectorAll(".stat-num[data-target]");
+  if(!nums.length)return;
+  const gridObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        animateCounterGroup(nums);
+        gridObs.unobserve(e.target);
+      }
+    });
+  },{threshold:0.25});
+  gridObs.observe(grid);
+});
 
 /* ── MODAL ── */
 function openResearch(){
