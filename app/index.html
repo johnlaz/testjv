@@ -1538,7 +1538,7 @@ body.theme-story .reg-lock-btn{color:#fff;background:#ff9500}
 }
 
 /* ---------- Overlays / Sheets (iOS modal style) ---------- */
-.ov{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.ov{background:rgba(0,0,0,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .dr{
   background:var(--bg3)!important;
   border-radius:18px 18px 0 0;
@@ -1763,15 +1763,14 @@ body.theme-laz .reg-lock-btn{background:#ffb84a;color:#1a1100}
   border:.5px solid var(--border);
   border-radius:14px;
   padding:6px;
-  box-shadow:0 10px 40px rgba(0,0,0,.35),0 2px 8px rgba(0,0,0,.15);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 10px 40px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.2);
   z-index:50;
   opacity:0;transform:translateY(-6px) scale(.96);transform-origin:top right;
   pointer-events:none;
   transition:opacity .14s ease,transform .14s ease;
 }
-body.theme-laz .hdr-menu{background:rgba(28,28,30,.96)}
-body.theme-story .hdr-menu{background:rgba(255,255,255,.98)}
+body.theme-laz .hdr-menu{background:#1c1c1e}
+body.theme-story .hdr-menu{background:#ffffff}
 .hdr-menu.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
 .hdr-menu .hm-item{
   display:flex;align-items:center;gap:12px;
@@ -3957,47 +3956,100 @@ if(Math.random()<0.3) zenChime(notes[(idx+2)%notes.length], ac.currentTime+1.2);
 ZEN.chimeTimer=setTimeout(()=>zenScheduleChimes(notes,interval),
 interval + (Math.random()-.5)*interval*.5);
 }
+function zenRainDrop(){
+if(!ZEN.active||!ZEN.audioCtx||ZEN.soundMode!=='rain') return;
+const ac=ZEN.audioCtx;
+// Short burst of bandpassed noise = single droplet/splat
+const buf=zenNoiseBuffer(ac,0.08,'white');
+const src=ac.createBufferSource();
+src.buffer=buf;
+const bp=ac.createBiquadFilter();
+bp.type='bandpass';
+bp.frequency.value=1200+Math.random()*2200;
+bp.Q.value=2+Math.random()*4;
+const env=ac.createGain();
+const now=ac.currentTime;
+const peak=(0.04+Math.random()*0.05);
+env.gain.setValueAtTime(0,now);
+env.gain.linearRampToValueAtTime(peak,now+0.005);
+env.gain.exponentialRampToValueAtTime(0.0001,now+0.07+Math.random()*0.05);
+src.connect(bp);bp.connect(env);env.connect(ZEN.masterGain);
+src.start(now);src.stop(now+0.16);
+// schedule next drop with high density so it reads as rain
+const next=40+Math.random()*120; // 40-160ms gap → busy rainfall
+ZEN.rainTimer=setTimeout(zenRainDrop,next);
+}
+function zenBirdChirp(){
+if(!ZEN.active||!ZEN.audioCtx||ZEN.soundMode!=='forest') return;
+const ac=ZEN.audioCtx;
+const now=ac.currentTime;
+// Each "chirp" is 2-4 quick frequency sweeps
+const syllables=2+Math.floor(Math.random()*3);
+const baseHz=1400+Math.random()*1800;
+for(let i=0;i<syllables;i++){
+const t0=now+i*(0.07+Math.random()*0.06);
+const osc=ac.createOscillator();
+osc.type='sine';
+const startHz=baseHz*(0.9+Math.random()*0.2);
+const endHz=startHz*(1.15+Math.random()*0.35);
+osc.frequency.setValueAtTime(startHz,t0);
+osc.frequency.exponentialRampToValueAtTime(endHz,t0+0.06);
+const env=ac.createGain();
+env.gain.setValueAtTime(0,t0);
+env.gain.linearRampToValueAtTime(0.05,t0+0.01);
+env.gain.exponentialRampToValueAtTime(0.0001,t0+0.07);
+osc.connect(env);env.connect(ZEN.masterGain);
+osc.start(t0);osc.stop(t0+0.09);
+}
+// Long, irregular gaps between bird calls — like a real forest
+const next=4000+Math.random()*9000;
+ZEN.birdTimer=setTimeout(zenBirdChirp,next);
+}
 function zenBuildSound(mode){
 const ac=ZEN.audioCtx;
 clearTimeout(ZEN.chimeTimer);
+clearTimeout(ZEN.rainTimer);
+clearTimeout(ZEN.birdTimer);
 if(mode==='rain'){
+// Pure rainfall: layered noise + frequent droplet impacts. No musical content.
 zenAddNoise('brown',0.22,900);
-zenAddNoise('pink',0.15,1800,200);
-zenAddNoise('white',0.06,6000,2000);
-const sub=zenAddOsc(55,0,'sine');
-zenTremolo(sub.g, 0.07, 0.015);
-zenScheduleChimes([293.7,329.6,370.0,440.0,493.9,587.3,659.3], 7000);
+zenAddNoise('pink',0.18,2200,200);
+zenAddNoise('white',0.05,7000,3500);
+// Schedule droplet impacts
+ZEN.rainTimer=setTimeout(zenRainDrop,300);
 }
 else if(mode==='ocean'){
-const base=zenAddNoise('brown',0.25,600);
-zenTremolo(base.g, 0.09, 0.12); 
-const mid=zenAddNoise('pink',0.12,2000,100);
-zenTremolo(mid.g, 0.09, 0.08);
-const sub=zenAddOsc(38,0.04,'sine');
-zenTremolo(sub.g, 0.05, 0.02);
-const tone=zenAddOsc(528+12,0.01,'sine',7); 
-zenTremolo(tone.g,0.18,0.008);
-zenScheduleChimes([261.6,329.6,392.0,523.3,659.3], 9000);
+// Slow swells: deep noise with pronounced slow tremolo, no tones or chimes.
+const base=zenAddNoise('brown',0.28,500);
+zenTremolo(base.g, 0.06, 0.22); // ~16s swell cycle, deep
+const mid=zenAddNoise('pink',0.16,1600,80);
+zenTremolo(mid.g, 0.09, 0.18);  // ~11s wave cycle
+const hiss=zenAddNoise('white',0.04,9000,3000);
+zenTremolo(hiss.g, 0.13, 0.30); // ~7s foam hiss on wave crests
+const sub=zenAddOsc(42,0.05,'sine');
+zenTremolo(sub.g, 0.05, 0.04); // very low rumble, no pitched content audible
 }
 else if(mode==='forest'){
-const wind=zenAddNoise('brown',0.14,1200);
-zenTremolo(wind.g, 0.06, 0.06);
-const leaves=zenAddNoise('pink',0.09,3000,400);
-zenTremolo(leaves.g,0.12,0.04);
-zenAddOsc(80,0.03,'sine');
-zenAddOsc(84,0.03,'sine');   
-zenScheduleChimes([659.3,783.9,880.0,1046.5,1318.5], 5500);
-setTimeout(()=>zenScheduleChimes([523.3,622.3,698.5,784.0], 8000), 2700);
+// Wind + occasional bird chirps. No sine chimes.
+const wind=zenAddNoise('brown',0.16,1100);
+zenTremolo(wind.g, 0.05, 0.10);
+const leaves=zenAddNoise('pink',0.10,3200,500);
+zenTremolo(leaves.g,0.13,0.06);
+const rustle=zenAddNoise('white',0.03,6500,2500);
+zenTremolo(rustle.g,0.22,0.5); // intermittent leaf rustle
+// First bird after a delay so the soundscape settles in
+ZEN.birdTimer=setTimeout(zenBirdChirp,3000+Math.random()*4000);
 }
 else if(mode==='tone'){
+// Solfeggio drone + chimes — the only mode with musical content.
 const r=zenAddOsc(216,0.07,'sine'); zenTremolo(r.g,0.04,0.01);
-const r2=zenAddOsc(432,0.05,'sine',3);
-const t=zenAddOsc(528,0.04,'sine',-4);
-const s=zenAddOsc(639,0.03,'sine',2);
+zenAddOsc(432,0.05,'sine',3);
+zenAddOsc(528,0.04,'sine',-4);
+zenAddOsc(639,0.03,'sine',2);
 zenAddOsc(432.5,0.03,'sine');
-zenScheduleChimes([432,528,639,720,864], 6000);
 const sub=zenAddOsc(108,0.05,'sine');
 zenTremolo(sub.g,0.03,0.02);
+zenScheduleChimes([432,528,639,720,864], 6000);
 }
 }
 function enterZen(){
@@ -4018,6 +4070,8 @@ ZEN.active=false;
 document.getElementById('zen-overlay').classList.remove('active');
 clearTimeout(ZEN.breathTimer);
 clearTimeout(ZEN.chimeTimer);
+clearTimeout(ZEN.rainTimer);
+clearTimeout(ZEN.birdTimer);
 cancelAnimationFrame(ZEN.animFrame);
 if(ZEN.masterGain&&ZEN.audioCtx){
 ZEN.masterGain.gain.linearRampToValueAtTime(0,ZEN.audioCtx.currentTime+1.5);
@@ -4579,15 +4633,13 @@ initSplashVideo();
 initBackButtonHandler();
 injectIcons();setAppleIcon();
 loadData();
-const DEFAULT_GROQ_KEY='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';
-const OLD_EXPIRED_KEYS=['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','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'];
+const OLD_EXPIRED_KEYS=['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','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','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'];
 let storedKey=localStorage.getItem('jvox-groq');
-if(!storedKey||OLD_EXPIRED_KEYS.includes(storedKey)){
-S.groqKey=DEFAULT_GROQ_KEY;
-localStorage.setItem('jvox-groq',DEFAULT_GROQ_KEY);
-}else{
-S.groqKey=storedKey;
+if(storedKey&&OLD_EXPIRED_KEYS.includes(storedKey)){
+localStorage.removeItem('jvox-groq');
+storedKey='';
 }
+S.groqKey=storedKey||'';
 S.rate=parseFloat(localStorage.getItem('jvox-rate'))||0.9;
 S.haptic=localStorage.getItem('jvox-haptic')!=='false';
 S.clearAfterSpeak=localStorage.getItem('jvox-clear')==='true'; 
