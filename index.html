@@ -273,17 +273,47 @@ nav {
   box-shadow: 0 2px 8px rgba(176,90,58,0.2);
 }
 .nav-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.nav-wordmark-logo {
-  height: 48px;
-  width: auto;
-  max-width: 140px;
-  object-fit: contain;
-  filter: brightness(1) contrast(1) saturate(1);
-  transition: filter 0.3s ease;
+.nav-wordmark {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0;
 }
-[data-theme="dark"] .nav-wordmark-logo {
-  filter: brightness(0.95) contrast(1.05) saturate(0.95);
+.wm-j {
+  color: #b85c38;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 2.1rem;
+  letter-spacing: -0.02em;
+  line-height: 1;
 }
+.wm-vox {
+  color: #1e4d96;
+  font-weight: 900;
+  font-size: 1.85rem;
+  letter-spacing: 0.12em;
+  font-style: normal;
+  text-transform: uppercase;
+  text-shadow: 0 2px 8px rgba(30,77,150,0.15);
+}
+.wm-aac {
+  color: #b85c38;
+  font-size: 0.6em;
+  letter-spacing: 0.18em;
+  margin-left: 6px;
+  font-weight: 500;
+  font-style: normal;
+  align-self: flex-end;
+  padding-bottom: 2px;
+  text-transform: uppercase;
+}
+[data-theme="dark"] .wm-vox { color: #5b9bd5; }
+[data-theme="dark"] .wm-j   { color: #c9845a; }
+[data-theme="dark"] .wm-aac { color: #c9845a; }
 [data-theme="dark"] .wm-aac { color: #c9845a; }
 .nav-links { display: flex; gap: 22px; list-style: none; flex-shrink: 0; }
 .nav-links a {
@@ -535,14 +565,22 @@ nav {
   font-weight: 500;
   background: none;
   border: none;
-  line-height: 1.3;
+  line-height: 1.4;
   flex: 1;
   min-width: min-content;
   text-align: center;
+  padding: 0 8px;
+}
+.pricing-pill > div:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
 }
 .pricing-pill > div:nth-child(2) {
-  font-size: 0.75rem;
-  opacity: 0.7;
+  font-size: 0.6rem;
+  opacity: 0.85;
 }
 .pricing-pill.free    { color: var(--sage); }
 .pricing-pill.ai      { color: var(--terra); }
@@ -1783,7 +1821,7 @@ footer {
 <nav role="navigation" aria-label="Main navigation">
   <a class="nav-brand" href="#hero" aria-label="jVox AAC — Home">
     <div class="nav-icon"><img src="assets/jvox_icon.png" alt="" onerror="this.parentElement.style.background='#f0ebe4';this.style.display='none';"></div>
-    <img class="nav-wordmark-logo" src="assets/jvox_logo.png" alt="jVox AAC — The Global Voice Platform" loading="lazy">
+    <div class="nav-wordmark"><span class="wm-j">j</span><span class="wm-vox">VOX</span><span class="wm-aac"> AAC</span></div>
   </a>
   <ul class="nav-links">
     <li><a href="#story">Our Story</a></li>
@@ -1818,9 +1856,9 @@ footer {
     <h1 class="hero-title" id="hero-heading">Every Person<br>Deserves a <em>Voice</em></h1>
     <p class="hero-sub">A full-featured AAC app for non-verbal individuals — free at its core, with optional AI-powered features that unlock deeper expression.</p>
     <div class="hero-pricing-note" aria-label="Pricing summary">
-      <div class="pricing-pill free"><div>✦ Core</div><div>—</div><div>Always Free</div></div>
-      <div class="pricing-pill ai"><div>✨ Aura AI</div><div>—</div><div>Premium Access</div></div>
-      <div class="pricing-pill neutral"><div>No Credit</div><div>Card</div><div>Required</div></div>
+      <div class="pricing-pill free"><div>✦ Core</div><div>Always Free</div></div>
+      <div class="pricing-pill ai"><div>✨ Aura AI</div><div>Premium Access</div></div>
+      <div class="pricing-pill neutral"><div>No Credit Card</div><div>Required</div></div>
     </div>
     <div class="hero-actions">
       <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
