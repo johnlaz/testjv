@@ -6,12 +6,12 @@
 <meta name="theme-color" id="theme-color-meta" content="#0d0d0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="J-VOX AAC">
-<meta name="application-name" content="J-VOX AAC">
-<meta name="description" content="J-VOX AAC — Augmentative and Alternative Communication App">
+<meta name="apple-mobile-web-app-title" content="jVox AAC">
+<meta name="application-name" content="jVox AAC">
+<meta name="description" content="jVox AAC — Augmentative and Alternative Communication App">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>J-VOX AAC v4</title>
+<title>jVox AAC v4</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -113,6 +113,31 @@ body{font-family:var(--f);background:var(--bg);color:var(--txt);-webkit-font-smo
   margin-top:6px;
   animation:fadeUp .6s .45s both ease;
 }
+.bs-name-branded{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(32px,8vw,56px);
+  letter-spacing:.14em;
+  text-align:center;
+  animation:fadeUp .6s .3s both ease;
+  line-height:1;
+  display:inline-flex;
+  align-items:baseline;
+  gap:0;
+}
+.bs-name-j{
+  color:#b85c38;
+  font-style:italic;
+  font-weight:500;
+  letter-spacing:-0.02em;
+  text-shadow:0 2px 4px rgba(184,92,56,0.3);
+}
+.bs-name-vox{
+  color:#1e4d96;
+  font-weight:800;
+  letter-spacing:0.05em;
+  text-shadow:0 2px 4px rgba(30,77,150,0.4);
+}
+
 .bs-sub{
   font-family:'DM Sans',sans-serif;
   font-size:12px;
@@ -1138,10 +1163,10 @@ body.theme-story #brand-splash,
 body.theme-story #hdr{background:rgba(248,248,250,.85)}
 .hdr-icon{width:34px;height:34px;border-radius:9px;box-shadow:0 0 0 .5px rgba(0,0,0,.15)}
 /* Header content tightening so settings icon stays on screen */
-#hdr-logo{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;font-size:17px;color:var(--txt);flex-shrink:0;white-space:nowrap}
+#hdr-logo{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;font-size:22px;color:var(--txt);flex-shrink:0;white-space:nowrap;font-weight:600;opacity:1}
 body.theme-story #hdr-logo{color:#000}
 .hdr-icon{width:32px;height:32px;flex-shrink:0;border-radius:8px}
-#hdr-logo span{display:none}
+
 
 /* Compact mode toggle (Standard / Aura) */
 .mt-btn{padding:5px 10px;font-size:13px}
@@ -1696,7 +1721,7 @@ body.theme-story #sb.refining{box-shadow:0 0 0 3px rgba(255,149,0,.22)}
 body.mic-on #mic-btn{background:rgba(48,214,192,.2)!important;color:var(--teal)!important;border-color:transparent!important}
 
 /* Hide the version subscript a bit cleaner */
-#hdr-logo span{opacity:.4!important;font-family:var(--ios-mono)!important;font-size:10px!important;margin-left:2px}
+#hdr-logo span:last-child{opacity:.6!important;font-family:var(--ios-mono)!important;font-size:10px!important;margin-left:2px}
 
 /* Better focus rings for accessibility */
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role="button"]:focus-visible{
@@ -1876,8 +1901,8 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 
 
 <div id="brand-splash">
-  <div class="bs-icon" id="bs-icon"><img id="bs-img" src="" alt="J-VOX"><div class="bs-video-container" id="bs-video-container"></div></div>
-  <div class="bs-name">J-VOX</div>
+  <div class="bs-icon" id="bs-icon"><img id="bs-img" src="" alt="jVox"><div class="bs-video-container" id="bs-video-container"></div></div>
+  <div class="bs-name-branded"><span class="bs-name-j">j</span><span class="bs-name-vox">Vox</span></div>
   <div class="bs-tag">AAC — Augmentative Communication</div>
   <div class="bs-sub">Powered by AI · Built with love</div>
   <button class="bs-enter" onclick="showThemeSplash()">Get Started →</button>
@@ -1887,7 +1912,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 <div id="theme-splash">
   <div class="ts-logo">
     <img id="ts-img" src="" alt="">
-    <span>J-VOX AAC</span>
+    <span>jVox AAC</span>
   </div>
   <div class="ts-title">Choose your <span>experience</span></div>
   <div class="ts-sub">You can change this anytime in Settings</div>
@@ -2142,7 +2167,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 <div id="app">
   <header id="hdr">
     <div class="hdr-icon"><img id="hdr-img" src="" alt=""></div>
-    <div id="hdr-logo">J-VOX <span style="font-size:10px;opacity:.5;vertical-align:middle;font-family:var(--fm)">v4</span></div>
+    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v4</span></div>
     <div style="flex:1;min-width:4px"></div>
     <div id="mode-toggle">
       <button class="mt-btn" id="mt-std" onclick="setMode('standard')">Standard</button>
@@ -2409,7 +2434,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
       
       <div style="text-align:center;padding:10px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px">
         <div style="font-size:56px;line-height:1;margin-bottom:12px">❤️</div>
-        <div style="font-family:var(--fh);font-size:22px;color:var(--accent);line-height:1.3;margin-bottom:6px">J-VOX: A Voice Built<br>from Love</div>
+        <div style="font-family:var(--fh);font-size:22px;color:var(--accent);line-height:1.3;margin-bottom:6px">jVox: A Voice Built<br>from Love</div>
         <div style="font-size:12px;color:var(--txt3);letter-spacing:.06em;text-transform:uppercase">A father's project. A family's legacy.</div>
       </div>
 
@@ -2418,7 +2443,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
         <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;display:flex;align-items:center;gap:8px">
           <span style="display:inline-block;width:28px;height:1px;background:var(--teal)"></span>The Origin<span style="display:inline-block;width:28px;height:1px;background:var(--teal)"></span>
         </div>
-        <p style="font-size:14px;line-height:1.75;color:var(--txt);margin:0">J-VOX didn't start in a tech lab — it started at a <strong style="color:var(--accent)">kitchen table</strong>. It was built by a <strong style="color:var(--accent)">father</strong> who watched his son with disabilities struggle to express the full complexity of his thoughts using standard, static communication boards.</p>
+        <p style="font-size:14px;line-height:1.75;color:var(--txt);margin:0">jVox didn't start in a tech lab — it started at a <strong style="color:var(--accent)">kitchen table</strong>. It was built by a <strong style="color:var(--accent)">father</strong> who watched his son with disabilities struggle to express the full complexity of his thoughts using standard, static communication boards.</p>
       </div>
 
       
@@ -2426,7 +2451,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
         <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:10px;display:flex;align-items:center;gap:8px">
           <span style="display:inline-block;width:28px;height:1px;background:var(--teal)"></span>The Technology<span style="display:inline-block;width:28px;height:1px;background:var(--teal)"></span>
         </div>
-        <p style="font-size:14px;line-height:1.75;color:var(--txt);margin:0">The world moves too fast for <strong style="color:var(--gold)">20 static buttons</strong>. J-VOX bridges the gap between simple requests and <strong style="color:var(--gold)">true expression</strong> — using Groq AI to provide an adaptive, intelligent voice that <strong style="color:var(--accent)">grows with the user</strong>.</p>
+        <p style="font-size:14px;line-height:1.75;color:var(--txt);margin:0">The world moves too fast for <strong style="color:var(--gold)">20 static buttons</strong>. jVox bridges the gap between simple requests and <strong style="color:var(--gold)">true expression</strong> — using Groq AI to provide an adaptive, intelligent voice that <strong style="color:var(--accent)">grows with the user</strong>.</p>
       </div>
 
       
@@ -2464,7 +2489,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 <div class="ov ov-c" id="ov-onboard">
   <div class="dr-c" style="text-align:center;padding:28px 24px">
     <div style="font-size:44px;margin-bottom:10px" id="ob-icon">💬</div>
-    <div class="d-hd" id="ob-title" style="font-size:20px;justify-content:center;margin-bottom:10px">Welcome to J-VOX</div>
+    <div class="d-hd" id="ob-title" style="font-size:20px;justify-content:center;margin-bottom:10px">Welcome to jVox</div>
     <p id="ob-body" style="font-size:14px;line-height:1.6;color:var(--txt2);margin:0 0 18px"></p>
     <div id="ob-gold-btn-wrap" style="display:none;margin-bottom:14px">
       <a href="https://console.groq.com/keys" target="_blank" rel="noopener" id="ob-gold-btn" style="display:inline-block;background:linear-gradient(135deg,#c9a84c,#e8c96e);color:#0d0d0f;font-weight:700;padding:8px 20px;border-radius:22px;text-decoration:none;font-size:14px">🔑 Get free Groq key →</a>
@@ -2598,8 +2623,8 @@ body.compact .chip{padding:4px 10px;font-size:14px}
     <button class="d-cls" onclick="closeOv('ov-about')" style="position:absolute;top:16px;right:16px">✕</button>
 
     <div class="about-logo-wrap">
-      <div class="about-logo-icon"><img id="about-icon" src="" alt="J-VOX"></div>
-      <div class="about-logo-name">J-VOX</div>
+      <div class="about-logo-icon"><img id="about-icon" src="" alt="jVox"></div>
+      <div class="about-logo-name" style="display:inline-flex;align-items:baseline;gap:0;"><span style="color:#b85c38;font-style:italic;font-weight:300;letter-spacing:-0.02em;">j</span><span style="color:#1e4d96;font-weight:600;letter-spacing:0.08em;">Vox</span></div>
       <div class="about-logo-sub">Augmentative & Alternative Communication</div>
       <div class="about-version-badge">Version 4</div>
     </div>
@@ -2607,8 +2632,8 @@ body.compact .chip{padding:4px 10px;font-size:14px}
     <div class="about-tagline">"Every person deserves a voice."</div>
 
     <div class="about-section">
-      <div class="about-section-title">What is J-VOX?</div>
-      <p class="about-p">J-VOX is a full-featured AAC (Augmentative and Alternative Communication) app designed for non-verbal individuals and their families. It gives users a fast, expressive, and personal way to communicate — built around their life, their words, and their needs.</p>
+      <div class="about-section-title">What is jVox?</div>
+      <p class="about-p">jVox is a full-featured AAC (Augmentative and Alternative Communication) app designed for non-verbal individuals and their families. It gives users a fast, expressive, and personal way to communicate — built around their life, their words, and their needs.</p>
     </div>
 
     <div class="about-section">
@@ -2638,7 +2663,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 
     <div class="about-footer">
       <div class="about-footer-line">Made with ❤️ for families who communicate differently.</div>
-      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">J-VOX AAC · v4 · © LAZLAB Creations 2025</div>
+      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">jVox AAC · v4 · © LAZLAB Creations 2025</div>
     </div>
 
     <button class="d-cancel" onclick="closeOv('ov-about')" style="margin-top:16px">Close</button>
@@ -2760,7 +2785,7 @@ body.compact .chip{padding:4px 10px;font-size:14px}
 
 <script>
 /* 
- * J-VOX AAC v4
+ * jVox AAC v4
  * Copyright (c) 2025. All rights reserved.
  * Unauthorized copying, redistribution, or modification of this software,
  * via any medium, is strictly prohibited. Proprietary and confidential.
@@ -4714,8 +4739,8 @@ openOv('ov-groq-nudge');
 const OB_STEPS=[
 {
 icon:'💬',
-title:'Welcome to J-VOX',
-body:'Tap any category tile to start building your sentence — words and phrases appear in the bar at the bottom. When you\'re ready, hit Speak and J-VOX will say it aloud for you.',
+title:'Welcome to jVox',
+body:'Tap any category tile to start building your sentence — words and phrases appear in the bar at the bottom. When you\'re ready, hit Speak and jVox will say it aloud for you.',
 gold:false
 },
 {
@@ -5074,11 +5099,11 @@ modal.style.zIndex='99999';
 modal.innerHTML=`
 <div class="dr" style="max-width:400px">
   <div class="d-hd">
-    <span>Leave J-VOX?</span>
+    <span>Leave jVox?</span>
     <button class="d-cls" onclick="closeOv('leave-warning-modal')">✕</button>
   </div>
   <div style="padding:20px;color:var(--text2)">
-    <p style="margin-bottom:16px;line-height:1.6">You're about to leave the app. For the best experience with full back button support, consider installing J-VOX as an app.</p>
+    <p style="margin-bottom:16px;line-height:1.6">You're about to leave the app. For the best experience with full back button support, consider installing jVox as an app.</p>
     <div style="display:flex;gap:10px">
       <button onclick="closeOv('leave-warning-modal');history.back()" style="flex:1;padding:10px;background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);color:var(--text);border-radius:6px;cursor:pointer;font-weight:500">Leave</button>
       <button onclick="closeOv('leave-warning-modal')" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500">Stay in App</button>
@@ -5118,7 +5143,7 @@ banner.style.cssText=`
 `;
 banner.innerHTML=`
   <div style="flex:1">
-    <div style="font-weight:500;margin-bottom:4px">📱 Install J-VOX</div>
+    <div style="font-weight:500;margin-bottom:4px">📱 Install jVox</div>
     <div style="font-size:12px;opacity:0.8;color:var(--text2)">Get full back button support & offline access</div>
   </div>
   <button onclick="installPWA()" style="padding:8px 16px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500;white-space:nowrap">Install</button>
@@ -5135,7 +5160,7 @@ deferredPrompt.prompt();
 deferredPrompt.userChoice.then((choiceResult)=>{
 if(choiceResult.outcome==='accepted'){
 dismissPWAPrompt();
-toast('J-VOX installed! ✨');
+toast('jVox installed! ✨');
 }
 deferredPrompt=null;
 });
