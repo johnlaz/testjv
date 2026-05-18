@@ -1904,20 +1904,37 @@ body.kiosk-active {
   --kiosk-overlay: rgba(0,0,0,0.7);
 }
 
-body.kiosk-active #hdr-menu,
-body.kiosk-active .hm-item:not(#hm-kiosk),
+body.kiosk-active .hm-item:not(#hm-kiosk) {
+  pointer-events: none !important;
+  opacity: 0.3 !important;
+}
+
 body.kiosk-active #mode-toggle {
-  pointer-events: none;
-  opacity: 0.3;
+  pointer-events: none !important;
+  opacity: 0.3 !important;
 }
 
 body.kiosk-active #hdr-menu-btn {
-  pointer-events: auto;
+  pointer-events: auto !important;
+  opacity: 1 !important;
 }
 
 body.kiosk-active .ibtn:not(#hdr-menu-btn) {
-  pointer-events: none;
-  opacity: 0.4;
+  pointer-events: none !important;
+  opacity: 0.4 !important;
+}
+
+/* Ensure menu container stays interactive for closing */
+#hdr-menu {
+  pointer-events: auto;
+}
+
+/* Normal state - menu items fully visible */
+.hm-item,
+#mode-toggle,
+.ibtn {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 body.kiosk-active {
