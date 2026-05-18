@@ -72,10 +72,10 @@
   --surface2: #1a2030;
   --border:   rgba(100,140,200,0.12);
   --border2:  rgba(100,140,200,0.06);
-  --terra:       #3ecfb8;
-  --terra-light: rgba(62,207,184,0.08);
-  --terra-mid:   rgba(62,207,184,0.15);
-  --terra-glow:  rgba(62,207,184,0.4);
+  --terra:       #5b9bd5;
+  --terra-light: rgba(91,155,213,0.12);
+  --terra-mid:   rgba(91,155,213,0.18);
+  --terra-glow:  rgba(91,155,213,0.35);
   --sage:        #c9a96e;
   --sage-light:  rgba(201,169,110,0.08);
   --sage-mid:    rgba(201,169,110,0.12);
@@ -276,29 +276,22 @@ nav {
 .nav-wordmark {
   font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   line-height: 1;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0;
 }
 .wm-j {
   color: #b85c38;
-  font-style: italic;
-  font-weight: 300;
-  font-size: 2.1rem;
-  letter-spacing: -0.02em;
-  line-height: 1;
 }
 .wm-vox {
   color: #1e4d96;
-  font-weight: 900;
-  font-size: 1.85rem;
-  letter-spacing: 0.12em;
-  font-style: normal;
-  text-transform: uppercase;
-  text-shadow: 0 2px 8px rgba(30,77,150,0.15);
+  font-weight: 600;
+}
+[data-theme="dark"] .wm-j {
+  color: #d4956b;
+}
+[data-theme="dark"] .wm-vox {
+  color: #5b9bd5;
 }
 .wm-aac {
   color: #b85c38;
@@ -464,8 +457,22 @@ nav {
   font-weight: 500;
   letter-spacing: 0.08em;
   line-height: 1;
-  color: var(--terra);
 }
+.hlm-j {
+  color: #b85c38;
+}
+.hlm-vox {
+  color: #1e4d96;
+  font-weight: 600;
+}
+[data-theme="dark"] .hlm-j {
+  color: #d4956b;
+}
+[data-theme="dark"] .hlm-vox {
+  color: #5b9bd5;
+}
+[data-theme="dark"] .hlm-j { color: #c9845a; }
+[data-theme="dark"] .hlm-vox { color: #5b9bd5; }
 .hero-lockup-sub {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -1821,7 +1828,7 @@ footer {
 <nav role="navigation" aria-label="Main navigation">
   <a class="nav-brand" href="#hero" aria-label="jVox AAC — Home">
     <div class="nav-icon"><img src="assets/jvox_icon.png" alt="" onerror="this.parentElement.style.background='#f0ebe4';this.style.display='none';"></div>
-    <div class="nav-wordmark"><span class="wm-j">j</span><span class="wm-vox">VOX</span><span class="wm-aac"> AAC</span></div>
+    <div class="nav-wordmark"><span class="wm-j">j</span><span class="wm-vox">Vox</span><span class="wm-aac"> AAC</span></div>
   </a>
   <ul class="nav-links">
     <li><a href="#story">Our Story</a></li>
@@ -1844,7 +1851,7 @@ footer {
     <div class="hero-logo-lockup">
       <div class="hero-icon"><img src="assets/jvox_icon.png" alt="jVox app icon" onerror="this.parentElement.style.background='linear-gradient(135deg,#f4ede8,#f0ebe4)';this.style.display='none';"></div>
       <div class="hero-lockup-text">
-        <div class="hero-lockup-name">jVox</div>
+        <div class="hero-lockup-name"><span class="hlm-j">j</span><span class="hlm-vox">Vox</span></div>
         <div class="hero-lockup-sub">Augmentative &amp; Alternative Communication</div>
       </div>
     </div>
