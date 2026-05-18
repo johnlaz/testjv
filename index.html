@@ -332,32 +332,24 @@ nav {
   .theme-toggle #themeLabel { display: none; }
   .theme-toggle-icon { font-size: 1rem; }
 
-  /* Green tag — allow wrap to two lines, centered */
+  /* Hero tag chips — compact on small screens */
   .hero-tag {
-    white-space: normal;
-    text-align: center;
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
-    padding: 6px 16px;
-    line-height: 1.6;
+    padding: 10px 16px;
+  }
+  .hero-tag-chip {
+    font-size: 0.58rem;
+    letter-spacing: 0.06em;
+    padding: 0 12px;
   }
 
-  /* Brown pricing note — keep pills inline on one row, separated by dot dividers */
+  /* Pricing note — compact on small screens */
   .hero-pricing-note {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px 16px;
-    border-radius: 100px;
+    padding: 10px 6px;
   }
-  .pricing-divider { display: inline; }
   .pricing-pill {
     font-size: 0.58rem;
     letter-spacing: 0.05em;
-    text-align: center;
-    line-height: 1.35;
+    padding: 0 14px;
   }
 
   /* Research button */
@@ -407,7 +399,7 @@ nav {
   z-index: 2;
   text-align: center;
   max-width: 840px;
-  margin: 140px auto 0;
+  margin: 72px auto 0;
   width: 100%;
   padding: 0 24px;
 }
@@ -416,7 +408,7 @@ nav {
   align-items: center;
   justify-content: center;
   gap: 18px;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
   animation: fade-up 0.7s ease both;
 }
 .hero-icon {
@@ -450,20 +442,47 @@ nav {
   font-weight: 400;
 }
 .hero-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--sage);
-  background: var(--sage-light);
-  border: 1px solid rgba(74,124,107,0.28);
-  padding: 5px 16px;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 100px;
+  padding: 14px 28px;
   margin-bottom: 32px;
   animation: fade-up 0.8s ease 0.05s both;
-  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(44,33,24,0.06);
+  gap: 0;
 }
+.hero-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 0 20px;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  line-height: 1.4;
+}
+.hero-tag-chip + .hero-tag-chip {
+  border-left: 1px solid var(--border);
+}
+.hero-tag-chip.chip-ai   { color: var(--terra); }
+.hero-tag-chip.chip-love { color: var(--blush); }
+.hero-tag-chip.chip-free { color: var(--sage); }
+[data-theme="dark"] .hero-tag {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+}
+[data-theme="dark"] .hero-tag-chip.chip-ai   { color: var(--terra); }
+[data-theme="dark"] .hero-tag-chip.chip-love { color: var(--sage); }
+[data-theme="dark"] .hero-tag-chip.chip-free { color: var(--sage); }
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(3rem, 7vw, 5.8rem);
@@ -489,26 +508,51 @@ nav {
 }
 .hero-pricing-note {
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  background: var(--terra-light);
-  border: 1px solid rgba(176,90,58,0.2);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 100px;
-  padding: 8px 20px;
+  padding: 14px 10px;
   margin-bottom: 36px;
   max-width: 100%;
   animation: fade-up 0.8s ease 0.26s both;
+  box-shadow: 0 2px 10px rgba(44,33,24,0.06);
+  gap: 0;
 }
 .pricing-pill {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
+  font-size: 0.67rem;
+  letter-spacing: 0.09em;
   text-transform: uppercase;
   font-weight: 500;
+  padding: 0 24px;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  line-height: 1.5;
 }
-.pricing-pill.free { color: var(--sage); }
-.pricing-pill.ai { color: var(--terra); }
-.pricing-divider { color: var(--text3); font-size: 0.7rem; }
+.pricing-pill + .pricing-pill {
+  border-left: 1px solid var(--border);
+}
+.pricing-pill .pill-line1 { font-weight: 500; }
+.pricing-pill .pill-line2 { font-weight: 500; }
+.pricing-pill.free  { color: var(--sage); }
+.pricing-pill.ai    { color: var(--terra); }
+.pricing-pill.neutral { color: var(--text3); }
+.pricing-divider { display: none; }
+[data-theme="dark"] .hero-pricing-note {
+  background: var(--surface);
+  border-color: var(--border);
+  box-shadow: none;
+}
+[data-theme="dark"] .pricing-pill.free    { color: var(--terra); }
+[data-theme="dark"] .pricing-pill.ai      { color: var(--sage); }
+[data-theme="dark"] .pricing-pill.neutral { color: var(--text2); }
 .hero-actions {
   display: flex;
   gap: 12px;
@@ -577,7 +621,7 @@ nav {
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 768px) {
-  .hero-content { padding-top: 100px; }
+  .hero-content { padding-top: 72px; }
   .hero-icon { width: 60px; height: 60px; border-radius: 20px; }
   .hero-lockup-name { font-size: 1.9rem; }
   .hero-arc { height: 50px; }
@@ -1767,15 +1811,17 @@ footer {
         <div class="hero-lockup-sub">Augmentative &amp; Alternative Communication</div>
       </div>
     </div>
-    <div class="hero-tag" role="text">AI-Powered · Built with Love · Free to Start</div>
+    <div class="hero-tag" role="text" aria-label="AI-Powered, Built with Love, Free to Start">
+      <span class="hero-tag-chip chip-ai">✦ AI-Powered</span>
+      <span class="hero-tag-chip chip-love">Built with Love</span>
+      <span class="hero-tag-chip chip-free">Free to Start</span>
+    </div>
     <h1 class="hero-title" id="hero-heading">Every Person<br>Deserves a <em>Voice</em></h1>
     <p class="hero-sub">A full-featured AAC app for non-verbal individuals — free at its core, with optional AI-powered features that unlock deeper expression.</p>
     <div class="hero-pricing-note" aria-label="Pricing summary">
-      <span class="pricing-pill free">✦ Core — Always Free</span>
-      <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill ai">✨ Aura AI — Premium Access</span>
-      <span class="pricing-divider" aria-hidden="true">·</span>
-      <span class="pricing-pill free" style="color:var(--text3)">No Credit Card Required</span>
+      <span class="pricing-pill free"><span class="pill-line1">✦ Core &mdash;</span><span class="pill-line2">Always Free</span></span>
+      <span class="pricing-pill ai"><span class="pill-line1">✨ Aura AI &mdash;</span><span class="pill-line2">Premium Access</span></span>
+      <span class="pricing-pill neutral"><span class="pill-line1">No Credit Card</span><span class="pill-line2">Required</span></span>
     </div>
     <div class="hero-actions">
       <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
