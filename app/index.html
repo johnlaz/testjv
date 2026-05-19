@@ -5233,17 +5233,21 @@ function escapeAttr(s){return(s||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;'
 function isPWAMode(){
 return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches;
 }
+let _leaveModalOpen=false;
 function initBackButtonHandler(){
-history.pushState({page:1},'',location.href);
+/* Push a sentinel state so the first back press is interceptable */
+history.pushState({jvoxGuard:true},'',location.href);
 window.addEventListener('popstate',(e)=>{
-if(isPWAMode()){
-history.pushState({page:1},'',location.href);
-}else{
+/* Always re-push the sentinel immediately so future back presses are caught */
+history.pushState({jvoxGuard:true},'',location.href);
+if(isPWAMode()) return; /* In PWA mode just trap — no dialog needed */
 showLeaveAppWarning();
-}
 });
 }
 function showLeaveAppWarning(){
+/* Prevent stacking multiple modals */
+if(_leaveModalOpen) return;
+_leaveModalOpen=true;
 const modal=document.createElement('div');
 modal.className='ov';
 modal.id='leave-warning-modal';
@@ -5252,19 +5256,41 @@ modal.innerHTML=`
 <div class="dr" style="max-width:400px">
   <div class="d-hd">
     <span>Leave jVox?</span>
-    <button class="d-cls" onclick="closeOv('leave-warning-modal')">✕</button>
+    <button class="d-cls" onclick="closeLeaveModal()">✕</button>
   </div>
   <div style="padding:20px;color:var(--text2)">
     <p style="margin-bottom:16px;line-height:1.6">You're about to leave the app. For the best experience with full back button support, consider installing jVox as an app.</p>
     <div style="display:flex;gap:10px">
-      <button onclick="closeOv('leave-warning-modal');history.back()" style="flex:1;padding:10px;background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);color:var(--text);border-radius:6px;cursor:pointer;font-weight:500">Leave</button>
-      <button onclick="closeOv('leave-warning-modal')" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500">Stay in App</button>
+      <button onclick="closeLeaveModal(true)" style="flex:1;padding:10px;background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);color:var(--text);border-radius:6px;cursor:pointer;font-weight:500">Leave</button>
+      <button onclick="closeLeaveModal(false)" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500">Stay in App</button>
     </div>
   </div>
 </div>
 `;
 document.body.appendChild(modal);
-setTimeout(()=>modal.classList.add('open'),0);
+/* rAF ensures the element is painted before we add .open, preventing transparent flicker */
+requestAnimationFrame(()=>requestAnimationFrame(()=>modal.classList.add('open')));
+}
+function closeLeaveModal(doLeave){
+const modal=document.getElementById('leave-warning-modal');
+if(!modal) return;
+modal.classList.remove('open');
+/* Wait for CSS transition to finish before removing from DOM */
+modal.addEventListener('transitionend',()=>{
+modal.remove();
+_leaveModalOpen=false;
+},{once:true});
+/* Fallback in case transitionend never fires */
+setTimeout(()=>{
+if(document.getElementById('leave-warning-modal')){
+modal.remove();
+_leaveModalOpen=false;
+}
+},400);
+if(doLeave){
+/* Navigate back past our sentinel — use go(-2) to skip the guard state we just re-pushed */
+history.go(-2);
+}
 }
 
 /* ════════════════════════════════════════
