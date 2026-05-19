@@ -1,4 +1,4 @@
-# J-VOX Assets Directory
+# jVox Assets Directory
 
 ## Splash Video
 
@@ -31,4 +31,4 @@ If none are found, the app displays the default icon animation.
 ---
 
 **Date added:** May 13, 2026  
-**App:** J-VOX AAC v4
+**App:** jVox AAC v4
