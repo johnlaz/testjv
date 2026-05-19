@@ -127,18 +127,15 @@ body{font-family:var(--f);background:var(--bg);color:var(--txt);-webkit-font-smo
 .bs-name-j{
   color:#b85c38;
   font-style:italic;
-  font-weight:400;
-  font-size:0.9em;
+  font-weight:500;
   letter-spacing:-0.02em;
-  margin-right:2px;
+  text-shadow:0 2px 4px rgba(184,92,56,0.3);
 }
 .bs-name-vox{
-  font-weight:700;
-  letter-spacing:0.08em;
-  background:linear-gradient(135deg, #1e4d96 0%, #5b9bd5 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  background-clip:text;
+  color:#1e4d96;
+  font-weight:800;
+  letter-spacing:0.05em;
+  text-shadow:0 2px 4px rgba(30,77,150,0.4);
 }
 
 .bs-sub{
@@ -1131,7 +1128,7 @@ body{font-family:var(--ios-font);font-feature-settings:"ss01","cv11";letter-spac
 body.theme-story #brand-splash,
 #brand-splash:not(.theme-laz):not(.theme-story){background:radial-gradient(ellipse at top,#1c1c1e 0%,#000 70%)}
 .bs-icon{border-radius:24%;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 14px 50px rgba(0,0,0,.6)}
-.bs-name{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;color:#fff;font-size:clamp(36px,8.5vw,60px)}.bs-name-branded .bs-name-vox{color:transparent}
+.bs-name{font-family:var(--ios-font);font-weight:700;letter-spacing:-0.02em;color:#fff;font-size:clamp(36px,8.5vw,60px)}
 .bs-tag{font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.04em;text-transform:none;font-size:13px;margin-top:8px}
 .bs-sub{font-weight:500;color:rgba(255,255,255,.32);letter-spacing:.02em;text-transform:none;margin-top:36px}
 .bs-enter{background:linear-gradient(180deg,#ffc663,#ffa630);color:#1a1100;border-radius:14px;padding:14px 32px;font-weight:600;font-size:16px;letter-spacing:-0.01em;box-shadow:0 8px 24px rgba(255,166,48,.4),inset 0 1px 0 rgba(255,255,255,.4)}
@@ -1904,37 +1901,19 @@ body.kiosk-active {
   --kiosk-overlay: rgba(0,0,0,0.7);
 }
 
-body.kiosk-active .hm-item:not(#hm-kiosk) {
-  pointer-events: none !important;
-  opacity: 0.3 !important;
-}
-
+body.kiosk-active .hm-item:not(#hm-kiosk),
 body.kiosk-active #mode-toggle {
-  pointer-events: none !important;
-  opacity: 0.3 !important;
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 body.kiosk-active #hdr-menu-btn {
-  pointer-events: auto !important;
-  opacity: 1 !important;
+  pointer-events: auto;
 }
 
 body.kiosk-active .ibtn:not(#hdr-menu-btn) {
-  pointer-events: none !important;
-  opacity: 0.4 !important;
-}
-
-/* Ensure menu container stays interactive for closing */
-#hdr-menu {
-  pointer-events: auto;
-}
-
-/* Normal state - menu items fully visible */
-.hm-item,
-#mode-toggle,
-.ibtn {
-  opacity: 1;
-  pointer-events: auto;
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 body.kiosk-active {
@@ -2225,7 +2204,7 @@ body.kiosk-active .hdr-icon {
 <div id="app">
   <header id="hdr">
     <div class="hdr-icon" onclick="attemptKioskUnlock()" style="cursor:pointer;"><img id="hdr-img" src="" alt=""></div>
-    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:400;font-size:1.1em;letter-spacing:-0.02em;margin-right:1px;">j</span><span style="font-weight:700;letter-spacing:0.08em;font-size:1.2em;background:linear-gradient(135deg, #1e4d96 0%, #5b9bd5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v4</span></div>
+    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v4</span></div>
     <div style="flex:1;min-width:4px"></div>
     <div id="mode-toggle">
       <button class="mt-btn" id="mt-std" onclick="setMode('standard')">Standard</button>
@@ -2683,7 +2662,7 @@ body.kiosk-active .hdr-icon {
 
     <div class="about-logo-wrap">
       <div class="about-logo-icon"><img id="about-icon" src="" alt="jVox"></div>
-      <div class="about-logo-name" style="display:inline-flex;align-items:baseline;gap:0;"><span style="color:#b85c38;font-style:italic;font-weight:400;letter-spacing:-0.02em;margin-right:2px;">j</span><span style="font-weight:700;letter-spacing:0.08em;background:linear-gradient(135deg, #1e4d96 0%, #5b9bd5 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Vox</span></div>
+      <div class="about-logo-name" style="display:inline-flex;align-items:baseline;gap:0;"><span style="color:#b85c38;font-style:italic;font-weight:300;letter-spacing:-0.02em;">j</span><span style="color:#1e4d96;font-weight:600;letter-spacing:0.08em;">Vox</span></div>
       <div class="about-logo-sub">Augmentative & Alternative Communication</div>
       <div class="about-version-badge">Version 4</div>
     </div>
@@ -4896,6 +4875,16 @@ let S_kioskMode = false;
 let S_kioskUnlockTaps = 0;
 let S_kioskUnlockTimeout = null;
 
+function closeHdrMenu() {
+  const m = document.getElementById('hdr-menu');
+  if (m) {
+    m.classList.remove('open');
+    m.setAttribute('aria-hidden', 'true');
+  }
+  // Cancel any pending one-shot doc click listener
+  document.removeEventListener('click', _hmDocClick);
+}
+
 function toggleKioskMode() {
   if (S_kioskMode) {
     // Show unlock reminder modal
@@ -4907,8 +4896,7 @@ function toggleKioskMode() {
     localStorage.setItem('kioskMode', 'true');
     toast('🔒 Kiosk Mode ON');
     // Close menu
-    const m = document.getElementById('hdr-menu');
-    if (m) m.classList.remove('open');
+    closeHdrMenu();
     updateKioskButton();
   }
 }
@@ -5233,21 +5221,17 @@ function escapeAttr(s){return(s||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;'
 function isPWAMode(){
 return window.navigator.standalone===true||window.matchMedia('(display-mode: standalone)').matches||window.matchMedia('(display-mode: fullscreen)').matches;
 }
-let _leaveModalOpen=false;
 function initBackButtonHandler(){
-/* Push a sentinel state so the first back press is interceptable */
-history.pushState({jvoxGuard:true},'',location.href);
+history.pushState({page:1},'',location.href);
 window.addEventListener('popstate',(e)=>{
-/* Always re-push the sentinel immediately so future back presses are caught */
-history.pushState({jvoxGuard:true},'',location.href);
-if(isPWAMode()) return; /* In PWA mode just trap — no dialog needed */
+if(isPWAMode()){
+history.pushState({page:1},'',location.href);
+}else{
 showLeaveAppWarning();
+}
 });
 }
 function showLeaveAppWarning(){
-/* Prevent stacking multiple modals */
-if(_leaveModalOpen) return;
-_leaveModalOpen=true;
 const modal=document.createElement('div');
 modal.className='ov';
 modal.id='leave-warning-modal';
@@ -5256,41 +5240,19 @@ modal.innerHTML=`
 <div class="dr" style="max-width:400px">
   <div class="d-hd">
     <span>Leave jVox?</span>
-    <button class="d-cls" onclick="closeLeaveModal()">✕</button>
+    <button class="d-cls" onclick="closeOv('leave-warning-modal')">✕</button>
   </div>
   <div style="padding:20px;color:var(--text2)">
     <p style="margin-bottom:16px;line-height:1.6">You're about to leave the app. For the best experience with full back button support, consider installing jVox as an app.</p>
     <div style="display:flex;gap:10px">
-      <button onclick="closeLeaveModal(true)" style="flex:1;padding:10px;background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);color:var(--text);border-radius:6px;cursor:pointer;font-weight:500">Leave</button>
-      <button onclick="closeLeaveModal(false)" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500">Stay in App</button>
+      <button onclick="closeOv('leave-warning-modal');history.back()" style="flex:1;padding:10px;background:rgba(201,169,110,0.2);border:1px solid rgba(201,169,110,0.3);color:var(--text);border-radius:6px;cursor:pointer;font-weight:500">Leave</button>
+      <button onclick="closeOv('leave-warning-modal')" style="flex:1;padding:10px;background:var(--accent);color:var(--bg);border:none;border-radius:6px;cursor:pointer;font-weight:500">Stay in App</button>
     </div>
   </div>
 </div>
 `;
 document.body.appendChild(modal);
-/* rAF ensures the element is painted before we add .open, preventing transparent flicker */
-requestAnimationFrame(()=>requestAnimationFrame(()=>modal.classList.add('open')));
-}
-function closeLeaveModal(doLeave){
-const modal=document.getElementById('leave-warning-modal');
-if(!modal) return;
-modal.classList.remove('open');
-/* Wait for CSS transition to finish before removing from DOM */
-modal.addEventListener('transitionend',()=>{
-modal.remove();
-_leaveModalOpen=false;
-},{once:true});
-/* Fallback in case transitionend never fires */
-setTimeout(()=>{
-if(document.getElementById('leave-warning-modal')){
-modal.remove();
-_leaveModalOpen=false;
-}
-},400);
-if(doLeave){
-/* Navigate back past our sentinel — use go(-2) to skip the guard state we just re-pushed */
-history.go(-2);
-}
+setTimeout(()=>modal.classList.add('open'),0);
 }
 
 /* ════════════════════════════════════════
