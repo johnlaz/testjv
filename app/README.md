@@ -1,12 +1,12 @@
-# J-VOX AAC
+# jVox AAC
 
 **Augmentative & Alternative Communication — Version 3**
 
 > *"Every person deserves a voice."*
 
-J-VOX is a full-featured AAC (Augmentative and Alternative Communication) app built for non-verbal individuals and their families. It provides a fast, expressive, and deeply personal way to communicate — shaped around each user's life, words, and needs.
+jVox is a full-featured AAC (Augmentative and Alternative Communication) app built for non-verbal individuals and their families. It provides a fast, expressive, and deeply personal way to communicate — shaped around each user's life, words, and needs.
 
-J-VOX was built by a father for his son. It is shared with the world because every person deserves to be heard.
+jVox was built by a father for his son. It is shared with the world because every person deserves to be heard.
 
 ---
 
