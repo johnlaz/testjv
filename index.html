@@ -223,18 +223,76 @@
 .impact-ticker-sub { font-size: 0.85rem; color: var(--text2); margin-top: 14px; letter-spacing: 0.05em; line-height: 1.7; }
 
 /* Impact stats section */
+/* ── STAT CARDS (used in impact grid) ── */
+.stat-card {
+  background: var(--surface);
+  border-radius: var(--r-md);
+  padding: 36px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: background 0.25s;
+  box-shadow: 0 2px 12px rgba(44,33,24,0.06);
+}
+.stat-card:hover { background: var(--surface2); }
+.stat-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--terra), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.stat-card:hover::after { opacity: 1; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 500;
+  color: var(--terra);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.stat-num.gold { color: var(--sage); }
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text2);
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+.stat-source {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text3);
+  letter-spacing: 0.06em;
+  margin-top: 10px;
+  font-weight: 400;
+}
+[data-theme="dark"] .stat-card { background: var(--surface); box-shadow: none; }
+[data-theme="dark"] .stat-card:hover { background: var(--surface2); }
+
 .impact-stats-section { padding: 80px 0; background: var(--bg); }
-.impact-stats-section::before { content: ''; display: block; width: 500px; height: 1px; background: linear-gradient(to right, transparent, var(--terra), transparent); margin: 0 auto 80px; }
+.impact-stats-section::before {
+  content: ''; display: block;
+  width: min(500px, 80%); height: 1px;
+  background: linear-gradient(to right, transparent, var(--terra), transparent);
+  margin: 0 auto 80px;
+}
 .impact-stats-intro { text-align: center; max-width: 640px; margin: 0 auto 52px; }
 .impact-stats-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr);
-  gap: 12px; border-radius: var(--r-lg); margin-bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 @media (max-width: 768px) { .impact-stats-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* Data cards */
 .impact-data-section { padding: 80px 0; background: var(--bg2); }
 .impact-data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+.impact-data-grid-single { grid-template-columns: 1fr; }   /* full-width single card */
+.impact-reveal { opacity: 1; transform: translateY(0); }    /* JS sets initial state on open */
 .impact-data-card {
   background: var(--surface); border: 1px solid var(--border2);
   border-radius: var(--r-lg); padding: 32px;
@@ -1553,6 +1611,32 @@ footer {
 
 <script>
 /* ── IMPACT VIEW ── */
+function animateCounterGroup(els, duration=2200) {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    els.forEach(el => { const t=parseFloat(el.dataset.target),s=el.dataset.suffix||''; el.textContent=(t%1!==0?t.toFixed(1):t)+s; });
+    return;
+  }
+  const items = Array.from(els).map(el => ({
+    el, target: parseFloat(el.dataset.target),
+    suffix: el.dataset.suffix||'',
+    isDecimal: parseFloat(el.dataset.target)%1!==0
+  }));
+  let start = null;
+  const step = ts => {
+    if (!start) start = ts;
+    const p = Math.min((ts-start)/duration, 1);
+    const ease = 1-Math.pow(1-p, 3);
+    items.forEach(it => {
+      const val = it.target*ease;
+      it.el.textContent = (it.isDecimal ? val.toFixed(1) : Math.round(val)) + it.suffix;
+    });
+    if (p<1) requestAnimationFrame(step);
+    else items.forEach(it => { it.el.textContent = it.target + it.suffix; });
+  };
+  requestAnimationFrame(step);
+}
+
 function showImpact() {
   closeMobileMenu();
   const view = document.getElementById('impactView');
@@ -1560,14 +1644,44 @@ function showImpact() {
   view.scrollTop = 0;
   document.body.style.overflow = 'hidden';
   track('impact_page_visits');
-  // Animate the stat counters when they come into view
-  view.querySelectorAll('.impact-stats-grid .stat-num[data-target]').forEach(el => {
-    el.textContent = '0';
-  });
-  setTimeout(() => {
-    const grid = view.querySelector('.impact-stats-grid');
-    if (grid) animateCounterGroup(grid.querySelectorAll('.stat-num[data-target]'));
-  }, 400);
+
+  // Reset & animate ticker
+  const ticker = document.getElementById('impactTickerNum');
+  if (ticker) {
+    ticker.textContent = '0';
+    setTimeout(() => {
+      const target = 97000000, duration = 2400; let start = null;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+        const ease = p < 0.5 ? 2*p*p : (4-2*p)*p-1;
+        ticker.textContent = Math.floor(target * ease).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+        else ticker.textContent = target.toLocaleString();
+      };
+      requestAnimationFrame(step);
+    }, 300);
+  }
+
+  // Reset & animate 4 stat counters
+  const statNums = view.querySelectorAll('.impact-stats-grid .stat-num[data-target]');
+  statNums.forEach(el => el.textContent = '0');
+  setTimeout(() => animateCounterGroup(statNums), 600);
+
+  // Reveal animations — use scroll inside the fixed panel
+  const revealEls = view.querySelectorAll('.impact-reveal');
+  revealEls.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(24px)'; });
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.transition = 'opacity 0.65s ease, transform 0.65s ease';
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, root: view });
+  revealEls.forEach(el => revealObs.observe(el));
 }
 function hideImpact() {
   const view = document.getElementById('impactView');
@@ -1814,7 +1928,7 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
   <!-- Ticker -->
   <div class="impact-ticker-section">
     <div class="section-wrap">
-      <div class="impact-ticker-wrap">
+      <div class="impact-ticker-wrap impact-reveal">
         <div class="impact-ticker-label">People Worldwide Who Cannot Rely on Natural Speech</div>
         <div class="impact-ticker-num"><span id="impactTickerNum" aria-live="off">97,000,000</span></div>
         <div class="impact-ticker-sub">immediate candidates for AAC technology &nbsp;·&nbsp; Source: WHO &amp; Global Epidemiological Studies</div>
@@ -1825,12 +1939,12 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
   <!-- 4 Key Stats -->
   <div class="impact-stats-section">
     <div class="section-wrap">
-      <div class="impact-stats-intro">
+      <div class="impact-stats-intro impact-reveal">
         <div class="section-label">Core Statistics</div>
         <h2 class="section-title">A Global <em>Communication Crisis</em></h2>
         <p class="section-body">Four numbers that define the scope of unmet need — and why an accessible, free AAC tool is not optional, but essential.</p>
       </div>
-      <div class="impact-stats-grid" role="list">
+      <div class="impact-stats-grid impact-reveal" role="list">
         <div class="stat-card" role="listitem">
           <div class="stat-num" data-target="97" data-suffix="M+" aria-label="97 million plus">97M+</div>
           <div class="stat-label">People worldwide who cannot rely on natural speech</div>
@@ -1858,14 +1972,14 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
   <!-- Full Research Data -->
   <div class="impact-data-section">
     <div class="section-wrap">
-      <div class="impact-stats-intro" style="margin-bottom:40px;">
+      <div class="impact-stats-intro impact-reveal" style="margin-bottom:40px;">
         <div class="section-label">Full Research &amp; References</div>
         <h2 class="section-title">The Full <em>Picture</em></h2>
         <p class="section-body">Expanded data, visual breakdowns, and the humanitarian case for radical accessibility in AAC technology.</p>
       </div>
 
       <!-- Row 1: Map + Donut + CoC -->
-      <div class="impact-data-grid">
+      <div class="impact-data-grid impact-reveal">
         <div class="impact-data-card">
           <div class="impact-data-card-label">Global Distribution</div>
           <div class="impact-data-card-title">The Global Bridge</div>
@@ -1906,29 +2020,31 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
             <div class="impact-data-card-label">Circle of Care</div>
             <div class="impact-data-card-title">One App. Every Caregiver.</div>
             <div class="impact-coc-wrap">
-              <img src="assets/Circle_of_care.png" alt="Circle of Care diagram showing jVox connecting families, educators, medical staff, and emergency responders" onerror="this.style.display='none'"/>
+              <img src="assets/Circle_of_care.png" alt="Circle of Care diagram" onerror="this.style.display='none'"/>
             </div>
             <p class="impact-coc-caption">Every person in a user's life already carries the world's most advanced hardware in their pocket. <strong>jVox turns it into a universal communication bridge</strong> — for family, medicine, education, law enforcement, military, and emergency response.</p>
           </div>
         </div>
       </div>
 
-      <!-- Row 2: Mini stats -->
-      <div class="impact-data-card impact-data-card-full" style="margin-bottom:24px;">
-        <div class="impact-data-card-label">Global Impact Data — Section by Section</div>
-        <div class="impact-data-card-title">Numbers Behind the Need</div>
-        <div class="impact-mini-stats">
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num">1.3B</div><div class="impact-mini-stat-label">People globally experience some form of disability (16% of world population)</div></div>
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num">240M</div><div class="impact-mini-stat-label">Children worldwide living with disabilities, many facing speech &amp; language barriers</div></div>
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num gold">7–10%</div><div class="impact-mini-stat-label">Children globally with identifiable speech or language disorders — consistent across all cultures</div></div>
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num">15M</div><div class="impact-mini-stat-label">Stroke survivors annually worldwide; 38% (5.7M/yr) develop aphasia — losing ability to speak</div></div>
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num gold">1B</div><div class="impact-mini-stat-label">Could benefit from speech therapy or communication assistive tech (WHO estimate)</div></div>
-          <div class="impact-mini-stat"><div class="impact-mini-stat-num">90%</div><div class="impact-mini-stat-label">The gap — people who need help but currently have no access to services</div></div>
+      <!-- Row 2: Mini stats — wrapped in its own 1-col grid for full-width span -->
+      <div class="impact-data-grid impact-data-grid-single impact-reveal" style="margin-bottom:24px;">
+        <div class="impact-data-card">
+          <div class="impact-data-card-label">Global Impact Data — Section by Section</div>
+          <div class="impact-data-card-title">Numbers Behind the Need</div>
+          <div class="impact-mini-stats">
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num">1.3B</div><div class="impact-mini-stat-label">People globally experience some form of disability (16% of world population)</div></div>
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num">240M</div><div class="impact-mini-stat-label">Children worldwide living with disabilities, many facing speech &amp; language barriers</div></div>
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num gold">7–10%</div><div class="impact-mini-stat-label">Children globally with identifiable speech or language disorders — consistent across all cultures</div></div>
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num">15M</div><div class="impact-mini-stat-label">Stroke survivors annually worldwide; 38% (5.7M/yr) develop aphasia — losing ability to speak</div></div>
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num gold">1B</div><div class="impact-mini-stat-label">Could benefit from speech therapy or communication assistive tech (WHO estimate)</div></div>
+            <div class="impact-mini-stat"><div class="impact-mini-stat-num">90%</div><div class="impact-mini-stat-label">The gap — people who need help but currently have no access to services</div></div>
+          </div>
         </div>
       </div>
 
       <!-- Row 3: Grant + Differentiation -->
-      <div class="impact-data-grid">
+      <div class="impact-data-grid impact-reveal">
         <div class="impact-data-card">
           <div class="impact-data-card-label">Grant &amp; Funding Relevance</div>
           <div class="impact-data-card-title">Built for Impact, Not Profit</div>
