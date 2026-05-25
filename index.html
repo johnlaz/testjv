@@ -125,6 +125,66 @@
 [data-theme="dark"] .speak-btn:hover { background: #5de0cc; }
 
 /* ═══════════════════════════════════════
+   FOUNDATION VIEW — full-page in-app panel
+═══════════════════════════════════════ */
+#foundationView {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#foundationView.active { display: block; }
+
+.foundation-back-bar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px;
+  background: rgba(247,244,240,0.95);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border2);
+  gap: 10px;
+}
+[data-theme="dark"] .foundation-back-bar { background: rgba(8,10,13,0.95); }
+.foundation-back-bar .impact-back-btn { white-space: nowrap; }
+.foundation-back-bar .btn-primary { padding: 9px 16px; font-size: 0.82rem; min-height: 38px; box-shadow: none; white-space: nowrap; }
+
+.foundation-hero {
+  padding: 72px 24px 60px;
+  background: var(--bg);
+  position: relative; overflow: hidden;
+  text-align: center;
+}
+.foundation-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(176,90,58,0.07) 0%, transparent 70%);
+}
+.foundation-hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+.foundation-hero-arc {
+  position: absolute; bottom: -1px; left: 0; right: 0; height: 60px;
+  background: var(--bg2); clip-path: ellipse(60% 100% at 50% 100%);
+  pointer-events: none;
+}
+.foundation-body {
+  padding: 70px 0 80px;
+  background: var(--bg2);
+}
+.foundation-body-inner {
+  max-width: 820px; margin: 0 auto; padding: 0 24px;
+}
+.foundation-body-text {
+  font-size: 1.05rem; color: var(--text2);
+  line-height: 1.95; font-weight: 500;
+  margin-bottom: 52px; text-align: center;
+}
+.foundation-demo-wrap {
+  max-width: 900px; margin: 0 auto; padding: 0 24px 80px;
+}
+
+/* ═══════════════════════════════════════
    IMPACT VIEW — full-page in-app panel
 ═══════════════════════════════════════ */
 #impactView {
@@ -140,28 +200,31 @@
 
 /* Back bar at the top of the impact view */
 .impact-back-bar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center;
   justify-content: space-between;
-  padding: 14px 40px;
+  padding: 10px 24px;
   background: rgba(247,244,240,0.95);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border2);
-  gap: 16px;
+  gap: 10px;
 }
 [data-theme="dark"] .impact-back-bar { background: rgba(8,10,13,0.95); }
 .impact-back-btn {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
   background: var(--surface); border: 1.5px solid var(--border);
-  color: var(--text2); padding: 9px 18px;
-  border-radius: var(--r-sm); font-size: 0.85rem;
+  color: var(--text2); padding: 9px 16px;
+  border-radius: var(--r-sm); font-size: 0.82rem;
   font-weight: 500; cursor: pointer; transition: all 0.25s;
   font-family: var(--font-body); text-decoration: none;
+  white-space: nowrap; min-height: 38px;
 }
 .impact-back-btn:hover { color: var(--terra); border-color: rgba(176,90,58,0.4); background: var(--terra-light); }
+/* Launch App btn in back bar — match back btn size exactly */
+.impact-back-bar .btn-primary {
+  padding: 9px 16px; font-size: 0.82rem;
+  min-height: 38px; box-shadow: none; white-space: nowrap;
+}
 .impact-back-brand {
   font-family: var(--font-display);
   font-size: 1.5rem; font-weight: 500;
@@ -171,7 +234,7 @@
 .impact-back-brand .wm-vox { font-weight: 700; letter-spacing: 0.08em; background: linear-gradient(135deg, #1e4d96 0%, #5b9bd5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 [data-theme="dark"] .impact-back-brand .wm-j { color: #d4956b; }
 [data-theme="dark"] .impact-back-brand .wm-vox { background: linear-gradient(135deg, #5b9bd5 0%, #8ec7e8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-@media (max-width: 768px) { .impact-back-bar { padding: 12px 16px; } }
+@media (max-width: 480px) { .impact-back-brand { display: none; } }
 
 /* Impact page hero */
 .impact-page-hero {
@@ -339,8 +402,7 @@
 .impact-cta-strip { padding: 80px 24px; background: var(--bg2); text-align: center; }
 .impact-cta-strip-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.12; color: var(--text); margin-bottom: 16px; }
 .impact-cta-strip-title em { font-style: italic; color: var(--terra); }
-.impact-cta-strip-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.85; }
-.impact-cta-strip .btn-ghost { margin-left: 12px; }
+.impact-cta-strip-sub { font-size: 0.95rem; color: var(--text2); margin-bottom: 28px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.85; }
 
   display: flex;
   align-items: center;
@@ -417,15 +479,19 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 40px;
   background: rgba(247,244,240,0.94);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border2);
-  gap: 16px;
   overflow-x: clip;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 40px;
 }
 .nav-brand {
   display: flex; align-items: center; gap: 18px;
@@ -550,7 +616,7 @@ nav {
 .mobile-menu-cta:hover { background: #9e4d31; }
 
 @media (max-width: 900px) {
-  nav { padding: 12px 24px; }
+  .nav-inner { padding: 12px 24px; }
   .nav-wordmark { font-size: 2.2rem; }
   .nav-icon { width: 56px; height: 56px; border-radius: 14px; }
   .nav-subtitle { font-size: 0.6rem; max-width: 180px; }
@@ -559,7 +625,7 @@ nav {
   .mobile-menu { display: block; }
 }
 @media (max-width: 768px) {
-  nav { padding: 10px 14px; overflow: hidden; width: 100%; box-sizing: border-box; }
+  .nav-inner { padding: 10px 14px; overflow: hidden; width: 100%; box-sizing: border-box; }
   .nav-brand { min-width: 0; flex-shrink: 1; gap: 11px; }
   .nav-wordmark { font-size: 1.7rem; }
   .nav-subtitle { display: none; }
@@ -894,23 +960,38 @@ nav {
 
 /* ── BUTTONS ── */
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   background: var(--terra); color: #fff;
-  padding: 14px 32px; border-radius: var(--r-sm);
-  font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+  padding: 13px 24px; border-radius: var(--r-sm);
+  font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
   text-decoration: none; transition: all 0.25s;
-  box-shadow: 0 3px 14px var(--terra-glow); min-height: 48px;
+  box-shadow: 0 3px 14px var(--terra-glow);
+  min-height: 46px; white-space: nowrap;
 }
 .btn-primary:hover { background: #9e4d31; box-shadow: 0 6px 24px var(--terra-glow); transform: translateY(-2px); }
 .btn-ghost {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--text2); padding: 14px 32px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  color: var(--text2); padding: 13px 24px;
   border-radius: var(--r-sm); border: 1.5px solid var(--border);
-  font-size: 0.9rem; letter-spacing: 0.04em;
-  text-decoration: none; transition: all 0.25s; min-height: 48px;
-  background: var(--surface);
+  font-size: 0.88rem; letter-spacing: 0.04em;
+  text-decoration: none; transition: all 0.25s;
+  min-height: 46px; background: var(--surface); white-space: nowrap;
 }
 .btn-ghost:hover { color: var(--terra); border-color: rgba(176,90,58,0.4); background: var(--terra-light); transform: translateY(-1px); }
+
+/* Hero action row — equal width on mobile */
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+}
+.hero-actions .btn-primary,
+.hero-actions .btn-ghost {
+  flex: 1 1 auto; min-width: 140px; text-align: center;
+}
+@media (max-width: 480px) {
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost { width: 100%; }
+}
 
 @keyframes fade-up { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
 .reveal { opacity:1; transform:translateY(0); transition:opacity 0.75s ease, transform 0.75s ease; }
@@ -995,7 +1076,31 @@ nav {
   width: 700px; height: 1px;
   background: linear-gradient(to right, transparent, var(--terra), transparent);
 }
-.demo-header { text-align: center; max-width: 600px; margin: 0 auto 64px; }
+.demo-header { text-align: center; max-width: 680px; margin: 0 auto 64px; }
+.demo-tagline {
+  font-size: 1rem; color: var(--text2); line-height: 1.85;
+  font-weight: 500; margin-top: 18px; max-width: 540px;
+  margin-left: auto; margin-right: auto;
+}
+.demo-quote {
+  margin: 28px auto 0;
+  max-width: 520px;
+  padding: 20px 28px;
+  background: var(--surface);
+  border-left: 3px solid var(--terra);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  text-align: left;
+  box-shadow: 0 2px 12px rgba(44,33,24,0.06);
+}
+.demo-quote p {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--text2);
+  line-height: 1.75;
+}
+[data-theme="dark"] .demo-quote { background: var(--surface); border-left-color: var(--terra); }
 .demo-frame {
   max-width: 900px; margin: 0 auto;
   background: var(--surface); border-radius: var(--r-xl);
@@ -1251,6 +1356,7 @@ footer {
     <li><a href="#demo" onclick="closeMobileMenu()">Demo</a></li>
     <li><a href="#features" onclick="closeMobileMenu()">Features</a></li>
     <li><a href="#pricing" onclick="closeMobileMenu()">Plans</a></li>
+    <li><a href="#" onclick="showFoundation();closeMobileMenu();return false;">Foundation</a></li>
     <li><a href="#" onclick="showImpact();closeMobileMenu();return false;">Global Impact</a></li>
   </ul>
   <a href="./app/" class="mobile-menu-cta" onclick="track('launch_clicks')">↗ Open jVox Free</a>
@@ -1258,6 +1364,7 @@ footer {
 
 <!-- NAV -->
 <nav role="navigation" aria-label="Main navigation">
+<div class="nav-inner">
   <a class="nav-brand" href="#hero" aria-label="jVox AAC — Home">
     <div class="nav-icon"><img src="assets/jvox_icon.png" alt="" onerror="this.parentElement.style.background='#f0ebe4';this.style.display='none';"></div>
     <div class="nav-brand-text">
@@ -1270,6 +1377,7 @@ footer {
     <li><a href="#demo">Demo</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Plans</a></li>
+    <li><a href="#" onclick="showFoundation();return false;">Foundation</a></li>
     <li><a href="#" onclick="showImpact();return false;">Global Impact</a></li>
     <li><a href="./app/" class="nav-cta" onclick="track('launch_clicks')">↗ Launch App</a></li>
   </ul>
@@ -1282,6 +1390,7 @@ footer {
       <span></span><span></span><span></span>
     </button>
   </div>
+</div>
 </nav>
 
 <!-- HERO — 2-col desktop layout -->
@@ -1316,8 +1425,8 @@ footer {
     <div class="hero-mockup" aria-label="jVox app demonstration">
       <div class="hero-mockup-header">
         <div class="section-label" style="text-align:center">See It In Action</div>
-        <h2 class="hero-mockup-title">The real app,<br><em>right here</em></h2>
-        <p class="hero-mockup-desc">Watch how three tapped words become a complete, natural sentence — powered by the Magic Wand AI Polish feature.</p>
+        <h2 class="hero-mockup-title">Tap less,<br><em>Say more</em></h2>
+        <p class="hero-mockup-desc">From Tap to Talk, Instantly — three simple words into a complete, natural sentence.</p>
       </div>
       <div class="hero-phone-frame">
         <div class="hero-phone-screen">
@@ -1382,39 +1491,14 @@ footer {
 <section id="demo" aria-labelledby="demo-heading">
   <div class="section-wrap">
     <div class="demo-header reveal">
-      <div class="section-label">Try It Yourself</div>
-      <h2 class="section-title" style="text-align:center" id="demo-heading">Tap words. Build a sentence.<br><em>Hear it speak.</em></h2>
-    </div>
-    <div class="demo-frame reveal">
-      <div class="demo-bar">
-        <div class="demo-dots"><span></span><span></span><span></span></div>
-        <div class="demo-title-bar">jVox AAC — Interactive Demo</div>
-      </div>
-      <div class="aac-demo">
-        <div class="aac-header">
-          <div class="aac-logo-demo">
-            <div class="aac-logo-icon"><img src="assets/jvox_icon.png" alt="jVox"></div>
-            <div class="aac-logo-text">jVox<span>AAC</span></div>
-          </div>
-          <div class="aac-status"><div class="status-dot"></div><div class="status-label">AI Ready</div></div>
-        </div>
-        <div class="sentence-bar" id="sentenceBar" role="region" aria-label="Sentence builder" aria-live="polite">
-          <span class="sentence-placeholder" id="placeholder">Tap words to build your sentence…</span>
-          <button class="speak-btn" id="speakBtn" onclick="speakSentence()" style="display:none" aria-label="Speak sentence">🔊 Speak</button>
-        </div>
-        <div class="category-tabs" role="tablist" aria-label="Word categories">
-          <button class="cat-tab active" role="tab" aria-selected="true" onclick="switchCat(this,'feelings')">😊 Feelings</button>
-          <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'needs')">💧 Needs</button>
-          <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'social')">👋 Social</button>
-          <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'activities')">🎮 Activities</button>
-          <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'food')">🍎 Food</button>
-        </div>
-        <div class="phrase-grid" id="phraseGrid" role="group" aria-label="Phrase buttons"></div>
-        <div class="speech-bubble" id="speechBubble" role="status" aria-live="polite">
-          <span aria-hidden="true">🔊</span>
-          <span class="speech-text" id="speechText"></span>
-        </div>
-        <div class="demo-hint">Tap phrases to add them · Tap Speak to hear · Try different categories</div>
+      <div class="section-label">Familiar Essentials</div>
+      <h2 class="section-title" style="text-align:center" id="demo-heading">The comfort you need,<br><em>The edge you deserve</em></h2>
+      <p class="demo-tagline">Traditional AAC shouldn't cost a premium. We built a rock-solid, familiar grid for the essentials — fast, intuitive, and just the baseline.</p>
+      <blockquote class="demo-quote">
+        <p>"Our priority is to give you a familiar space, then show you what you are truly capable of. We built a system that grows with your thoughts, instead of limiting your voice."</p>
+      </blockquote>
+      <div style="margin-top:36px;">
+        <button class="btn-primary" onclick="showFoundation()">↗ Try the Foundation Demo</button>
       </div>
     </div>
   </div>
@@ -1604,12 +1688,35 @@ footer {
       <span class="ss-label" id="ssTier"></span>
       <h3 id="ssTitle"></h3>
       <p id="ssDesc"></p>
-      <a href="./app/" class="btn-primary" style="margin-top:20px;display:inline-flex;font-size:0.85rem;padding:12px 22px;">&#8599; Open jVox Free</a>
+      <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
     </div>
   </div>
 </div>
 
 <script>
+/* ── FOUNDATION VIEW ── */
+function showFoundation() {
+  closeMobileMenu();
+  const view = document.getElementById('foundationView');
+  view.classList.add('active');
+  view.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  // Reset sentence bar and re-render default category
+  sentence = [];
+  updateBar();
+  renderPhrases('feelings');
+  // Reset active tab
+  document.querySelectorAll('#foundationView .cat-tab').forEach((b,i) => {
+    b.classList.toggle('active', i === 0);
+    b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+  });
+  track('foundation_visits');
+}
+function hideFoundation() {
+  document.getElementById('foundationView').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
 /* ── IMPACT VIEW ── */
 function animateCounterGroup(els, duration=2200) {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1905,6 +2012,79 @@ function updateSSDots() { document.querySelectorAll('.ss-dot').forEach(function(
 function closeSS() { document.getElementById('ssOverlay').classList.remove('open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeSS(); } });
 </script>
+<!-- FOUNDATION VIEW — interactive AAC demo dedicated page -->
+<div id="foundationView" role="region" aria-label="The Foundation">
+
+  <!-- Back bar -->
+  <div class="foundation-back-bar">
+    <button class="impact-back-btn" onclick="hideFoundation()">← Back to Home</button>
+    <div class="impact-back-brand"><span class="wm-j">j</span><span class="wm-vox">Vox</span></div>
+    <a href="./app/" class="btn-primary">↗ Launch App</a>
+  </div>
+
+  <!-- Hero -->
+  <div class="foundation-hero">
+    <div class="foundation-hero-inner">
+      <div class="section-label" style="text-align:center;margin-bottom:16px;">The Foundation</div>
+      <h1 class="impact-page-title">A familiar space.<br><em>A limitless voice.</em></h1>
+      <p class="impact-page-sub" style="margin-top:16px;">Our priority is to give you a familiar space, then show you what you are truly capable of.</p>
+    </div>
+    <div class="foundation-hero-arc" aria-hidden="true"></div>
+  </div>
+
+  <!-- Body copy -->
+  <div class="foundation-body">
+    <div class="foundation-body-inner">
+      <p class="foundation-body-text">Traditional boards often limit communication to one word at a time. We believe a tool should grow with your thoughts, not restrict your voice. jVox starts with the foundational grid you already know for day-one comfort — but it's designed to scale alongside every breakthrough. For parents, teachers, and speech pathologists, it's a system built to make a real difference.</p>
+
+      <!-- Demo widget -->
+      <div class="foundation-demo-wrap" style="max-width:900px;margin:0 auto;padding:0;">
+        <div class="demo-frame">
+          <div class="demo-bar">
+            <div class="demo-dots"><span></span><span></span><span></span></div>
+            <div class="demo-title-bar">jVox AAC — Interactive Demo</div>
+          </div>
+          <div class="aac-demo">
+            <div class="aac-header">
+              <div class="aac-logo-demo">
+                <div class="aac-logo-icon"><img src="assets/jvox_icon.png" alt="jVox"></div>
+                <div class="aac-logo-text">jVox<span>AAC</span></div>
+              </div>
+              <div class="aac-status"><div class="status-dot"></div><div class="status-label">AI Ready</div></div>
+            </div>
+            <div class="sentence-bar" id="sentenceBar" role="region" aria-label="Sentence builder" aria-live="polite">
+              <span class="sentence-placeholder" id="placeholder">Tap words to build your sentence…</span>
+              <button class="speak-btn" id="speakBtn" onclick="speakSentence()" style="display:none" aria-label="Speak sentence">🔊 Speak</button>
+            </div>
+            <div class="category-tabs" role="tablist" aria-label="Word categories">
+              <button class="cat-tab active" role="tab" aria-selected="true" onclick="switchCat(this,'feelings')">😊 Feelings</button>
+              <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'needs')">💧 Needs</button>
+              <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'social')">👋 Social</button>
+              <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'activities')">🎮 Activities</button>
+              <button class="cat-tab" role="tab" aria-selected="false" onclick="switchCat(this,'food')">🍎 Food</button>
+            </div>
+            <div class="phrase-grid" id="phraseGrid" role="group" aria-label="Phrase buttons"></div>
+            <div class="speech-bubble" id="speechBubble" role="status" aria-live="polite">
+              <span aria-hidden="true">🔊</span>
+              <span class="speech-text" id="speechText"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center;margin-top:52px;padding-bottom:24px;">
+        <p style="font-size:0.9rem;color:var(--text2);margin-bottom:20px;line-height:1.75;">This is the core, always free. Ready to see what the AI layer adds on top?</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
+          <button class="btn-ghost" onclick="hideFoundation()">← Back to Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #foundationView -->
+
 <!-- IMPACT VIEW — "The Scale of the Problem" in-page panel -->
 <div id="impactView" role="region" aria-label="Global Impact">
 
@@ -1912,7 +2092,7 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
   <div class="impact-back-bar">
     <button class="impact-back-btn" onclick="hideImpact()">← Back to Home</button>
     <div class="impact-back-brand"><span class="wm-j">j</span><span class="wm-vox">Vox</span></div>
-    <a href="./app/" class="btn-primary" style="padding:9px 20px;font-size:0.82rem;min-height:auto;">↗ Launch App</a>
+    <a href="./app/" class="btn-primary">↗ Launch App</a>
   </div>
 
   <!-- Hero -->
@@ -2073,8 +2253,10 @@ document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { clo
   <div class="impact-cta-strip">
     <h2 class="impact-cta-strip-title">Be part of<br>the <em>solution</em></h2>
     <p class="impact-cta-strip-sub">jVox is free at its core and available on every device — because closing the 90% access gap starts with removing every barrier we can control.</p>
-    <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
-    <button class="btn-ghost impact-cta-strip" onclick="hideImpact()" style="margin-left:12px;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--text2);border-radius:var(--r-sm);padding:14px 32px;font-size:0.9rem;font-family:var(--font-body);">← Back to Home</button>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="./app/" class="btn-primary">↗ Open jVox Free</a>
+      <button class="btn-ghost" onclick="hideImpact()">← Back to Home</button>
+    </div>
   </div>
 
 </div><!-- end #impactView -->
