@@ -1,0 +1,18 @@
+{
+  "name": "jvox-analytics",
+  "main": "src/index.js",
+  "compatibility_date": "2024-12-19",
+  "env": {
+    "production": {
+      "vars": {
+        "STATS_SECRET": "lazlab2025secure"
+      }
+    }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "JVOX_ANALYTICS",
+      "id": "cf2f1f617b2646598cdcf277f320b179"
+    }
+  ]
+}
