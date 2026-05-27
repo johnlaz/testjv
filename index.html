@@ -1189,7 +1189,7 @@ nav {
 #story { padding: 100px 0; background: var(--bg2); }
 .story-grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 64px; align-items: center; width: 100%;
+  gap: 64px; align-items: start; width: 100%;
 }
 .section-label {
   font-family: var(--font-mono); font-size: 0.75rem;
@@ -1205,38 +1205,74 @@ nav {
 .section-title em { font-style: italic; color: var(--terra); }
 .section-body { color: var(--text2); font-size: 1rem; line-height: 1.85; font-weight: 500; }
 .section-body p + p { margin-top: 18px; }
+
+/* Right column: photo stacked above quote */
 .story-visual {
-  position: relative; height: 420px;
-  background: linear-gradient(135deg, var(--terra-light), var(--blush-light));
-  border-radius: var(--r-lg); border: 1px solid var(--border);
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 40px rgba(44,33,24,0.08);
+  display: flex; flex-direction: column; gap: 0;
 }
-.story-icon-float {
-  position: absolute; top: -20px; right: -20px;
-  width: 130px; height: 130px; border-radius: 40px; overflow: hidden;
-  opacity: 0.12; transform: rotate(12deg); pointer-events: none;
+.story-photo-wrap {
+  position: relative;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  overflow: hidden;
+  height: 300px;
+  box-shadow: 0 4px 24px rgba(44,33,24,0.10);
 }
-.story-icon-float img { width: 100%; height: 100%; object-fit: cover; }
-.story-quote { position: relative; z-index: 2; text-align: center; padding: 44px 36px; }
+.story-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  filter: saturate(0.88) brightness(1.01);
+  display: block;
+  transition: transform 0.6s ease;
+}
+.story-photo-wrap::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--story-quote-bg, rgba(247,244,240,0.96)));
+  pointer-events: none;
+}
+.story-visual:hover .story-photo { transform: scale(1.03); }
+.story-icon-float { display: none; }
+
+/* Quote sits below the photo, flush-connected */
+.story-quote {
+  background: rgba(247,244,240,0.96);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+  padding: 28px 32px 32px;
+  text-align: left;
+}
 .story-quote .q-mark {
-  font-family: var(--font-display); font-size: 7rem; color: var(--terra);
-  opacity: 0.18; line-height: 0.7; margin-bottom: 18px;
+  font-family: var(--font-display); font-size: 2.8rem; color: var(--terra);
+  opacity: 0.4; line-height: 0.6; margin-bottom: 14px; display: block;
 }
 .story-quote p {
-  font-family: var(--font-display); font-size: 1.55rem;
+  font-family: var(--font-display); font-size: 1.12rem;
   font-style: italic; font-weight: 400; color: var(--text);
-  line-height: 1.5; margin-bottom: 22px;
+  line-height: 1.65; margin-bottom: 16px;
 }
 .story-quote cite {
-  font-size: 0.75rem; letter-spacing: 0.18em; color: var(--text3);
+  font-size: 0.72rem; letter-spacing: 0.18em; color: var(--text3);
   text-transform: uppercase; font-style: normal;
   font-family: var(--font-mono);
 }
+[data-theme="dark"] .story-photo { filter: saturate(0.72) brightness(0.82); }
+[data-theme="dark"] .story-photo-wrap::after {
+  background: linear-gradient(to bottom, transparent, rgba(20,24,32,0.98));
+}
+[data-theme="dark"] .story-quote {
+  background: rgba(20,24,32,0.98);
+  border-color: rgba(100,140,200,0.12);
+}
+[data-theme="dark"] .story-quote p { color: var(--text); }
 @media (max-width: 768px) {
   .story-grid { grid-template-columns: 1fr; gap: 32px; }
   #story { padding: 70px 0; }
-  .story-visual { height: auto; }
+  .story-photo-wrap { height: 240px; }
+  .story-quote { padding: 22px 24px 26px; }
+  .story-quote p { font-size: 1rem; }
 }
 
 /* ═══════════════════════════════════════
@@ -1409,7 +1445,7 @@ nav {
 }
 .tier-free-tag { background: var(--sage-light); color: var(--sage); border: 1px solid rgba(74,124,107,0.25); }
 .tier-aura-tag { background: var(--terra-light); color: var(--terra); border: 1px solid rgba(176,90,58,0.22); }
-.card-preview-hint { margin-top: 12px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--terra); font-weight: 500; opacity: 0; transition: opacity 0.2s; }
+.card-preview-hint { margin-top: 12px; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.1em; color: var(--terra); font-weight: 500; opacity: 0.55; transition: opacity 0.2s; }
 .feature-card:hover .card-preview-hint, .feature-card:focus .card-preview-hint { opacity: 1; }
 @media (max-width: 768px) {
   .features-grid { grid-template-columns: 1fr; }
@@ -1464,6 +1500,101 @@ nav {
 [data-theme="dark"] .tier-standard .tier-check { background: var(--sage-mid); border-color: rgba(201,169,110,0.2); }
 [data-theme="dark"] .tier-aura .tier-check    { background: var(--terra-mid); border-color: rgba(91,155,213,0.2); }
 @media (max-width: 768px) { .pricing-grid { grid-template-columns: 1fr; } #pricing { padding: 70px 0 40px; } .tier-card { padding: 30px 24px; } }
+
+/* ═══════════════════════════════════════
+   PHOTO BREAK (between Demo & Features)
+═══════════════════════════════════════ */
+.photo-break {
+  width: 100%;
+  overflow: hidden; position: relative;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.photo-break-panel {
+  position: relative; height: 480px; overflow: hidden;
+}
+/* Top/bottom section fades on the whole strip */
+.photo-break::before,
+.photo-break::after {
+  content: ''; position: absolute; left: 0; right: 0; z-index: 3; pointer-events: none;
+}
+.photo-break::before { top: 0; height: 40px; background: linear-gradient(to bottom, var(--bg2), transparent); }
+.photo-break::after  { bottom: 0; height: 80px; background: linear-gradient(to top, var(--bg), transparent); }
+/* Outer left/right edge fades */
+.photo-break-panel:first-child::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 80px; z-index: 2;
+  background: linear-gradient(to right, var(--bg2), transparent); pointer-events: none;
+}
+.photo-break-panel:last-child::after {
+  content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 80px; z-index: 2;
+  background: linear-gradient(to left, var(--bg), transparent); pointer-events: none;
+}
+/* Divider fade between the two panels */
+.photo-break-panel:first-child::after {
+  content: ''; position: absolute; top: 0; bottom: 0; right: 0; width: 60px; z-index: 2;
+  background: linear-gradient(to left, var(--bg2), transparent); pointer-events: none;
+}
+.photo-break-panel:last-child::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 60px; z-index: 2;
+  background: linear-gradient(to right, var(--bg2), transparent); pointer-events: none;
+}
+.photo-break-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) brightness(1.01);
+  display: block;
+}
+.photo-break-img.classroom { object-position: center 35%; }
+.photo-break-img.park      { object-position: center 30%; }
+.photo-break-caption {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--text3);
+  white-space: nowrap; pointer-events: none; z-index: 4;
+}
+[data-theme="dark"] .photo-break-img { filter: saturate(0.7) brightness(0.78); }
+@media (max-width: 768px) {
+  .photo-break { grid-template-columns: 1fr; }
+  .photo-break-panel { height: 280px; }
+  .photo-break-panel:first-child::after,
+  .photo-break-panel:last-child::before { display: none; }
+  .photo-break-panel:first-child::after {
+    top: auto; left: 0; right: 0; bottom: 0; width: auto; height: 50px;
+    background: linear-gradient(to top, var(--bg2), transparent);
+    display: block;
+  }
+  .photo-break-caption { display: none; }
+}
+
+/* ═══════════════════════════════════════
+   MISSION PHOTO
+═══════════════════════════════════════ */
+.mission-photo-wrap {
+  width: 100%; border-radius: var(--r-lg);
+  overflow: hidden; aspect-ratio: 9/14;
+  box-shadow: 0 8px 40px rgba(44,33,24,0.12);
+  border: 1px solid var(--border);
+}
+.mission-photo {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: saturate(0.85) brightness(1.0);
+  transition: transform 0.6s ease;
+}
+.mission-photo-wrap:hover .mission-photo { transform: scale(1.03); }
+[data-theme="dark"] .mission-photo { filter: saturate(0.7) brightness(0.8); }
+@media (max-width: 768px) {
+  .mission-photo-wrap { aspect-ratio: 16/9; }
+}
+
+/* ── GLOBAL LANDING PHOTO DARK MODE ── */
+[data-theme="dark"] .story-photo,
+[data-theme="dark"] .photo-break-img,
+[data-theme="dark"] .mission-photo {
+  filter: saturate(0.72) brightness(0.80);
+}
 
 /* ═══════════════════════════════════════
    MISSION
@@ -1769,6 +1900,7 @@ footer {
     <li><a href="#" onclick="showFoundation();closeMobileMenu();return false;">Foundation</a></li>
     <li><a href="#" onclick="showImpact();closeMobileMenu();return false;">Global Impact</a></li>
     <li><a href="#" onclick="openContactModal();closeMobileMenu();return false;">✉ Contact Us</a></li>
+    <li id="menuApkItem" style="display:none;"><a href="assets/jvox.apk" download="jvox.apk" onclick="track('install_clicks');closeMobileMenu();">⬇ Download Android APK</a></li>
   </ul>
   <a href="https://app.jvox.org/" class="mobile-menu-cta" onclick="track('launch_clicks')">↗ Open jVox Free</a>
 </div>
@@ -1887,10 +2019,12 @@ footer {
         <p>jVox bridges the gap between simple requests and genuine human expression — using AI to provide an adaptive, intelligent voice that grows alongside the person using it.</p>
       </div>
     </div>
-    <div class="story-visual reveal" aria-hidden="true">
-      <div class="story-icon-float"><img src="assets/jvox_icon.png" alt=""></div>
+    <div class="story-visual reveal">
+      <div class="story-photo-wrap">
+        <img src="assets/child_caretaker.png" alt="A parent and child using jVox AAC together at home" class="story-photo">
+      </div>
       <div class="story-quote">
-        <div class="q-mark">"</div>
+        <span class="q-mark">"</span>
         <p>This is a legacy project. Built for my son, but shared with the world — because every person deserves to be heard.</p>
         <cite>— The Builder of jVox</cite>
       </div>
@@ -1915,6 +2049,16 @@ footer {
     </div>
   </div>
 </section>
+
+<!-- PHOTO BREAK: Classroom + Park -->
+<div class="photo-break reveal" aria-hidden="true">
+  <div class="photo-break-panel">
+    <img src="assets/child_classroom.png" alt="" class="photo-break-img classroom">
+  </div>
+  <div class="photo-break-panel">
+    <img src="assets/child_park.png" alt="" class="photo-break-img park">
+  </div>
+</div>
 
 <!-- FEATURES -->
 <section id="features" aria-labelledby="features-heading">
@@ -2006,7 +2150,7 @@ footer {
       <div class="tier-badge">Coming Soon</div>
       <div class="tier-name">✦ Aura Access</div>
       <div class="tier-price" style="font-size:1.6rem;line-height:1.25;">Free During<br>Early Access</div>
-      <div class="tier-price-note">AI features unlocked at no cost while we're in beta — no API key, no setup.</div>
+      <div class="tier-price-note">Free API key required — all AI features open at no cost until formal launch.</div>
       <div class="tier-desc">Aura Mode makes jVox truly intelligent. Try every AI feature free right now — we're in active development and your feedback shapes what we build next.</div>
       <ul class="tier-features" aria-label="Aura plan features">
         <li><span class="tier-check" aria-hidden="true">✓</span><span>Everything in Core, plus…</span></li>
@@ -2017,12 +2161,12 @@ footer {
         <li><span class="tier-check" aria-hidden="true">✓</span><span><span class="tier-feature-label">Magic Wand AI</span> <span class="tier-feature-desc">— sentence refinement in one tap</span></span></li>
         <li><span class="tier-check" aria-hidden="true">✓</span><span><span class="tier-feature-label">Situation Cards</span> <span class="tier-feature-desc">— custom phrase packs for any context</span></span></li>
         <li><span class="tier-check" aria-hidden="true">✓</span><span><span class="tier-feature-label">Regulate &amp; Zen Mode</span> <span class="tier-feature-desc">— calm first, communicate second</span></span></li>
-        <li><span class="tier-check" aria-hidden="true">✓</span><span>AI usage included — no API key needed</span></li>
+        <li><span class="tier-check" aria-hidden="true">✓</span><span>Free API key required — AI usage open until formal launch</span></li>
       </ul>
     </div>
   </div>
   <p class="reveal" style="text-align:center;margin-top:28px;color:var(--text3);font-size:0.82rem;letter-spacing:0.05em;font-family:'DM Mono',monospace;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.7;font-weight:400;">
-    Until Aura Access formally launches, all AI features are available completely free — no API key required. Just open the app and explore.
+    A free Groq API key is required to access AI features — it takes under two minutes to obtain and costs nothing. All AI features remain open and free until formal launch.
   </p>
 </div>
 </section>
@@ -2030,9 +2174,9 @@ footer {
 <!-- MISSION -->
 <section id="mission" aria-labelledby="mission-heading">
   <div class="mission-inner">
-    <div class="mission-icon-display reveal" aria-hidden="true">
-      <div class="mission-icon-wrap">
-        <img src="assets/jvox_icon.png" alt="">
+    <div class="mission-icon-display reveal">
+      <div class="mission-photo-wrap">
+        <img src="assets/medical.png" alt="An adult AAC user communicating via jVox at home" class="mission-photo">
       </div>
       <div>
         <div class="mission-stat-num">Free.</div>
@@ -2067,7 +2211,7 @@ footer {
     <p class="cta-sub">jVox installs on any device in seconds and is completely free to start — no sign-up, no credit card, no barriers.</p>
     <div class="hero-actions" style="justify-content:center">
       <a href="https://app.jvox.org/" class="btn-primary" onclick="track('launch_clicks')">↗ Open jVox Free</a>
-      <a href="assets/jvox.apk" download="jvox.apk" class="btn-ghost" id="installBtn" onclick="track('install_clicks')">⬇ Install as App</a>
+      <a href="assets/jvox.apk" download="jvox.apk" class="btn-ghost" id="installBtn" onclick="track('install_clicks')" style="display:none;">⬇ Install Android APK</a>
     </div>
   </div>
 </section>
@@ -2087,7 +2231,7 @@ footer {
   <div class="ss-modal">
     <button class="ss-close" id="ssCloseBtn" onclick="closeSS()" aria-label="Close preview">&#x2715;</button>
     <div class="ss-phone">
-      <img id="ssImg" src="" alt="" loading="lazy">
+      <img id="ssImg" src="" alt="">
       <div class="ss-nav" id="ssNav" style="display:none">
         <button class="ss-nav-btn" onclick="ssSlide(-1)" aria-label="Previous screenshot">&#8592;</button>
         <div class="ss-nav-dots">
@@ -2107,6 +2251,17 @@ footer {
 </div>
 
 <script>
+/* ── ANDROID APK INSTALL VISIBILITY ── */
+(function(){
+  const isAndroid = /android/i.test(navigator.userAgent);
+  if (isAndroid) {
+    const btn = document.getElementById('installBtn');
+    const menuItem = document.getElementById('menuApkItem');
+    if (btn) btn.style.display = '';
+    if (menuItem) menuItem.style.display = '';
+  }
+})();
+
 /* ── FOUNDATION VIEW ── */
 function showFoundation() {
   closeMobileMenu();
@@ -2443,7 +2598,7 @@ if (!PLAY_STORE_URL && !APP_STORE_URL) {
       installBtn.addEventListener("click", e => {
         e.preventDefault(); track("install_clicks");
         installBtn.textContent = "⏳ APK coming soon"; installBtn.style.opacity = "0.6";
-        setTimeout(() => { installBtn.textContent = "⬇ Install as App"; installBtn.style.opacity = ""; }, 2400);
+        setTimeout(() => { installBtn.textContent = "⬇ Install Android APK"; installBtn.style.opacity = ""; }, 2400);
       });
     }
   }).catch(() => {});
@@ -2516,7 +2671,10 @@ function openContactModal() {
   document.getElementById('cf-error').style.display = 'none';
   document.getElementById('cf-submit-btn').disabled = false;
   document.getElementById('cf-submit-btn').textContent = 'Send Message →';
+  cfSelectedType = '';
+  document.querySelectorAll('.cf-chip').forEach(c => c.classList.remove('selected'));
   track('contact_open');
+  bindChips();
   setTimeout(() => document.getElementById('cf-name').focus(), 300);
 }
 
@@ -2526,14 +2684,35 @@ function closeContactModal() {
   document.body.style.overflow = '';
 }
 
-// Chip selection
-document.querySelectorAll('.cf-chip').forEach(chip => {
-  chip.addEventListener('click', () => {
-    document.querySelectorAll('.cf-chip').forEach(c => c.classList.remove('selected'));
-    chip.classList.add('selected');
-    cfSelectedType = chip.dataset.val;
+// Chip selection — bound lazily on first open so the DOM exists
+let cfChipsBound = false;
+function bindChips() {
+  if (cfChipsBound) return;
+  cfChipsBound = true;
+  document.querySelectorAll('.cf-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.cf-chip').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+      cfSelectedType = chip.dataset.val;
+      // Auto-populate a placeholder in the message textarea based on chip
+      const ta = document.getElementById('cf-message');
+      const prompts = {
+        'General Feedback': 'I wanted to share some feedback about jVox…',
+        'Feature Request': 'It would be really helpful if jVox could…',
+        'Partnership': 'I’d love to explore a partnership opportunity…',
+        'Press / Media': 'I’m reaching out regarding a press/media inquiry…',
+        'Support': 'I’m having an issue with…',
+        'Other': ''
+      };
+      if (!ta.value || Object.values(prompts).includes(ta.value)) {
+        ta.value = prompts[chip.dataset.val] || '';
+        ta.focus();
+        // Place cursor at end
+        ta.setSelectionRange(ta.value.length, ta.value.length);
+      }
+    });
   });
-});
+}
 
 // Close on backdrop click
 document.getElementById('contactOverlay').addEventListener('click', function(e) {
