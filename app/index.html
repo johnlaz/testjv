@@ -11,7 +11,7 @@
 <meta name="description" content="jVox AAC — Augmentative and Alternative Communication App">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>jVox AAC v5</title>
+<title>jVox AAC v4</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -1056,7 +1056,7 @@ body.theme-story #beta-banner{
 .voice-testing-note .vtn-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 
 /* =========================================================================
-   iOS-STYLE VISUAL OVERHAUL — v5 redesign
+   iOS-STYLE VISUAL OVERHAUL — v4 redesign
    Designed for accessibility: high contrast, big touch targets (≥56px),
    clear hierarchy, calm motion. Keeps all existing JS hooks/IDs intact.
    ========================================================================= */
@@ -2207,7 +2207,7 @@ body.kiosk-active .hdr-icon {
 <div id="app">
   <header id="hdr">
     <div class="hdr-icon" onclick="attemptKioskUnlock()" style="cursor:pointer;"><img id="hdr-img" src="" alt=""></div>
-    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v5</span></div>
+    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v4</span></div>
     <div style="flex:1;min-width:4px"></div>
     <div id="mode-toggle">
       <button class="mt-btn" id="mt-std" onclick="setMode('standard')">Standard</button>
@@ -2667,7 +2667,7 @@ body.kiosk-active .hdr-icon {
       <div class="about-logo-icon"><img id="about-icon" src="" alt="jVox"></div>
       <div class="about-logo-name" style="display:inline-flex;align-items:baseline;gap:0;"><span style="color:#b85c38;font-style:italic;font-weight:300;letter-spacing:-0.02em;">j</span><span style="color:#1e4d96;font-weight:600;letter-spacing:0.08em;">Vox</span></div>
       <div class="about-logo-sub">Augmentative & Alternative Communication</div>
-      <div class="about-version-badge">Version 5</div>
+      <div class="about-version-badge">Version 4</div>
     </div>
 
     <div class="about-tagline">"Every person deserves a voice."</div>
@@ -2704,7 +2704,7 @@ body.kiosk-active .hdr-icon {
 
     <div class="about-footer">
       <div class="about-footer-line">Made with ❤️ for families who communicate differently.</div>
-      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">jVox AAC · v5 · © LAZLAB Creations 2025</div>
+      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">jVox AAC · v4 · © LAZLAB Creations 2025</div>
     </div>
 
     <button class="d-cancel" onclick="closeOv('ov-about')" style="margin-top:16px">Close</button>
@@ -2826,7 +2826,7 @@ body.kiosk-active .hdr-icon {
 
 <script>
 /* 
- * jVox AAC v5
+ * jVox AAC v4
  * Copyright (c) 2025. All rights reserved.
  * Unauthorized copying, redistribution, or modification of this software,
  * via any medium, is strictly prohibited. Proprietary and confidential.
@@ -4712,13 +4712,6 @@ let savedMode='standard';try{savedMode=localStorage.getItem('jvox-mode')||'stand
 requestAnimationFrame(()=>{
 setMode(savedMode);  
 });
-// Shortcut dispatch — handle ?action= from PWA home screen shortcuts
-(function(){
-  try{
-    const action=new URLSearchParams(window.location.search).get('action');
-    if(action==='regulate'){setTimeout(()=>showView('reg'),400);}
-  }catch(e){}
-})();
 document.getElementById('vb-reg')?.addEventListener('click',()=>setTimeout(initAudioMatrix,100));
 if(window.speechSynthesis){
 window.speechSynthesis.onvoiceschanged=populateVoices;
