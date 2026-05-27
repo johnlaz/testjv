@@ -11,16 +11,17 @@
 <meta name="description" content="jVox AAC — Augmentative and Alternative Communication App">
 <link rel="manifest" href="./manifest.json">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<title>jVox AAC v4</title>
+<title>jVox AAC v5</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden}
+html{height:100dvh;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{height:100dvh;overflow:hidden;overscroll-behavior-y:none}
 
 img{max-width:100%;height:auto;display:block}
 
 #app{padding-bottom:env(safe-area-inset-bottom,0px)}
-button{cursor:pointer;border:none;background:none;font-family:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 
 body.theme-laz{
   --bg:#0d0d0f;--bg2:#111114;--bg3:#17171c;--bg4:#1e1e25;
@@ -227,7 +228,7 @@ body.theme-story #edit-banner{background:#ff8c00}
 .eb-txt{font-size:11px;font-weight:700;color:#0d0d0f;letter-spacing:.04em}
 .eb-done{padding:4px 10px;border-radius:6px;background:rgba(0,0,0,.2);color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer}
 
-#sw{flex-shrink:0;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border)}
+#sw{flex-shrink:0;padding:7px 12px;background:var(--bg2);border-bottom:1px solid var(--border);min-height:120px}
 #sb{min-height:46px;border-radius:var(--r);border:1.5px solid var(--sborder);background:var(--sbg);padding:6px 10px;display:flex;align-items:center;flex-wrap:wrap;gap:4px;position:relative;transition:border-color .2s,box-shadow .2s}
 #sb.speaking{border-color:var(--teal);box-shadow:0 0 14px var(--tglow)}
 #sb.refining{border-color:var(--gold);box-shadow:0 0 14px var(--aglow)}
@@ -236,14 +237,14 @@ body.theme-story #edit-banner{background:#ff8c00}
 @keyframes chipIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 .chip:hover{border-color:rgba(220,80,80,.45);color:var(--red)}
 .sa{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.ab{padding:7px 12px;border-radius:9px;font-family:var(--f);font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px;transition:transform .12s;letter-spacing:.01em}
+.ab{padding:7px 12px;border-radius:9px;font-family:var(--f);font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px;transition:transform .12s;letter-spacing:.01em;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 .ab:active{transform:scale(.92)}
 .b-spk{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;flex:1;justify-content:center;box-shadow:0 2px 10px var(--tglow)}
 .b-wand{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#fff;flex:1;justify-content:center;box-shadow:0 2px 10px var(--aglow)}
 .theme-laz .b-wand{color:#0d0d0f}
 .b-back{background:var(--bg4);color:var(--txt2);border:1px solid var(--border)}
 .b-clr{background:rgba(220,80,80,.12);color:var(--red);border:1px solid rgba(220,80,80,.28)}
-.b-wand.busy{opacity:.7;cursor:wait}
+.b-wand.busy{opacity:.7;cursor:wait;pointer-events:none}
 
 #vbar{flex-shrink:0;display:flex;background:var(--bg2);border-bottom:1px solid var(--border)}
 .vb{flex:1;padding:8px 4px;font-family:var(--f);font-size:11px;font-weight:600;color:var(--txt3);border-bottom:2px solid transparent;transition:color .15s,border-color .15s;text-align:center}
@@ -258,12 +259,12 @@ body.theme-story #edit-banner{background:#ff8c00}
 .cbt{aspect-ratio:1.35/1;border-radius:var(--rc);border:1.5px solid var(--catborder);background:var(--catbg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
   padding:8px;transition:transform .12s,box-shadow .12s,border-color .12s;
-  box-shadow:0 2px 10px rgba(0,0,0,.16);position:relative;cursor:pointer;user-select:none}
+  box-shadow:0 2px 10px rgba(0,0,0,.16);position:relative;cursor:pointer;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .theme-story .cbt{box-shadow:0 3px 12px rgba(255,140,0,.1)}
 .cbt:hover{border-color:var(--accent);box-shadow:0 4px 18px var(--aglow);transform:translateY(-1px)}
 .cbt:active,.cbt.tapped{transform:scale(.92)}
 .ce{font-size:clamp(26px,5.5vw,40px);line-height:1}
-.cl{font-size:clamp(10px,2.2vw,14px);font-weight:700;color:var(--txt);text-align:center;line-height:1.1}
+.cl{font-size:clamp(10px,2.2vw,14px);font-weight:700;color:var(--txt);text-align:center;line-height:1.1;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;word-break:break-word}
 .theme-laz .cl{text-transform:uppercase;letter-spacing:.06em;font-size:clamp(8px,1.8vw,11px);color:var(--txt2)}
 .cbt.c-me{border-color:var(--teal);background:rgba(0,180,160,.07)}
 .cbt.c-quick{border-color:var(--purple);background:rgba(124,92,191,.07)}
@@ -292,14 +293,14 @@ body.edit-mode .cat-add-btn{display:flex}
   transition:transform .1s,border-color .1s,background .1s,box-shadow .1s;
   box-shadow:0 2px 8px rgba(0,0,0,.12);
   display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;
-  min-height:80px;justify-content:center;cursor:pointer;user-select:none}
+  min-height:80px;justify-content:center;cursor:pointer;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .theme-story .pbt{box-shadow:0 2px 10px rgba(255,140,0,.08)}
 .pbt:hover{border-color:var(--accent);background:var(--phhov);box-shadow:0 4px 14px var(--aglow)}
 .pbt:active,.pbt.tapped{transform:scale(.92)}
 .pbt.spk{border-color:var(--teal);background:rgba(0,180,160,.06)}
 .pbt.spk:hover{border-color:var(--teal2);box-shadow:0 4px 14px var(--tglow)}
 .pi{font-size:clamp(22px,5vw,30px);line-height:1;display:block}
-.pt{display:block;font-size:clamp(11px,2.4vw,14px)}
+.pt{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;word-break:break-word;font-size:clamp(11px,2.4vw,14px)}
 .ph-edit-btn{display:none;position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:5px;background:rgba(0,0,0,.5);color:#fff;font-size:11px;align-items:center;justify-content:center;z-index:2;border:none;cursor:pointer}
 body.edit-mode .ph-edit-btn{display:flex}
 .ph-del-btn{display:none;position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:5px;background:rgba(220,50,50,.75);color:#fff;font-size:11px;align-items:center;justify-content:center;z-index:2;border:none;cursor:pointer}
@@ -315,7 +316,7 @@ body.edit-mode .ph-add-btn{display:flex}
 .sg{display:grid;gap:7px;grid-template-columns:repeat(4,1fr);margin-bottom:12px}
 @media(min-width:480px){.sg{grid-template-columns:repeat(5,1fr)}}
 @media(min-width:700px){.sg{grid-template-columns:repeat(7,1fr)}}
-.sbt{aspect-ratio:1;border-radius:var(--r);border:1.5px solid var(--border);background:var(--catbg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px;transition:transform .1s,box-shadow .1s,border-color .1s;box-shadow:0 2px 8px rgba(0,0,0,.14);cursor:pointer;user-select:none}
+.sbt{aspect-ratio:1;border-radius:var(--r);border:1.5px solid var(--border);background:var(--catbg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:5px;transition:transform .1s,box-shadow .1s,border-color .1s;box-shadow:0 2px 8px rgba(0,0,0,.14);cursor:pointer;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .sbt.fr{border-color:rgba(0,180,160,.28);background:rgba(0,180,160,.04)}
 .sbt:hover{border-color:var(--accent);box-shadow:0 3px 12px var(--aglow)}
 .sbt:active{transform:scale(.91)}
@@ -1055,7 +1056,7 @@ body.theme-story #beta-banner{
 .voice-testing-note .vtn-icon{font-size:14px;flex-shrink:0;margin-top:1px}
 
 /* =========================================================================
-   iOS-STYLE VISUAL OVERHAUL — v4 redesign
+   iOS-STYLE VISUAL OVERHAUL — v5 redesign
    Designed for accessibility: high contrast, big touch targets (≥56px),
    clear hierarchy, calm motion. Keeps all existing JS hooks/IDs intact.
    ========================================================================= */
@@ -1249,6 +1250,8 @@ body.theme-story #edit-banner{background:linear-gradient(180deg,#ffb340,#ff9500)
   padding:12px 14px;
   background:var(--bg);
   border-bottom:.5px solid var(--sep);
+  min-height:120px;
+  flex-shrink:0;
 }
 #sb{
   min-height:64px;
@@ -1875,7 +1878,7 @@ body.theme-story .pin-item .pi-btn{background:#fff;color:#3c3c43}
 .pin-section-title:first-child{padding-top:4px}
 
 /* ---------- Compact view (settings toggle) ---------- */
-body.compact #sw{padding:6px 10px}
+body.compact #sw{padding:6px 10px;min-height:90px}
 body.compact #sb{min-height:46px;padding:8px 12px;font-size:14px;border-radius:11px}
 body.compact #sbph{font-size:14px}
 body.compact .sa{margin-top:6px;gap:6px}
@@ -2204,7 +2207,7 @@ body.kiosk-active .hdr-icon {
 <div id="app">
   <header id="hdr">
     <div class="hdr-icon" onclick="attemptKioskUnlock()" style="cursor:pointer;"><img id="hdr-img" src="" alt=""></div>
-    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v4</span></div>
+    <div id="hdr-logo" style="display:inline-flex;align-items:baseline;gap:0;font-weight:600;"><span style="color:#b85c38;font-style:italic;font-weight:500;letter-spacing:-0.02em;font-size:1.2em;text-shadow:0 1px 2px rgba(184,92,56,0.4);">j</span><span style="color:#1e4d96;font-weight:800;letter-spacing:0.04em;font-size:1.25em;text-shadow:0 1px 2px rgba(30,77,150,0.4);">Vox</span><span style="color:var(--txt);font-size:0.65em;letter-spacing:0.15em;margin-left:4px;font-family:var(--fm);text-transform:uppercase;font-weight:600;">AAC</span> <span style="font-size:9px;opacity:.6;vertical-align:middle;font-family:var(--fm)">v5</span></div>
     <div style="flex:1;min-width:4px"></div>
     <div id="mode-toggle">
       <button class="mt-btn" id="mt-std" onclick="setMode('standard')">Standard</button>
@@ -2664,7 +2667,7 @@ body.kiosk-active .hdr-icon {
       <div class="about-logo-icon"><img id="about-icon" src="" alt="jVox"></div>
       <div class="about-logo-name" style="display:inline-flex;align-items:baseline;gap:0;"><span style="color:#b85c38;font-style:italic;font-weight:300;letter-spacing:-0.02em;">j</span><span style="color:#1e4d96;font-weight:600;letter-spacing:0.08em;">Vox</span></div>
       <div class="about-logo-sub">Augmentative & Alternative Communication</div>
-      <div class="about-version-badge">Version 4</div>
+      <div class="about-version-badge">Version 5</div>
     </div>
 
     <div class="about-tagline">"Every person deserves a voice."</div>
@@ -2701,7 +2704,7 @@ body.kiosk-active .hdr-icon {
 
     <div class="about-footer">
       <div class="about-footer-line">Made with ❤️ for families who communicate differently.</div>
-      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">jVox AAC · v4 · © LAZLAB Creations 2025</div>
+      <div class="about-footer-line" style="margin-top:4px;opacity:.4;font-size:10px">jVox AAC · v5 · © LAZLAB Creations 2025</div>
     </div>
 
     <button class="d-cancel" onclick="closeOv('ov-about')" style="margin-top:16px">Close</button>
@@ -2823,7 +2826,7 @@ body.kiosk-active .hdr-icon {
 
 <script>
 /* 
- * jVox AAC v4
+ * jVox AAC v5
  * Copyright (c) 2025. All rights reserved.
  * Unauthorized copying, redistribution, or modification of this software,
  * via any medium, is strictly prohibited. Proprietary and confidential.
@@ -3707,7 +3710,7 @@ function getPreferredVoice(){
 if(!window.speechSynthesis) return null;
 const voices=window.speechSynthesis.getVoices();
 if(!voices.length) return null;
-const saved=localStorage.getItem('jvox-voice')||'';
+const saved=(()=>{try{return localStorage.getItem('jvox-voice')||''}catch(e){return''}})();
 if(saved){
 const match=voices.find(v=>v.name===saved);
 if(match) return match;
@@ -3723,7 +3726,7 @@ return;
 }
 const voices=window.speechSynthesis.getVoices();
 if(!voices||!voices.length) return; 
-const saved=localStorage.getItem('jvox-voice')||'';
+const saved=(()=>{try{return localStorage.getItem('jvox-voice')||''}catch(e){return''}})();
 const seen=new Set();
 const unique=voices.filter(v=>{
 if(seen.has(v.name)) return false;
@@ -4697,24 +4700,25 @@ initSplashVideo();
 initBackButtonHandler();
 injectIcons();setAppleIcon();
 loadData();
-const OLD_EXPIRED_KEYS=['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','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','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'];
-let storedKey=localStorage.getItem('jvox-groq');
-if(storedKey&&OLD_EXPIRED_KEYS.includes(storedKey)){
-localStorage.removeItem('jvox-groq');
-storedKey='';
-}
-S.groqKey=storedKey||'';
-S.rate=parseFloat(localStorage.getItem('jvox-rate'))||0.9;
-S.haptic=localStorage.getItem('jvox-haptic')!=='false';
-S.clearAfterSpeak=localStorage.getItem('jvox-clear')==='true'; 
+try{S.groqKey=localStorage.getItem('jvox-groq')||''}catch(e){S.groqKey=''}
+try{S.rate=parseFloat(localStorage.getItem('jvox-rate'))||0.9}catch(e){S.rate=0.9}
+try{S.haptic=localStorage.getItem('jvox-haptic')!=='false'}catch(e){S.haptic=true}
+try{S.clearAfterSpeak=localStorage.getItem('jvox-clear')==='true'}catch(e){S.clearAfterSpeak=false}
 try{const h=localStorage.getItem('jvox-history');if(h)S.history=JSON.parse(h)}catch(e){}
-const saved=localStorage.getItem('jvox-theme');
+let saved='';try{saved=localStorage.getItem('jvox-theme')||''}catch(e){}
 initAboutMeDefaults();
 renderCats();renderSyms();showView('cats');
-const savedMode=localStorage.getItem('jvox-mode')||'standard';
+let savedMode='standard';try{savedMode=localStorage.getItem('jvox-mode')||'standard'}catch(e){}
 requestAnimationFrame(()=>{
 setMode(savedMode);  
 });
+// Shortcut dispatch — handle ?action= from PWA home screen shortcuts
+(function(){
+  try{
+    const action=new URLSearchParams(window.location.search).get('action');
+    if(action==='regulate'){setTimeout(()=>showView('reg'),400);}
+  }catch(e){}
+})();
 document.getElementById('vb-reg')?.addEventListener('click',()=>setTimeout(initAudioMatrix,100));
 if(window.speechSynthesis){
 window.speechSynthesis.onvoiceschanged=populateVoices;
