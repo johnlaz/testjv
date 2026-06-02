@@ -1,5 +1,5 @@
 /**
- * jVox AAC v4 — Service Worker
+ * jVox AAC v5 — Service Worker
  * Cache-first strategy for offline support.
  * Bump CACHE_NAME when deploying new releases to force clients to refresh.
  */
