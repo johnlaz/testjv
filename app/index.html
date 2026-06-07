@@ -4712,6 +4712,18 @@ const url=URL.createObjectURL(rec.blob);
 V2_AUDIO.slots[i]={name:rec.name||'Slot '+(i+1),url,blob:rec.blob};
 }
 }
+// Seed slot 0 with jVox summary if empty and user hasn't explicitly deleted it
+if(!V2_AUDIO.slots[0]&&!localStorage.getItem('jvox-slot0-dismissed')){
+try{
+const r=await fetch('/assets/jvox_summary.mp3');
+if(r.ok){
+const blob=await r.blob();
+const url=URL.createObjectURL(blob);
+V2_AUDIO.slots[0]={name:'About jVox',url,blob};
+await saveAudioSlot(0,blob,'About jVox');
+}
+}catch(e){console.warn('[Audio] seed fetch failed',e);}
+}
 }catch(e){console.warn('[Audio IDB] load',e);}
 }
 function blobToBase64(blob){
@@ -4832,6 +4844,7 @@ refreshSlot(i);toast('✅ '+f.name+' → slot '+(i+1));haptic(50);
 inp.click();
 }
 function clearSlot(i){
+if(i===0)localStorage.setItem('jvox-slot0-dismissed','1');
 V2_AUDIO.slots[i]=null;
 deleteAudioSlot(i);
 refreshSlot(i);toast('Slot '+(i+1)+' cleared');
