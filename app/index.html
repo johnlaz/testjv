@@ -4715,7 +4715,7 @@ V2_AUDIO.slots[i]={name:rec.name||'Slot '+(i+1),url,blob:rec.blob};
 // Seed slot 0 with jVox summary if empty and user hasn't explicitly deleted it
 if(!V2_AUDIO.slots[0]&&!localStorage.getItem('jvox-slot0-dismissed')){
 try{
-const r=await fetch('/assets/jvox_summary.mp3');
+const r=await fetch('./assets/jvox_summary.mp3');
 if(r.ok){
 const blob=await r.blob();
 const url=URL.createObjectURL(blob);
