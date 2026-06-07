@@ -568,28 +568,29 @@ body.theme-story .mt-btn.active{color:#fff}
 
 .aura-sec-body{padding:12px 14px;text-align:center}
 .aura-trigger-btn{
-  width:100%;padding:10px;border-radius:var(--r);
-  border:1.5px dashed var(--border2);background:transparent;
-  font-family:var(--f);font-size:13px;font-weight:600;color:var(--txt2);
+  width:100%;padding:11px 14px;border-radius:var(--r);
+  border:2px solid var(--border2);background:var(--bg4);
+  font-family:var(--f);font-size:13px;font-weight:700;color:var(--txt);
   display:flex;align-items:center;justify-content:center;gap:8px;
   cursor:pointer;transition:all .15s;
+  box-shadow:0 2px 8px rgba(0,0,0,0.28);
 }
-.aura-trigger-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--sbg)}
+.aura-trigger-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--sbg);box-shadow:0 4px 14px var(--aglow)}
 .aura-trigger-btn.scanning{
-  border-color:var(--teal);color:var(--teal);
+  border-color:var(--teal);color:var(--teal);background:rgba(0,180,160,.1);
   animation:scanPulse 1.2s ease infinite;
 }
 @keyframes scanPulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(0,180,160,.4)}
-  50%{box-shadow:0 0 0 6px rgba(0,180,160,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(0,180,160,.5)}
+  50%{box-shadow:0 0 0 8px rgba(0,180,160,0)}
 }
 .aura-trigger-btn.active-listen{
-  border-color:var(--red);color:var(--red);
+  border-color:var(--red);color:var(--red);background:rgba(220,80,80,.1);
   animation:scanPulse2 .8s ease infinite;
 }
 @keyframes scanPulse2{
-  0%,100%{box-shadow:0 0 0 0 rgba(220,80,80,.45)}
-  50%{box-shadow:0 0 0 6px rgba(220,80,80,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(220,80,80,.55)}
+  50%{box-shadow:0 0 0 8px rgba(220,80,80,0)}
 }
 
 .aura-btns-grid{display:grid;gap:8px;grid-template-columns:1fr 1fr;margin-top:10px}
@@ -1575,13 +1576,14 @@ body.theme-laz .scene-pill.on{color:#1a1100}
 
 .aura-sec-body{padding:14px 16px 16px}
 .aura-trigger-btn{
-  padding:13px;border-radius:12px;
-  border:1px dashed var(--border2);background:var(--bg4);
-  font-size:14px;font-weight:600;color:var(--txt);
+  padding:13px 16px;border-radius:12px;
+  border:2px solid var(--border2);background:var(--bg4);
+  font-size:14px;font-weight:700;color:var(--txt);
   letter-spacing:-0.01em;min-height:50px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.28);
 }
-body.theme-story .aura-trigger-btn{background:#f2f2f7}
-.aura-trigger-btn:hover{border-color:var(--accent);color:var(--accent)}
+body.theme-story .aura-trigger-btn{background:#e8e8ed;border-color:rgba(0,0,0,0.18);color:#1c1c1e}
+.aura-trigger-btn:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 4px 14px var(--aglow)}
 
 .aura-gen-btn{
   border-radius:14px;border:.5px solid var(--border);background:var(--bg4);
@@ -2052,7 +2054,8 @@ body.comfortable .pbt .pt{
 }
 
 /* View toggle button glows in comfortable mode */
-body.comfortable #hdr-view-btn{color:var(--accent);background:var(--aglow)}
+body.comfortable #hdr-view-btn{color:var(--teal);background:var(--tglow)}
+body.compact #hdr-view-btn{color:var(--txt2);background:transparent}
 
 /* ---------- Dwell time activation ---------- */
 body.dwell-on .cbt,
@@ -2460,7 +2463,7 @@ mark{background:var(--aglow);color:var(--accent);border-radius:3px;padding:0 2px
         <button class="mt-btn mt-aura" id="mt-aura" onclick="event.stopPropagation();setMode('aura')">✦ Aura</button>
       </div>
       <button class="ibtn" id="hdr-search-btn" onclick="openSearch()" aria-label="Search"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button>
-      <button class="ibtn" id="hdr-view-btn" onclick="toggleViewMode()" aria-label="Toggle view density" title="Compact / Comfortable"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
+      <button class="ibtn" id="hdr-view-btn" onclick="toggleViewMode()" aria-label="Toggle view density" title="Toggle: Compact / Standard / Comfortable"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></button>
       <div id="hdr-menu-wrap" style="position:relative;">
       <button class="ibtn" id="hdr-menu-btn" onclick="toggleHdrMenu()" aria-label="More"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg></button>
       <div id="hdr-menu" class="hdr-menu" role="menu" aria-hidden="true">
@@ -2687,7 +2690,7 @@ mark{background:var(--aglow);color:var(--accent);border-radius:3px;padding:0 2px
     <div class="d-sec"><div class="d-lbl">Dwell Time <span style="font-size:10px;font-weight:400;opacity:.6">— hold button to activate</span></div><div class="d-row" style="gap:6px"><button class="d-tog" id="s-dwell-off" onclick="setDwellMode(0)">Off</button><button class="d-tog" id="s-dwell-200" onclick="setDwellMode(200)">200ms</button><button class="d-tog" id="s-dwell-350" onclick="setDwellMode(350)">350ms</button><button class="d-tog" id="s-dwell-500" onclick="setDwellMode(500)">500ms</button></div><div style="font-size:11px;margin-top:5px;opacity:.55;line-height:1.4">Prevents accidental taps — button only fires after held for set duration.</div></div>
     <div class="d-sec"><div class="d-lbl">Haptic Feedback</div><div class="d-row"><button class="d-tog on" id="s-hap" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'On':'Off'">On</button><span style="font-size:12px;flex:1;margin-left:8px;opacity:.6">Vibrate on tap</span></div></div>
     <div class="d-sec"><div class="d-lbl">After Speaking</div><div class="d-row"><button class="d-tog" id="s-clear" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'Clear text':'Keep text'">Keep text</button><span style="font-size:12px;flex:1;margin-left:8px;opacity:.6">Clear sentence bar after speaking</span></div></div>
-    <div class="d-sec"><div class="d-lbl">Display Density</div><div class="d-row" style="gap:6px"><button class="d-tog" id="s-compact" onclick="setViewMode('compact')">Compact</button><button class="d-tog" id="s-comfortable" onclick="setViewMode('comfortable')">Comfortable</button><span style="font-size:12px;flex:1;margin-left:4px;opacity:.6" id="s-density-desc">Dense grid, more buttons visible</span></div></div>
+    <div class="d-sec"><div class="d-lbl">Display Density</div><div class="d-row" style="gap:6px"><button class="d-tog" id="s-compact" onclick="setViewMode('compact')">Compact</button><button class="d-tog" id="s-standard" onclick="setViewMode('standard')">Standard</button><button class="d-tog" id="s-comfortable" onclick="setViewMode('comfortable')">Comfortable</button></div><div style="font-size:12px;margin-top:5px;opacity:.6" id="s-density-desc">Compact — default tight layout</div></div>
     <div class="d-sec"><div class="d-lbl">Theme</div><div class="d-row"><button class="d-tog" id="s-tlaz" onclick="switchTheme('laz')">Dark Luxury</button><button class="d-tog" id="s-tstory" onclick="switchTheme('story')">Bright Colorful</button></div></div>
     <div class="d-sec" style="border-top:1px solid var(--border);padding-top:14px">
       <div class="d-lbl">✏️ Edit Mode</div>
@@ -3124,11 +3127,61 @@ mark{background:var(--aglow);color:var(--accent);border-radius:3px;padding:0 2px
           <input type="checkbox" id="sit-direct-speak" checked style="cursor:pointer">
           <span>Direct Speak</span>
         </label>
+        <button id="sit-lock-btn" onclick="toggleSitEditMode()" title="Edit situations" style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:var(--bg4);border:1.5px solid var(--border);color:var(--txt2);font-size:16px;cursor:pointer;transition:background .2s,border-color .2s,color .2s">🔒</button>
         <button class="d-cls" onclick="closeOv('ov-sit-view')">✕</button>
       </div>
     </div>
+    <div id="sit-edit-banner" style="display:none;align-items:center;gap:8px;padding:8px 16px;background:rgba(201,168,76,0.1);border-bottom:1px solid rgba(201,168,76,0.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      <span style="font-size:12px;color:var(--gold);font-weight:600;flex:1">Edit Mode — tap cards to edit or delete</span>
+      <button onclick="toggleSitEditMode()" style="font-size:11px;padding:3px 10px;border-radius:6px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.35);color:var(--gold);cursor:pointer;font-weight:600">Done</button>
+    </div>
     <div id="sit-list" style="padding:16px"></div>
     <div id="sit-detail" style="padding:16px;display:none"></div>
+  </div>
+</div>
+
+<!-- Phrase Edit Modal -->
+<div class="ov" id="ov-phrase-edit" onclick="closeOv('ov-phrase-edit',event)">
+  <div class="dr" style="max-width:480px">
+    <div class="d-hd">
+      <span id="phrase-edit-title">Edit Phrase</span>
+      <button class="d-cls" onclick="closeOv('ov-phrase-edit')">✕</button>
+    </div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:11px;font-weight:600;opacity:.5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px" id="phrase-edit-section-label"></div>
+        <textarea id="phrase-edit-input" rows="3" style="width:100%;padding:12px 14px;background:var(--bg4);border:1.5px solid var(--border2);border-radius:10px;color:var(--txt);font-family:var(--f);font-size:15px;resize:vertical;outline:none;transition:border-color .2s" oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="closeOv('ov-phrase-edit')" style="flex:1;padding:11px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:var(--f);font-size:14px;color:var(--txt);font-weight:500">Cancel</button>
+        <button onclick="savePhraseEdit()" style="flex:2;padding:11px;background:var(--accent);color:var(--bg);border:none;border-radius:10px;cursor:pointer;font-family:var(--f);font-size:14px;font-weight:700">Save Phrase</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Situation Meta Edit Modal -->
+<div class="ov" id="ov-sit-meta-edit" onclick="closeOv('ov-sit-meta-edit',event)">
+  <div class="dr" style="max-width:480px">
+    <div class="d-hd">
+      <span>Edit Situation</span>
+      <button class="d-cls" onclick="closeOv('ov-sit-meta-edit')">✕</button>
+    </div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <div style="font-size:11px;font-weight:600;opacity:.5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Title</div>
+        <input id="sit-meta-title" type="text" style="width:100%;padding:11px 14px;background:var(--bg4);border:1.5px solid var(--border2);border-radius:10px;color:var(--txt);font-family:var(--f);font-size:15px;outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;opacity:.5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Type / Category</div>
+        <input id="sit-meta-type" type="text" style="width:100%;padding:11px 14px;background:var(--bg4);border:1.5px solid var(--border2);border-radius:10px;color:var(--txt);font-family:var(--f);font-size:15px;outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border2)'">
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="closeOv('ov-sit-meta-edit')" style="flex:1;padding:11px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:var(--f);font-size:14px;color:var(--txt);font-weight:500">Cancel</button>
+        <button onclick="saveSitMeta()" style="flex:2;padding:11px;background:var(--accent);color:var(--bg);border:none;border-radius:10px;cursor:pointer;font-family:var(--f);font-size:14px;font-weight:700">Save</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -3830,21 +3883,41 @@ trackPhrase(phrase,type);
 speakText(t);
 if(S.clearAfterSpeak){S.sentence=[];renderBar();}
 }
+/* Track wand state for retry variation */
+let _wandLastRaw='';
+let _wandLastResult='';
+let _wandRetryCount=0;
+
 async function magicWand(){
 const raw=getTxt();if(!raw){toast('Add some words first!');return}
 if(!S.groqKey){showGroqNudge('Magic Wand');return}
 const btn=document.getElementById('wand-btn');const bar=document.getElementById('sb');
 btn.classList.add('busy');btn.disabled=true;bar.classList.add('refining');haptic(40);
+
+/* Detect retry: same raw input as last time */
+const isRetry=(raw===_wandLastRaw&&_wandLastResult);
+if(raw!==_wandLastRaw){_wandRetryCount=0;_wandLastResult='';}
+_wandLastRaw=raw;
+_wandRetryCount++;
+
+const temp=isRetry?0.75:0.25;
+const retryNote=isRetry
+  ?`\n\nPrevious version was: "${_wandLastResult}"\nProvide a meaningfully different phrasing — same meaning, different wording.`
+  :'';
+
+const sysPrompt=`You are an AAC voice assistant. The user is a non-verbal person communicating for themselves. Your job is to convert their word fragments into a complete, natural sentence ALWAYS written in the first person (using "I", "I'm", "I want", "I feel", etc.). Never use he/she/they/the user. The output IS their voice. Return ONLY the sentence, no quotes, no explanation.${retryNote}`;
+
 try{
 const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
 method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
-body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:60,temperature:0.25,
-messages:[{role:'system',content:'You are an AAC grammar assistant. Convert word fragments into one natural grammatically correct sentence. Return ONLY the sentence.'},
-{role:'user',content:raw}]})});
+body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:80,temperature:temp,
+messages:[{role:'system',content:sysPrompt},{role:'user',content:raw}]})});
 if(!r.ok)throw new Error('Groq '+r.status);
-const d=await r.json();const ref=d.choices?.[0]?.message?.content?.trim();
+const d=await r.json();const ref=d.choices?.[0]?.message?.content?.trim().replace(/^["']|["']$/g,'');
 if(!ref)throw new Error('Empty');
-S.sentence=ref.split(' ');renderBar();haptic(80);toast('✨ Refined!');
+_wandLastResult=ref;
+S.sentence=ref.split(' ');renderBar();haptic(80);
+toast(isRetry?'✨ Different version!':'✨ Refined!');
 saveHistory(ref);setTimeout(()=>speakText(ref),300);
 }catch(e){toast('Magic Wand error: '+e.message)}
 finally{btn.classList.remove('busy');btn.disabled=false;bar.classList.remove('refining')}
@@ -5010,7 +5083,7 @@ method:'POST',
 headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
 body:JSON.stringify({
 model:'llama3-8b-8192',max_tokens:200,
-messages:[{role:'user',content:`You are an AAC communication assistant. Someone nearby said: "${text}". Generate 4 quick response buttons for a non-verbal person to respond. Return JSON only: {"buttons":[{"text":"response 1"},{"text":"response 2"},{"text":"response 3"},{"text":"response 4"}]}. Make responses short, natural, and appropriate.`}]
+messages:[{role:'user',content:`You are an AAC communication assistant. A non-verbal person heard someone say: "${text}". Generate 4 short first-person response options they could use to reply (e.g. "I agree", "I need a moment", "I don't know"). All responses must be in the first person — the user IS speaking these words. Return JSON only, no markdown: {"buttons":[{"text":"response 1"},{"text":"response 2"},{"text":"response 3"},{"text":"response 4"}]}`}]
 })
 });
 const data=await resp.json();
@@ -5577,7 +5650,7 @@ async function kbWand(){
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
       body:JSON.stringify({model:'llama-3.1-8b-instant',messages:[
-        {role:'system',content:'You polish AAC user text into a clear, natural-sounding sentence. Fix grammar, spelling, capitalization. Keep meaning + tone. Return ONLY the cleaned sentence, no quotes, no explanation.'},
+        {role:'system',content:'You are an AAC voice assistant. The user is a non-verbal person communicating for themselves. Polish their text into a clear, natural sentence ALWAYS in the first person (I, I\'m, I want, I feel). Never use he/she/they or refer to the user in third person — this is their voice. Fix grammar, spelling, capitalization. Keep meaning and tone. Return ONLY the sentence, no quotes, no explanation.'},
         {role:'user',content:orig}
       ],temperature:0.3,max_tokens:120})
     });
@@ -5679,7 +5752,22 @@ const suggestContainer=document.getElementById('sw-suggestions');
 suggestContainer.innerHTML='<div style="text-align:center;padding:20px;color:var(--txt2)">⏳ Generating suggestions…</div>';
 try{
 const filterNote=filtered?' Keep all language professional and respectful.':' Can include casual and authentic language.';
-const prompt=`You are generating AAC (Augmentative and Alternative Communication) phrase cards for a non-verbal person in a specific situation. Generate realistic, natural phrases for all four directions of conversation.
+
+/* Detect if user has explicitly overridden the first-person default in desc or context */
+const overrideSignals=['third person','third-person','he ','she ','they ','caregiver','someone else','on behalf','for them','from their perspective'];
+const combinedUserInput=((desc||'')+' '+(context||'')).toLowerCase();
+const userOverride=overrideSignals.some(s=>combinedUserInput.includes(s));
+const personNote=userOverride
+  ? '/* User has specified a non-default perspective — follow their description. */'
+  : `CRITICAL VOICE RULE: The user IS the non-verbal person. They will speak these phrases out loud through this app.
+- "i_reply", "i_say", and "i_ask" items MUST be written in the FIRST PERSON (I, I'm, I want, I feel, I need, I'd like, Can I, etc.).
+- NEVER use he/she/they/the user/the person in those three arrays — that would make the app speak about the user instead of as them.
+- "they_ask" is the ONLY array written from the other person's perspective.
+- If the description below specifies a different perspective, follow it — otherwise default to strict first person.`;
+
+const prompt=`You are generating AAC (Augmentative and Alternative Communication) phrase cards for a non-verbal person.
+
+${personNote}
 
 Situation: "${title}"
 Description: ${desc||'none'}
@@ -5688,10 +5776,10 @@ Type: ${type}
 ${filterNote}
 
 Return ONLY a valid JSON object (no markdown, no code blocks, no explanation) with exactly these four keys:
-- "they_ask": array of 4-8 questions or things the OTHER person might say TO the user
-- "i_reply": array of 4-8 responses the USER would say back to the other person
-- "i_say": array of 4-8 statements or things the USER wants to initiate saying
-- "i_ask": array of 4-8 questions the USER wants to ask the other person
+- "they_ask": array of 4-8 things the OTHER person might say TO the user
+- "i_reply": array of 4-8 first-person responses the user speaks back (e.g. "I understand", "I need a moment")
+- "i_say": array of 4-8 first-person statements the user initiates (e.g. "I want to leave", "I feel overwhelmed")
+- "i_ask": array of 4-8 first-person questions the user asks (e.g. "Can I have a break?", "Where are we going?")
 
 All items must be plain strings. Make them specific to this situation, natural, and immediately usable.`;
 const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
@@ -5763,56 +5851,325 @@ toast('Situation created!');
 closeOv('ov-sit-wizard');
 showSituations();
 }
+/* ─── Situation Edit State ─── */
+let sitEditMode=false;
+let _phraseEditCtx=null; /* {sitId,arrayKey,index} */
+let _sitMetaEditId=null;
+
+function toggleSitEditMode(){
+  sitEditMode=!sitEditMode;
+  const btn=document.getElementById('sit-lock-btn');
+  const banner=document.getElementById('sit-edit-banner');
+  if(btn){
+    btn.textContent=sitEditMode?'🔓':'🔒';
+    btn.style.background=sitEditMode?'rgba(201,168,76,0.12)':'var(--bg4)';
+    btn.style.borderColor=sitEditMode?'rgba(201,168,76,0.45)':'var(--border)';
+    btn.style.color=sitEditMode?'var(--gold)':'var(--txt2)';
+  }
+  if(banner) banner.style.display=sitEditMode?'flex':'none';
+  /* Re-render whichever view is active */
+  const detailEl=document.getElementById('sit-detail');
+  const listEl=document.getElementById('sit-list');
+  if(detailEl&&detailEl.style.display!=='none'){
+    /* re-open current situation */
+    const sitId=detailEl.dataset.sitId;
+    if(sitId) openSituation(parseInt(sitId));
+  } else {
+    renderSituationsList();
+  }
+}
+
 function showSituations(){
 if(S.experienceMode!=='adult'){toast('Situations available in Adult mode');return}
 openOv('ov-sit-view');
 renderSituationsList();
 }
+
 function renderSituationsList(){
 let html='';
-const byCategory={};
-S.situations.forEach(sit=>{
-if(!byCategory[sit.type])byCategory[sit.type]=[];
-byCategory[sit.type].push(sit);
-});
-Object.keys(byCategory).sort().forEach(cat=>{
-html+=`<div style="margin-bottom:16px"><div style="font-weight:600;font-size:12px;opacity:.6;text-transform:uppercase;margin-bottom:6px">${cat}</div>`;
-byCategory[cat].forEach(sit=>{
-html+=`<div style="padding:10px;background:var(--bg4);border-radius:8px;margin-bottom:6px;border:1px solid var(--border);display:flex;align-items:center;justify-content:space-between" onclick="openSituation(${sit.id})" style="cursor:pointer"><div style="flex:1"><div style="font-weight:500">${escapeHtml(sit.title)}</div><div style="font-size:11px;opacity:.6;margin-top:2px">${sit.questions.length} They Ask · ${sit.responses.length} I Reply · ${sit.statements.length} I Say · ${(sit.my_questions||[]).length} I Ask</div></div>${S.editMode?`<button onclick="event.stopPropagation();confirmDel('Delete situation &quot;${sit.title}&quot;?',()=>{deleteSituation(${sit.id})})" style="padding:6px 10px;background:rgba(220,80,80,.2);border:1px solid rgba(220,80,80,.3);color:var(--red);border-radius:4px;cursor:pointer;font-size:12px">🗑</button>`:''}`;
-html+=`</div>`;
-});
-html+='</div>';
-});
-html+=`<button style="width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;border-radius:8px;font-weight:600;margin-top:12px;cursor:pointer" onclick="openSituationWizard()">+ New Situation</button>`;
+if(!S.situations||!S.situations.length){
+  html=`<div style="text-align:center;padding:40px 20px;opacity:.45">
+    <div style="font-size:36px;margin-bottom:12px">🎭</div>
+    <div style="font-size:15px;font-weight:600;margin-bottom:6px">No situations yet</div>
+    <div style="font-size:13px">Create one to get started</div>
+  </div>`;
+} else {
+  const byCategory={};
+  S.situations.forEach(sit=>{
+    if(!byCategory[sit.type])byCategory[sit.type]=[];
+    byCategory[sit.type].push(sit);
+  });
+  Object.keys(byCategory).sort().forEach(cat=>{
+    html+=`<div style="margin-bottom:16px"><div style="font-weight:600;font-size:12px;opacity:.5;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">${escapeHtml(cat)}</div>`;
+    byCategory[cat].forEach(sit=>{
+      const editBtns=sitEditMode?`
+        <button onclick="event.stopPropagation();openSitMetaEdit(${sit.id})" style="padding:6px 10px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--gold);border-radius:6px;cursor:pointer;font-size:12px;font-weight:600">✏️</button>
+        <button onclick="event.stopPropagation();confirmDel('Delete &quot;${escapeHtml(sit.title)}&quot;?',()=>{deleteSituation(${sit.id})})" style="padding:6px 10px;background:rgba(220,80,80,.15);border:1px solid rgba(220,80,80,.3);color:var(--red);border-radius:6px;cursor:pointer;font-size:12px">🗑</button>
+      `:'';
+      const accentBorder=sitEditMode?'var(--gold)':'var(--accent)';
+      html+=`<div onclick="openSituation(${sit.id})" style="padding:13px 14px;background:var(--bg4);border-radius:12px;margin-bottom:8px;border:1px solid var(--border);border-left:4px solid ${accentBorder};display:flex;align-items:center;justify-content:space-between;cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,0.18)">
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:600;font-size:15px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHtml(sit.title)}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            ${sit.questions.length?`<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(107,138,255,0.15);color:#6b8aff;border:1px solid rgba(107,138,255,0.3);font-weight:600">← They Ask ${sit.questions.length}</span>`:''}
+            ${sit.responses.length?`<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(48,214,192,0.15);color:#30d6c0;border:1px solid rgba(48,214,192,0.3);font-weight:600">→ I Reply ${sit.responses.length}</span>`:''}
+            ${sit.statements.length?`<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(255,184,74,0.15);color:#ffb84a;border:1px solid rgba(255,184,74,0.3);font-weight:600">→ I Say ${sit.statements.length}</span>`:''}
+            ${(sit.my_questions||[]).length?`<span style="font-size:10px;padding:2px 8px;border-radius:10px;background:rgba(240,147,251,0.15);color:#f093fb;border:1px solid rgba(240,147,251,0.3);font-weight:600">↔ I Ask ${sit.my_questions.length}</span>`:''}
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;margin-left:10px">
+          ${editBtns}
+          ${!sitEditMode?'<span style="font-size:18px;opacity:.3">›</span>':''}
+        </div>
+      </div>`;
+    });
+    html+='</div>';
+  });
+}
+html+=`<button style="width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;border-radius:10px;font-weight:700;margin-top:4px;cursor:pointer;font-family:var(--f);font-size:14px" onclick="openSituationWizard()">+ New Situation</button>`;
 document.getElementById('sit-list').innerHTML=html;
 }
+
+/* ─── Situation detail (view + edit mode) ─── */
 function openSituation(id){
 const sit=S.situations.find(s=>s.id===id);
 if(!sit){toast('Situation not found');return}
-const makeSitSection=(items,label,color,arrow,cols)=>{
-if(!items||!items.length)return'';
-const grid=cols>1?'display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px':'display:flex;flex-direction:column;gap:6px';
-let h=`<div style="margin-bottom:18px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:10px"><span style="font-size:11px;padding:3px 10px;border-radius:12px;font-weight:700;letter-spacing:.04em;background:${color}22;color:${color};border:1px solid ${color}44">${arrow} ${label}</span><span style="font-size:11px;opacity:.45">${items.length} phrase${items.length!==1?'s':''}</span></div><div style="${grid}">`;
-items.forEach(p=>{const txt=p.replace(/'/g,"\\'");h+=`<button class="pbt" style="padding:10px;text-align:left" onclick="handleSituationPhrase('${txt}')">${escapeHtml(p)}</button>`});
-h+=`</div></div>`;
-return h;
+
+const CARD_THEMES={
+  'they-ask':{color:'#6b8aff',label:'They Ask',dir:'incoming',gStart:'rgba(107,138,255,0.13)',gEnd:'rgba(107,138,255,0.04)',border:'rgba(107,138,255,0.32)',shadow:'rgba(107,138,255,0.18)'},
+  'i-reply': {color:'#30d6c0',label:'I Reply', dir:'outgoing',gStart:'rgba(48,214,192,0.13)',gEnd:'rgba(48,214,192,0.04)',border:'rgba(48,214,192,0.32)',shadow:'rgba(48,214,192,0.18)'},
+  'i-say':   {color:'#ffb84a',label:'I Say',   dir:'outgoing',gStart:'rgba(255,184,74,0.13)',gEnd:'rgba(255,184,74,0.04)',border:'rgba(255,184,74,0.32)',shadow:'rgba(255,184,74,0.18)'},
+  'i-ask':   {color:'#f093fb',label:'I Ask',   dir:'outgoing',gStart:'rgba(240,147,251,0.13)',gEnd:'rgba(240,147,251,0.04)',border:'rgba(240,147,251,0.32)',shadow:'rgba(240,147,251,0.18)'},
 };
-let html=`<div style="padding:16px"><div style="font-weight:700;font-size:17px;margin-bottom:4px">${escapeHtml(sit.title)}</div><div style="font-size:11px;opacity:.45;margin-bottom:18px;text-transform:uppercase;letter-spacing:.06em">${sit.type}</div>`;
-const hasTheyAsk=sit.questions&&sit.questions.length;
-const hasIReply=sit.responses&&sit.responses.length;
+
+/* Map array keys to theme keys */
+const ARRAY_TO_THEME={questions:'they-ask',responses:'i-reply',statements:'i-say',my_questions:'i-ask'};
+
+const makeSitCard=(txt,themeKey,arrayKey,index)=>{
+  const t=CARD_THEMES[themeKey];
+  const escaped=escapeHtml(txt);
+  if(sitEditMode){
+    return `<div style="
+      position:relative;
+      display:flex;align-items:stretch;gap:0;
+      background:linear-gradient(135deg,${t.gStart},${t.gEnd});
+      border:1.5px solid ${t.border};border-left:4px solid ${t.color};
+      border-radius:12px;box-shadow:0 4px 16px ${t.shadow},0 1px 4px rgba(0,0,0,0.18);
+      overflow:hidden;
+    ">
+      <div style="flex:1;padding:11px 12px;font-family:var(--f);font-size:14px;font-weight:500;color:var(--txt);line-height:1.4">${escaped}</div>
+      <div style="display:flex;flex-direction:column;border-left:1px solid ${t.border}">
+        <button onclick="openPhraseEdit(${id},'${arrayKey}',${index})" style="flex:1;padding:0 12px;background:rgba(201,168,76,0.12);border:none;border-bottom:1px solid ${t.border};color:var(--gold);font-size:13px;cursor:pointer" title="Edit">✏️</button>
+        <button onclick="deleteSituationPhrase(${id},'${arrayKey}',${index})" style="flex:1;padding:0 12px;background:rgba(220,80,80,0.1);border:none;color:var(--red);font-size:13px;cursor:pointer" title="Delete">✕</button>
+      </div>
+    </div>`;
+  }
+  const attrTxt=txt.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  return `<button onclick="handleSituationPhrase('${attrTxt}')" style="
+    display:block;width:100%;text-align:left;cursor:pointer;
+    padding:12px 14px 12px 16px;
+    background:linear-gradient(135deg,${t.gStart},${t.gEnd});
+    border:1.5px solid ${t.border};border-left:4px solid ${t.color};
+    border-radius:12px;
+    box-shadow:0 4px 16px ${t.shadow},0 1px 4px rgba(0,0,0,0.18);
+    font-family:var(--f);font-size:14px;font-weight:500;
+    color:var(--txt);line-height:1.4;
+    transition:transform .15s ease,box-shadow .15s ease;
+    -webkit-tap-highlight-color:transparent;
+  " onmouseenter="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 24px ${t.shadow},0 2px 8px rgba(0,0,0,0.22)'" onmouseleave="this.style.transform='';this.style.boxShadow='0 4px 16px ${t.shadow},0 1px 4px rgba(0,0,0,0.18)'" ontouchstart="this.style.transform='scale(0.96)';this.style.opacity='0.85'" ontouchend="this.style.transform='';this.style.opacity=''">
+    ${escaped}
+  </button>`;
+};
+
+const addPhraseBtn=(themeKey,arrayKey,sitId)=>{
+  if(!sitEditMode) return '';
+  const t=CARD_THEMES[themeKey];
+  return `<button onclick="addSituationPhrase(${sitId},'${arrayKey}')" style="
+    width:100%;padding:9px;
+    background:transparent;border:1.5px dashed ${t.color}66;
+    border-radius:10px;color:${t.color};font-family:var(--f);
+    font-size:13px;font-weight:600;cursor:pointer;margin-top:4px;
+    transition:background .15s;
+  " onmouseenter="this.style.background='${t.gStart}'" onmouseleave="this.style.background='transparent'">+ Add phrase</button>`;
+};
+
+const makeDirIcon=(dir,color)=>dir==='incoming'
+  ?`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`
+  :`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+
+const makeSitColumn=(items,themeKey,arrayKey)=>{
+  const t=CARD_THEMES[themeKey];
+  if(!items||(!items.length&&!sitEditMode)) return '';
+  let h=`<div style="display:flex;flex-direction:column;gap:0">`;
+  h+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+    <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 11px 4px 9px;border-radius:20px;font-weight:700;letter-spacing:.05em;background:${t.color}22;color:${t.color};border:1.5px solid ${t.color}44">
+      ${makeDirIcon(t.dir,t.color)}${t.label}
+    </span>
+    <span style="font-size:11px;opacity:.4;font-variant-numeric:tabular-nums">${items.length}</span>
+  </div>`;
+  h+=`<div style="display:flex;flex-direction:column;gap:8px">`;
+  items.forEach((p,i)=>{ h+=makeSitCard(p,themeKey,arrayKey,i); });
+  h+=addPhraseBtn(themeKey,arrayKey,id);
+  h+=`</div></div>`;
+  return h;
+};
+
+const makeSitWideSection=(items,themeKey,arrayKey)=>{
+  const t=CARD_THEMES[themeKey];
+  if(!items||(!items.length&&!sitEditMode)) return '';
+  let h=`<div style="margin-top:18px">`;
+  h+=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+    <span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:4px 11px 4px 9px;border-radius:20px;font-weight:700;letter-spacing:.05em;background:${t.color}22;color:${t.color};border:1.5px solid ${t.color}44">
+      ${makeDirIcon(t.dir,t.color)}${t.label}
+    </span>
+    <span style="font-size:11px;opacity:.4">${items.length}</span>
+  </div>`;
+  h+=`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:8px">`;
+  items.forEach((p,i)=>{ h+=makeSitCard(p,themeKey,arrayKey,i); });
+  h+=`</div>`;
+  h+=addPhraseBtn(themeKey,arrayKey,id);
+  h+=`</div>`;
+  return h;
+};
+
+let html=`<div style="padding:16px">`;
+/* Header */
+const editMetaBtn=sitEditMode?`<button onclick="openSitMetaEdit(${id})" style="padding:5px 11px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);color:var(--gold);border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;margin-left:8px">✏️ Rename</button>`:'';
+html+=`<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
+  <div>
+    <div style="font-family:var(--fh,inherit);font-weight:700;font-size:18px;margin-bottom:3px">${escapeHtml(sit.title)}</div>
+    <div style="font-size:11px;opacity:.4;text-transform:uppercase;letter-spacing:.07em">${escapeHtml(sit.type)}</div>
+  </div>
+  ${editMetaBtn}
+</div>`;
+
+const hasTheyAsk=sit.questions&&(sit.questions.length||sitEditMode);
+const hasIReply=sit.responses&&(sit.responses.length||sitEditMode);
 if(hasTheyAsk||hasIReply){
-html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px">`;
-html+=`<div>${makeSitSection(sit.questions,'They Ask','#6b8aff','←',1)}</div>`;
-html+=`<div>${makeSitSection(sit.responses,'I Reply','#30d6c0','→',1)}</div>`;
-html+=`</div>`;
+  html+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:4px">`;
+  html+=`<div>${makeSitColumn(sit.questions||[],'they-ask','questions')}</div>`;
+  html+=`<div>${makeSitColumn(sit.responses||[],'i-reply','responses')}</div>`;
+  html+=`</div>`;
 }
-html+=makeSitSection(sit.statements,'I Say','#ffb84a','→',2);
-html+=makeSitSection(sit.my_questions||[],'I Ask Them','#f093fb','→',2);
-html+=`<div style="display:flex;gap:8px;margin-top:8px;padding-top:16px;border-top:1px solid var(--border)"><button onclick="backToSituationsList()" style="flex:1;padding:10px;background:var(--bg4);border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:var(--f);font-size:14px">← Back</button></div></div>`;
-document.getElementById('sit-detail').innerHTML=html;
+html+=makeSitWideSection(sit.statements||[],'i-say','statements');
+html+=makeSitWideSection(sit.my_questions||[],'i-ask','my_questions');
+
+html+=`<div style="display:flex;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)">
+  <button onclick="backToSituationsList()" style="flex:1;padding:11px;background:var(--bg4);border:1px solid var(--border);border-radius:10px;cursor:pointer;font-family:var(--f);font-size:14px;color:var(--txt);font-weight:500">← Back</button>
+</div></div>`;
+
+const detailEl=document.getElementById('sit-detail');
+detailEl.innerHTML=html;
+detailEl.dataset.sitId=id;
 document.getElementById('sit-list').style.display='none';
-document.getElementById('sit-detail').style.display='block';
+detailEl.style.display='block';
 }
+
+/* ─── Phrase editing ─── */
+function openPhraseEdit(sitId,arrayKey,index){
+  const sit=S.situations.find(s=>s.id===sitId);
+  if(!sit)return;
+  const arr=sit[arrayKey]||[];
+  const currentTxt=arr[index]||'';
+  _phraseEditCtx={sitId,arrayKey,index};
+  const LABELS={questions:'They Ask',responses:'I Reply',statements:'I Say',my_questions:'I Ask'};
+  document.getElementById('phrase-edit-title').textContent='Edit Phrase';
+  document.getElementById('phrase-edit-section-label').textContent=LABELS[arrayKey]||arrayKey;
+  const ta=document.getElementById('phrase-edit-input');
+  ta.value=currentTxt;
+  openOv('ov-phrase-edit');
+  setTimeout(()=>{ta.focus();ta.setSelectionRange(ta.value.length,ta.value.length)},200);
+}
+
+function savePhraseEdit(){
+  if(!_phraseEditCtx)return;
+  const {sitId,arrayKey,index}=_phraseEditCtx;
+  const sit=S.situations.find(s=>s.id===sitId);
+  if(!sit)return;
+  const newTxt=document.getElementById('phrase-edit-input').value.trim();
+  if(!newTxt){toast('Phrase cannot be empty');return}
+  if(!sit[arrayKey])sit[arrayKey]=[];
+  sit[arrayKey][index]=newTxt;
+  saveData();
+  closeOv('ov-phrase-edit');
+  openSituation(sitId);
+  toast('Phrase updated');
+}
+
+function addSituationPhrase(sitId,arrayKey){
+  const sit=S.situations.find(s=>s.id===sitId);
+  if(!sit)return;
+  if(!sit[arrayKey])sit[arrayKey]=[];
+  _phraseEditCtx={sitId,arrayKey,index:sit[arrayKey].length};
+  const LABELS={questions:'They Ask',responses:'I Reply',statements:'I Say',my_questions:'I Ask'};
+  document.getElementById('phrase-edit-title').textContent='Add Phrase';
+  document.getElementById('phrase-edit-section-label').textContent=LABELS[arrayKey]||arrayKey;
+  document.getElementById('phrase-edit-input').value='';
+  /* savePhraseEdit will push to the array since index===length */
+  /* Override save to push instead of replace */
+  _phraseEditCtx._isNew=true;
+  openOv('ov-phrase-edit');
+  setTimeout(()=>document.getElementById('phrase-edit-input').focus(),200);
+}
+
+/* Patch savePhraseEdit to handle new vs edit */
+const _origSavePhraseEdit=savePhraseEdit;
+savePhraseEdit=function(){
+  if(!_phraseEditCtx)return;
+  const {sitId,arrayKey,index,_isNew}=_phraseEditCtx;
+  const sit=S.situations.find(s=>s.id===sitId);
+  if(!sit)return;
+  const newTxt=document.getElementById('phrase-edit-input').value.trim();
+  if(!newTxt){toast('Phrase cannot be empty');return}
+  if(!sit[arrayKey])sit[arrayKey]=[];
+  if(_isNew){sit[arrayKey].push(newTxt);}
+  else{sit[arrayKey][index]=newTxt;}
+  saveData();
+  closeOv('ov-phrase-edit');
+  openSituation(sitId);
+  toast(_isNew?'Phrase added':'Phrase updated');
+};
+
+function deleteSituationPhrase(sitId,arrayKey,index){
+  confirmDel('Delete this phrase?',()=>{
+    const sit=S.situations.find(s=>s.id===sitId);
+    if(!sit||!sit[arrayKey])return;
+    sit[arrayKey].splice(index,1);
+    saveData();
+    openSituation(sitId);
+    toast('Phrase deleted');
+  });
+}
+
+/* ─── Situation meta edit (rename/retype) ─── */
+function openSitMetaEdit(id){
+  const sit=S.situations.find(s=>s.id===id);
+  if(!sit)return;
+  _sitMetaEditId=id;
+  document.getElementById('sit-meta-title').value=sit.title||'';
+  document.getElementById('sit-meta-type').value=sit.type||'';
+  openOv('ov-sit-meta-edit');
+  setTimeout(()=>document.getElementById('sit-meta-title').focus(),200);
+}
+
+function saveSitMeta(){
+  const sit=S.situations.find(s=>s.id===_sitMetaEditId);
+  if(!sit)return;
+  const title=document.getElementById('sit-meta-title').value.trim();
+  const type=document.getElementById('sit-meta-type').value.trim();
+  if(!title){toast('Title cannot be empty');return}
+  sit.title=title;
+  if(type)sit.type=type;
+  S.situations.sort((a,b)=>a.type.localeCompare(b.type)||a.title.localeCompare(b.title));
+  saveData();
+  closeOv('ov-sit-meta-edit');
+  /* Refresh whichever view is visible */
+  const detailEl=document.getElementById('sit-detail');
+  if(detailEl&&detailEl.style.display!=='none') openSituation(sit.id);
+  else renderSituationsList();
+  toast('Situation updated');
+}
+
 function handleSituationPhrase(txt){
 const directSpeak=document.getElementById('sit-direct-speak')?.checked;
 if(directSpeak){
@@ -5830,7 +6187,7 @@ function deleteSituation(id){
 S.situations=S.situations.filter(s=>s.id!==id);
 saveData();
 toast('Situation deleted');
-showSituations();
+renderSituationsList();
 }
 function backToSituationsList(){
 document.getElementById('sit-list').style.display='block';
@@ -6075,27 +6432,34 @@ function setViewMode(mode){
 }
 function toggleViewMode(){
   const isComfortable=document.body.classList.contains('comfortable');
-  setViewMode(isComfortable?'standard':'comfortable');
-  toast(document.body.classList.contains('comfortable')?'😌 Comfortable View':'📐 Standard View');
+  const isStandard=!isComfortable&&!document.body.classList.contains('compact');
+  let next;
+  if(isComfortable) next='compact';
+  else if(isStandard) next='comfortable';
+  else next='standard'; /* compact → standard */
+  setViewMode(next);
+  const labels={compact:'📐 Compact (default)',standard:'⊞ Standard',comfortable:'😌 Comfortable'};
+  toast(labels[next]||next);
 }
 function syncViewModeBtns(){
   const mode=document.body.classList.contains('comfortable')?'comfortable':
               document.body.classList.contains('compact')?'compact':'standard';
   const cBtn=document.getElementById('s-compact');
+  const stBtn=document.getElementById('s-standard');
   const coBtn=document.getElementById('s-comfortable');
   const desc=document.getElementById('s-density-desc');
-  if(cBtn)cBtn.classList.toggle('on',mode==='compact');
-  if(coBtn)coBtn.classList.toggle('on',mode==='comfortable');
+  if(cBtn) cBtn.classList.toggle('on', mode==='compact');
+  if(stBtn) stBtn.classList.toggle('on', mode==='standard');
+  if(coBtn) coBtn.classList.toggle('on', mode==='comfortable');
   if(desc){
-    if(mode==='comfortable')desc.textContent='Larger buttons & text — easier to tap';
-    else if(mode==='compact')desc.textContent='Dense grid, more buttons visible';
-    else desc.textContent='Balanced layout — default';
+    if(mode==='comfortable') desc.textContent='Comfortable — larger buttons & text, easier to tap';
+    else if(mode==='compact') desc.textContent='Compact — tight layout, more visible on screen (default)';
+    else desc.textContent='Standard — balanced layout';
   }
-  // Header view button reflects comfortable state
   const vBtn=document.getElementById('hdr-view-btn');
-  if(vBtn)vBtn.setAttribute('aria-pressed',mode==='comfortable');
+  if(vBtn) vBtn.setAttribute('aria-pressed', mode!=='compact');
 }
-// Boot: restore saved view mode (migrates legacy jvox-compact key too)
+// Boot: restore saved view mode — default is compact
 (function(){
   try{
     const saved=localStorage.getItem('jvox-viewmode');
@@ -6103,8 +6467,13 @@ function syncViewModeBtns(){
     if(saved){
       if(saved==='compact')document.body.classList.add('compact');
       else if(saved==='comfortable')document.body.classList.add('comfortable');
+      // 'standard' = no class added
     } else if(legacyCompact==='true'){
       // Migrate old compact key
+      document.body.classList.add('compact');
+      localStorage.setItem('jvox-viewmode','compact');
+    } else {
+      // First launch or cleared storage — default to compact
       document.body.classList.add('compact');
       localStorage.setItem('jvox-viewmode','compact');
     }
