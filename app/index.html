@@ -273,8 +273,10 @@ body.theme-story #edit-banner{background:#ff8c00}
 .theme-laz .cl{text-transform:uppercase;letter-spacing:.06em;font-size:clamp(8px,1.8vw,11px);color:var(--txt2)}
 .cbt.c-me{border-color:var(--teal);background:rgba(0,180,160,.07)}
 .cbt.c-quick{border-color:var(--purple);background:rgba(124,92,191,.07)}
+.cbt.c-firstresponder{border-color:var(--red);background:rgba(220,80,80,.09)}
 .theme-story .cbt.c-me{background:rgba(0,180,160,.08)}
 .theme-story .cbt.c-quick{background:rgba(155,93,229,.1)}
+.theme-story .cbt.c-firstresponder{background:rgba(220,60,60,.1)}
 .cat-edit-btn{display:none;position:absolute;top:5px;right:5px;width:26px;height:26px;border-radius:6px;background:rgba(0,0,0,.5);color:#fff;font-size:12px;align-items:center;justify-content:center;z-index:2;border:none;cursor:pointer}
 body.edit-mode .cat-edit-btn{display:flex}
 .cat-del-btn{display:none;position:absolute;top:5px;left:5px;width:26px;height:26px;border-radius:6px;background:rgba(220,50,50,.75);color:#fff;font-size:12px;align-items:center;justify-content:center;z-index:2;border:none;cursor:pointer}
@@ -620,6 +622,43 @@ body.theme-story .mt-btn.active{color:#fff}
 .aura-gen-btn.choice-btn .ag-tag{background:rgba(220,80,80,.1);color:var(--red);border-color:rgba(220,80,80,.25)}
 .aura-gen-btn.loading{opacity:.5;pointer-events:none}
 
+.geo-pager{margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.geo-pager-row{display:flex;align-items:center;justify-content:center;gap:14px}
+.geo-pager-arrow{
+  width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);
+  background:var(--bg4);color:var(--txt2);font-size:18px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .15s;
+}
+.geo-pager-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.geo-pager-arrow:disabled{opacity:.3;cursor:default}
+.geo-pager-dots{display:flex;gap:7px;align-items:center}
+.geo-dot{width:9px;height:9px;border-radius:50%;border:none;background:var(--border2);cursor:pointer;padding:0;transition:all .15s}
+.geo-dot.active{background:var(--accent);width:22px;border-radius:5px}
+.geo-pager-label{text-align:center;font-size:12px;color:var(--txt3);margin-top:8px;font-weight:600}
+.geo-pager-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.geo-pager-btn{
+  padding:7px 13px;border-radius:20px;border:1.5px solid var(--border);background:var(--bg4);
+  color:var(--txt2);font-family:var(--f);font-size:11.5px;font-weight:600;cursor:pointer;transition:all .15s;
+}
+.geo-pager-btn:hover{border-color:var(--accent);color:var(--accent)}
+.geo-pager-btn.geo-danger:hover{border-color:var(--red);color:var(--red)}
+.aura-gen-btn.edit-mode{border-style:dashed;border-color:var(--accent);position:relative}
+.geo-edit-pencil{
+  position:absolute;top:6px;right:6px;font-size:12px;opacity:.85;
+  background:var(--bg2);border-radius:50%;width:20px;height:20px;
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--border);
+}
+.aura-regen-btn{
+  display:none;margin:8px auto 0;padding:7px 14px;border-radius:20px;
+  border:1.5px solid var(--border);background:var(--bg4);color:var(--txt2);
+  font-family:var(--f);font-size:12px;font-weight:600;cursor:pointer;
+  align-items:center;gap:6px;transition:all .15s;
+}
+.aura-regen-btn.show{display:inline-flex}
+.aura-regen-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--phhov)}
+.aura-regen-btn:active{transform:scale(.94)}
+.aura-regen-btn.spinning span{display:inline-block;animation:auraSpin .6s linear infinite}
+@keyframes auraSpin{to{transform:rotate(360deg)}}
 .aura-empty{text-align:center;padding:18px;color:var(--txt3);font-size:13px;font-style:italic}
 .aura-preview{
   border-radius:9px;background:var(--bg4);border:1px solid var(--border);
@@ -1457,8 +1496,10 @@ body.theme-story .ce{
 }
 .cbt.c-me .ce{background:linear-gradient(180deg,rgba(48,214,192,.22),rgba(48,214,192,.08))}
 .cbt.c-quick .ce{background:linear-gradient(180deg,rgba(167,139,250,.22),rgba(167,139,250,.08))}
+.cbt.c-firstresponder .ce{background:linear-gradient(180deg,rgba(255,95,87,.24),rgba(255,95,87,.09))}
 body.theme-story .cbt.c-me .ce{background:linear-gradient(180deg,rgba(52,199,190,.20),rgba(52,199,190,.08))}
 body.theme-story .cbt.c-quick .ce{background:linear-gradient(180deg,rgba(175,82,222,.20),rgba(175,82,222,.08))}
+body.theme-story .cbt.c-firstresponder .ce{background:linear-gradient(180deg,rgba(255,59,48,.20),rgba(255,59,48,.08))}
 
 .cl{
   font-family:var(--ios-font);font-weight:600;
@@ -2525,6 +2566,9 @@ mark{background:var(--aglow);color:var(--accent);border-radius:3px;padding:0 2px
             <span id="visual-preview-text">—</span>
           </div>
           <div class="aura-btns-grid" id="visual-btns"></div>
+          <button class="aura-regen-btn" id="visual-regen-btn" onclick="regenerateVisual()">
+            <span>🔄</span> Not quite right — new options
+          </button>
         </div>
       </div>
 
@@ -2544,6 +2588,9 @@ mark{background:var(--aglow);color:var(--accent);border-radius:3px;padding:0 2px
             <span id="ambient-preview-text">—</span>
           </div>
           <div class="aura-btns-grid" id="ambient-btns"></div>
+          <button class="aura-regen-btn" id="ambient-regen-btn" onclick="regenerateAmbient()">
+            <span>🔄</span> Not quite right — new options
+          </button>
         </div>
       </div>
 
@@ -3224,6 +3271,12 @@ const DEFAULT_CATS = [
 {e:'❤️',t:'I love you Daddy',spk:true},{e:'❤️',t:'I love you Cathy',spk:true},
 {e:'⭐',t:'You are so smart',spk:true},{e:'🎉',t:'That was amazing!',spk:true},
 ]},
+{id:'first-responder',emoji:'🚨',label:'First Responder',cls:'c-firstresponder',color:'red',phrases:[
+{e:'🚨',t:'This is an emergency',spk:true},{e:'👮',t:'I need police',spk:true},
+{e:'🚒',t:'There is a fire',spk:true},{e:'🚑',t:'I need an ambulance',spk:true},
+{e:'🩹',t:'Someone is hurt',spk:true},{e:'📞',t:'Please call 911',spk:true},
+{e:'🆘',t:'I need help right now',spk:true},{e:'🚫',t:'I am in danger',spk:true},
+]},
 {id:'food',emoji:'🍽️',label:'Food & Drink',phrases:[
 {e:'🍕',t:'I want pizza'},{e:'🥪',t:'I want a sandwich'},{e:'🍗',t:'I want chicken'},
 {e:'🍝',t:'I want pasta'},{e:'🌮',t:'I want a taco'},{e:'🥞',t:'I want pancakes'},
@@ -3345,6 +3398,10 @@ experienceMode:'child',situations:[],frequentPhrases:{questions:[],responses:[],
 function loadData(){
 try{const c=localStorage.getItem('jvox-cats');if(c)S.cats=JSON.parse(c);else S.cats=JSON.parse(JSON.stringify(DEFAULT_CATS))}catch(e){S.cats=JSON.parse(JSON.stringify(DEFAULT_CATS))}
 S.cats.forEach(cat=>(cat.phrases||[]).forEach(p=>{if(p._tag)delete p._tag}));
+if(!S.cats.some(c=>c.id==='first-responder')){
+const frCat=DEFAULT_CATS.find(c=>c.id==='first-responder');
+if(frCat){const insertAt=Math.min(2,S.cats.length);S.cats.splice(insertAt,0,JSON.parse(JSON.stringify(frCat)));try{localStorage.setItem('jvox-cats',JSON.stringify(S.cats));}catch(e){}}
+}
 try{const sc=localStorage.getItem('jvox-scenes');if(sc)S.scenes=JSON.parse(sc);else S.scenes=JSON.parse(JSON.stringify(DEFAULT_SCENES))}catch(e){S.scenes=JSON.parse(JSON.stringify(DEFAULT_SCENES))}
 try{const cs=localStorage.getItem('jvox-core');if(cs)S.coreSym=JSON.parse(cs);else S.coreSym=JSON.parse(JSON.stringify(CORE_SYMS))}catch(e){S.coreSym=JSON.parse(JSON.stringify(CORE_SYMS))}
 try{const em=localStorage.getItem('jvox-experience');if(em)S.experienceMode=em;else S.experienceMode='child'}catch(e){S.experienceMode='child'}
@@ -4902,14 +4959,19 @@ document.getElementById('geo-empty').textContent='Detecting your location…';
 initGeoSense();
 }
 const GEO_CONTEXTS={
-Home:{em:'🏠',btns:[{e:'📺',t:'Can I watch TV?'},{e:'🛁',t:'I need a bath'},{e:'🍽️',t:'I want food'},{e:'🛏️',t:'I want to go to bed'}]},
-School:{em:'🎒',btns:[{e:'🆘',t:'I need help'},{e:'🚽',t:'Bathroom break'},{e:'⏸',t:'I need a break'},{e:'✅',t:'I finished'}]},
-Medical:{em:'🏥',btns:[{e:'🤕',t:'It hurts here'},{e:'😰',t:'I feel anxious'},{e:'💊',t:'I need medicine'},{e:'🆘',t:'Emergency'}]},
-Restaurant:{em:'🍽️',btns:[{e:'🍽️',t:'I want to order'},{e:'💧',t:'Water please'},{e:'🚽',t:'Restroom'},{e:'🏠',t:'I want to go home'}]},
-Park:{em:'🌳',btns:[{e:'🛝',t:'I want to play'},{e:'🤸',t:'I want to swing'},{e:'🏠',t:'I want to go home'},{e:'🚽',t:'Bathroom'}]},
-Store:{em:'🛒',btns:[{e:'🛒',t:'I want that'},{e:'🚪',t:'Time to leave'},{e:'🏠',t:'Home please'},{e:'💰',t:'I have my card'}]},
-Library:{em:'📚',btns:[{e:'📖',t:'I want this book'},{e:'🤫',t:'Please be quiet'},{e:'🚽',t:'Restroom'},{e:'🏠',t:'Time to go'}]},
-Therapy:{em:'🧠',btns:[{e:'😊',t:'I feel good today'},{e:'😞',t:'I feel upset'},{e:'⏸',t:'I need a break'},{e:'✅',t:'I am done'}]}
+Home:{em:'🏠',cards:[
+{tag:'morning',label:'Morning',btns:[{e:'🥣',t:'I want breakfast'},{e:'👕',t:'Help me get dressed'},{e:'🪥',t:'I need to brush my teeth'},{e:'📺',t:'Can I watch cartoons?'}]},
+{tag:'midday',label:'Midday',btns:[{e:'📺',t:'Can I watch TV?'},{e:'🍽️',t:'I want food'},{e:'🧸',t:'I want to play'},{e:'🆘',t:'I need help'}]},
+{tag:'evening',label:'Evening',btns:[{e:'🍽️',t:'I want dinner'},{e:'🛁',t:'I need a bath'},{e:'📱',t:'Can I have screen time?'},{e:'😴',t:'I feel tired'}]},
+{tag:'night',label:'Night',btns:[{e:'🛏️',t:'I want to go to bed'},{e:'💧',t:'I need water'},{e:'📖',t:'Read me a story'},{e:'🌙',t:'Goodnight'}]}
+]},
+School:{em:'🎒',cards:[{tag:'anytime',label:'General',btns:[{e:'🆘',t:'I need help'},{e:'🚽',t:'Bathroom break'},{e:'⏸',t:'I need a break'},{e:'✅',t:'I finished'}]}]},
+Medical:{em:'🏥',cards:[{tag:'anytime',label:'General',btns:[{e:'🤕',t:'It hurts here'},{e:'😰',t:'I feel anxious'},{e:'💊',t:'I need medicine'},{e:'🆘',t:'Emergency'}]}]},
+Restaurant:{em:'🍽️',cards:[{tag:'anytime',label:'General',btns:[{e:'🍽️',t:'I want to order'},{e:'💧',t:'Water please'},{e:'🚽',t:'Restroom'},{e:'🏠',t:'I want to go home'}]}]},
+Park:{em:'🌳',cards:[{tag:'anytime',label:'General',btns:[{e:'🛝',t:'I want to play'},{e:'🤸',t:'I want to swing'},{e:'🏠',t:'I want to go home'},{e:'🚽',t:'Bathroom'}]}]},
+Store:{em:'🛒',cards:[{tag:'anytime',label:'General',btns:[{e:'🛒',t:'I want that'},{e:'🚪',t:'Time to leave'},{e:'🏠',t:'Home please'},{e:'💰',t:'I have my card'}]}]},
+Library:{em:'📚',cards:[{tag:'anytime',label:'General',btns:[{e:'📖',t:'I want this book'},{e:'🤫',t:'Please be quiet'},{e:'🚽',t:'Restroom'},{e:'🏠',t:'Time to go'}]}]},
+Therapy:{em:'🧠',cards:[{tag:'anytime',label:'General',btns:[{e:'😊',t:'I feel good today'},{e:'😞',t:'I feel upset'},{e:'⏸',t:'I need a break'},{e:'✅',t:'I am done'}]}]}
 };
 function detectGeoContext(lat,lng){
 const locKey='geo-ctx-'+Math.round(lat*10)/10+','+Math.round(lng*10)/10;
@@ -4925,12 +4987,133 @@ if(h>=8&&h<=15)return'School';
 if(h>=18||h<=7)return'Home';
 return'Home';
 }
+function currentTimeTag(){
+const h=new Date().getHours();
+if(h>=5&&h<11)return'morning';
+if(h>=11&&h<16)return'midday';
+if(h>=16&&h<20)return'evening';
+return'night';
+}
+function getGeoOverrides(ctx){try{return JSON.parse(localStorage.getItem('geo-override-'+ctx)||'{}');}catch{return{};}}
+function saveGeoOverrides(ctx,map){localStorage.setItem('geo-override-'+ctx,JSON.stringify(map));}
+function getGeoCustomCards(ctx){try{return JSON.parse(localStorage.getItem('geo-custom-'+ctx)||'[]');}catch{return[];}}
+function saveGeoCustomCards(ctx,cards){localStorage.setItem('geo-custom-'+ctx,JSON.stringify(cards));}
+function getMergedGeoCards(ctx){
+const def=(GEO_CONTEXTS[ctx]||GEO_CONTEXTS.Home).cards;
+const ov=getGeoOverrides(ctx);
+const base=def.map((c,i)=>({tag:c.tag,label:c.label,custom:false,idx:i,
+btns:c.btns.map((b,j)=>{const o=ov[i+'-'+j];return o?{e:o.e,t:o.t}:b;})}));
+const custom=getGeoCustomCards(ctx).map((c,i)=>({...c,custom:true,idx:i}));
+return base.concat(custom);
+}
+let V2_geoCardIndex=0;let V2_geoEditMode=false;
 function applyGeoContext(ctx){
 const badge=document.getElementById('geo-badge');
 if(badge)badge.textContent=ctx;
-const data=GEO_CONTEXTS[ctx]||GEO_CONTEXTS.Home;
-renderAuraBtns('geo-btns',data.btns);
+V2_GEO.currentCtx=ctx;
+V2_geoEditMode=false;
+const cards=getMergedGeoCards(ctx);
+const tag=currentTimeTag();
+let startIdx=cards.findIndex(c=>c.tag===tag);
+V2_geoCardIndex=startIdx>=0?startIdx:0;
+renderGeoCard(ctx);
 buildGeoCtxGrid(ctx);
+}
+function renderGeoCard(ctx){
+const cards=getMergedGeoCards(ctx);
+if(V2_geoCardIndex>=cards.length)V2_geoCardIndex=Math.max(0,cards.length-1);
+if(V2_geoCardIndex<0)V2_geoCardIndex=0;
+const card=cards[V2_geoCardIndex];
+if(!card)return;
+renderGeoButtons(card,ctx);
+renderGeoPagerControls(ctx,cards);
+}
+function renderGeoButtons(card,ctx){
+const container=document.getElementById('geo-btns');
+if(!container)return;
+container.innerHTML='';
+card.btns.forEach((item,bi)=>{
+const btn=document.createElement('button');
+btn.className='aura-gen-btn phrase'+(V2_geoEditMode?' edit-mode':'');
+btn.innerHTML=`<span class="ag-tag">phrase</span><span style="font-size:20px">${item.e||''}</span><span>${escapeHtml(item.t)}</span>${V2_geoEditMode?'<span class="geo-edit-pencil">✏️</span>':''}`;
+btn.onclick=()=>{
+if(V2_geoEditMode){openGeoButtonEditor(ctx,card,bi);}
+else{addToSentence(item.t);haptic(38);}
+};
+container.appendChild(btn);
+});
+}
+function renderGeoPagerControls(ctx,cards){
+let pager=document.getElementById('geo-pager');
+if(!pager){
+pager=document.createElement('div');
+pager.id='geo-pager';
+pager.className='geo-pager';
+document.getElementById('geo-btns').insertAdjacentElement('afterend',pager);
+}
+const dots=cards.map((c,i)=>`<button class="geo-dot ${i===V2_geoCardIndex?'active':''}" onclick="jumpGeoCard(${i})" title="${escapeHtml(c.label||'Card '+(i+1))}"></button>`).join('');
+const cur=cards[V2_geoCardIndex];
+pager.innerHTML=`
+<div class="geo-pager-row">
+<button class="geo-pager-arrow" onclick="navGeoCard(-1)" ${V2_geoCardIndex===0?'disabled':''}>‹</button>
+<div class="geo-pager-dots">${dots}</div>
+<button class="geo-pager-arrow" onclick="navGeoCard(1)" ${V2_geoCardIndex===cards.length-1?'disabled':''}>›</button>
+</div>
+<div class="geo-pager-label">${escapeHtml((cur&&cur.label)||'Card '+(V2_geoCardIndex+1))} · Card ${V2_geoCardIndex+1} of ${cards.length}</div>
+<div class="geo-pager-actions">
+<button class="geo-pager-btn" onclick="toggleGeoEditMode()">${V2_geoEditMode?'✅ Done Editing':'✏️ Edit Cards'}</button>
+<button class="geo-pager-btn" onclick="addGeoCard('${ctx}')">➕ Add Card</button>
+${cur&&cur.custom?'<button class="geo-pager-btn geo-danger" onclick="deleteGeoCard(\''+ctx+'\','+cur.idx+')">🗑 Delete This Card</button>':''}
+</div>`;
+}
+function navGeoCard(dir){V2_geoCardIndex+=dir;renderGeoCard(V2_GEO.currentCtx);haptic(30);}
+function jumpGeoCard(i){V2_geoCardIndex=i;renderGeoCard(V2_GEO.currentCtx);haptic(30);}
+function toggleGeoEditMode(){
+V2_geoEditMode=!V2_geoEditMode;
+renderGeoCard(V2_GEO.currentCtx);
+toast(V2_geoEditMode?'✏️ Edit mode on — tap a button to change it':'Edit mode off');
+}
+function addGeoCard(ctx){
+const custom=getGeoCustomCards(ctx);
+const label=prompt('Name this card (e.g. "Weekend", "Snack time"):','Card '+(getMergedGeoCards(ctx).length+1));
+if(label===null)return;
+custom.push({tag:'anytime',label:label||'Custom',btns:[
+{e:'💬',t:'Tap to edit'},{e:'💬',t:'Tap to edit'},{e:'💬',t:'Tap to edit'},{e:'💬',t:'Tap to edit'}
+]});
+saveGeoCustomCards(ctx,custom);
+V2_geoEditMode=true;
+V2_geoCardIndex=getMergedGeoCards(ctx).length-1;
+renderGeoCard(ctx);
+toast('Card added — tap each button to fill it in');
+haptic(50);
+}
+function deleteGeoCard(ctx,customIdx){
+if(!confirm('Delete this card? This cannot be undone.'))return;
+const custom=getGeoCustomCards(ctx);
+custom.splice(customIdx,1);
+saveGeoCustomCards(ctx,custom);
+V2_geoCardIndex=0;
+renderGeoCard(ctx);
+toast('Card deleted');
+}
+function openGeoButtonEditor(ctx,card,btnIdx){
+const current=card.btns[btnIdx];
+const newText=prompt('Button text:',current.t);
+if(newText===null)return;
+const newEmoji=prompt('Emoji (optional, leave as-is if unsure):',current.e||'');
+const finalEmoji=newEmoji===null?current.e:(newEmoji||current.e);
+if(card.custom){
+const custom=getGeoCustomCards(ctx);
+custom[card.idx].btns[btnIdx]={e:finalEmoji||'',t:newText||current.t};
+saveGeoCustomCards(ctx,custom);
+}else{
+const ov=getGeoOverrides(ctx);
+ov[card.idx+'-'+btnIdx]={e:finalEmoji||'',t:newText||current.t};
+saveGeoOverrides(ctx,ov);
+}
+renderGeoCard(ctx);
+toast('Button updated');
+haptic(40);
 }
 function buildGeoCtxGrid(currentCtx){
 const grid=document.getElementById('geo-ctx-grid');
@@ -5004,8 +5187,17 @@ document.getElementById('visual-status').textContent='AI thinking…';
 document.getElementById('visual-status').classList.add('on');
 canvas.toBlob(blob=>{
 if(!blob){resetVisualScan();return;}
+V2_lastVisualBlob=blob;V2_lastVisualBtns=[];
 analyzeImageWithGroq(blob).finally(resetVisualScan);
 },'image/jpeg',0.85);
+}
+let V2_lastVisualBlob=null;let V2_lastVisualBtns=[];
+function regenerateVisual(){
+if(!V2_lastVisualBlob){toast('Scan a scene first');return;}
+const btn=document.getElementById('visual-regen-btn');
+if(btn)btn.classList.add('spinning');
+document.getElementById('visual-status').textContent='AI thinking…';
+analyzeImageWithGroq(V2_lastVisualBlob,V2_lastVisualBtns).finally(()=>{if(btn)btn.classList.remove('spinning');});
 }
 function resetVisualScan(){
 V2_visualScanning=false;
@@ -5014,41 +5206,48 @@ btn.classList.remove('scanning');btn.innerHTML='<span>📸</span> Scan Scene wit
 document.getElementById('visual-status').textContent='Ready';
 document.getElementById('visual-status').classList.remove('on');
 }
-async function analyzeImageWithGroq(file){
+async function analyzeImageWithGroq(file,avoid){
+avoid=avoid||[];
 const reader=new FileReader();
 const b64=await new Promise(res=>{reader.onload=e=>res(e.target.result.split(',')[1]);reader.readAsDataURL(file);});
 document.getElementById('visual-status').textContent='AI thinking…';
+const avoidNote=avoid.length?` The person didn't like this last set — give 4 DIFFERENT buttons, not variations of: ${avoid.map(t=>'"'+t+'"').join(', ')}.`:'';
 try{
 const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
 method:'POST',
 headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
 body:JSON.stringify({
 model:'qwen/qwen3.6-27b',
-max_tokens:300,reasoning_effort:'none',
+max_tokens:300,reasoning_effort:'none',temperature:avoid.length?0.9:0.6,
 messages:[{role:'user',content:[
 {type:'image_url',image_url:{url:'data:image/jpeg;base64,'+b64}},
-{type:'text',text:'You are an AAC (Augmentative Communication) assistant. Look at this image and generate 4 communication buttons for a non-verbal person in this context. Return JSON only: {"scene":"brief scene description","buttons":[{"type":"identity","text":"What is this?"},{"type":"request","text":"I want..."},{"type":"social","text":"..."},{"type":"comment","text":"..."}]}. Make the text natural and useful for AAC communication.'}
+{type:'text',text:'You are an AAC (Augmentative Communication) assistant. Look at this image and generate 4 communication buttons for a non-verbal person in this context. Return JSON only: {"scene":"brief scene description","buttons":[{"type":"identity","text":"What is this?"},{"type":"request","text":"I want..."},{"type":"social","text":"..."},{"type":"comment","text":"..."}]}. Make the text natural and useful for AAC communication.'+avoidNote}
 ]}]
 })
 });
+if(!resp.ok)throw new Error('Groq '+resp.status);
 const data=await resp.json();
 const content=data.choices?.[0]?.message?.content||'';
 const cleaned=content.replace(/```json|```/g,'').trim();
 const parsed=JSON.parse(cleaned);
+if(!parsed.buttons||!parsed.buttons.length)throw new Error('Empty buttons');
 document.getElementById('visual-preview').style.display='block';
 document.getElementById('visual-preview-text').textContent=parsed.scene||'Scene analyzed';
 document.getElementById('visual-status').textContent='Ready';
+V2_lastVisualBtns=parsed.buttons.map(b=>b.text);
 renderAuraBtns('visual-btns',parsed.buttons.map(b=>({e:'',t:b.text,type:b.type})));
+document.getElementById('visual-regen-btn').classList.add('show');
 haptic(60);
 }catch(err){
 document.getElementById('visual-status').textContent='Error';
-toast('⚠️ Could not analyze image. Check Groq API key.');
+toast('⚠️ Could not analyze image — showing generic options. Check Groq API key or connection.');
 renderAuraBtns('visual-btns',[
 {e:'🔍',t:'What is this?',type:'identity'},
 {e:'🙋',t:'I want that',type:'request'},
 {e:'💬',t:'Can you help me?',type:'social'},
 {e:'👍',t:'That looks good',type:'comment'}
 ]);
+document.getElementById('visual-regen-btn').classList.remove('show');
 }
 }
 let V2_ambientActive=false;let V2_ambientBuffer=[];let V2_ambientTimer=null;
@@ -5071,7 +5270,7 @@ for(let i=e.resultIndex;i<e.results.length;i++){transcript+=e.results[i][0].tran
 document.getElementById('ambient-preview').style.display='block';
 document.getElementById('ambient-preview-text').textContent=transcript;
 clearTimeout(V2_ambientTimer);
-V2_ambientTimer=setTimeout(()=>processAmbientText(transcript),2000);
+V2_ambientTimer=setTimeout(()=>{V2_lastAmbientText=transcript;V2_lastAmbientBtns=[];processAmbientText(transcript);},2000);
 };
 recog.onerror=()=>stopAmbientListen();
 recog.onend=()=>{if(V2_ambientActive)recog.start();}; 
@@ -5087,35 +5286,47 @@ if(btn){btn.classList.remove('active-listen');btn.innerHTML='<span>🔊</span> S
 const status=document.getElementById('ambient-status');
 if(status){status.textContent='Ready';status.classList.remove('listening');}
 }
-async function processAmbientText(text){
+let V2_lastAmbientText='';let V2_lastAmbientBtns=[];
+async function processAmbientText(text,avoid){
 if(!text||text.length<5)return;
+avoid=avoid||[];
 document.getElementById('ambient-status').textContent='AI thinking…';
+const avoidNote=avoid.length?` The person didn't like this last set — give 4 DIFFERENT responses, not variations of: ${avoid.map(t=>'"'+t+'"').join(', ')}.`:'';
 try{
 const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
 method:'POST',
 headers:{'Content-Type':'application/json','Authorization':'Bearer '+S.groqKey},
 body:JSON.stringify({
-model:'qwen/qwen3.6-27b',max_tokens:200,reasoning_effort:'none',
-messages:[{role:'user',content:`You are an AAC communication assistant. A non-verbal person heard someone say: "${text}". Generate 4 short first-person response options they could use to reply (e.g. "I agree", "I need a moment", "I don't know"). All responses must be in the first person — the user IS speaking these words. Return JSON only, no markdown: {"buttons":[{"text":"response 1"},{"text":"response 2"},{"text":"response 3"},{"text":"response 4"}]}`}]
+model:'qwen/qwen3.6-27b',max_tokens:200,reasoning_effort:'none',temperature:avoid.length?0.9:0.6,
+messages:[{role:'user',content:`You are an AAC communication assistant. A non-verbal person heard someone say: "${text}". Generate 4 short first-person response options they could use to reply, tailored specifically to what was said (not a generic yes/no set unless the statement is genuinely a yes/no question). All responses must be in the first person — the user IS speaking these words.${avoidNote} Return JSON only, no markdown: {"buttons":[{"text":"response 1"},{"text":"response 2"},{"text":"response 3"},{"text":"response 4"}]}`}]
 })
 });
+if(!resp.ok)throw new Error('Groq '+resp.status);
 const data=await resp.json();
 const content=data.choices?.[0]?.message?.content||'';
 const cleaned=content.replace(/```json|```/g,'').trim();
 const parsed=JSON.parse(cleaned);
+if(!parsed.buttons||!parsed.buttons.length)throw new Error('Empty buttons');
 document.getElementById('ambient-status').textContent='Listening';
+V2_lastAmbientBtns=parsed.buttons.map(b=>b.text);
 renderAuraBtns('ambient-btns',parsed.buttons.map((b,i)=>({e:['👍','👋','💬','🤔'][i]||'💬',t:b.text,type:'choice-btn'})));
+document.getElementById('ambient-regen-btn').classList.add('show');
 haptic(50);
 }catch(err){
 document.getElementById('ambient-status').textContent='Listening';
-const words=text.split(' ').filter(w=>w.length>2);
-if(words.length>0){
+toast('⚠️ Could not generate replies — showing generic options.');
 renderAuraBtns('ambient-btns',[
 {e:'✅',t:'Yes',type:'choice-btn'},{e:'❌',t:'No',type:'choice-btn'},
 {e:'🤔',t:'Maybe',type:'choice-btn'},{e:'⏳',t:'Give me a moment',type:'choice-btn'}
 ]);
+document.getElementById('ambient-regen-btn').classList.remove('show');
 }
 }
+function regenerateAmbient(){
+if(!V2_lastAmbientText){toast('Nothing heard yet');return;}
+const btn=document.getElementById('ambient-regen-btn');
+if(btn)btn.classList.add('spinning');
+processAmbientText(V2_lastAmbientText,V2_lastAmbientBtns).finally(()=>{if(btn)btn.classList.remove('spinning');});
 }
 function renderAuraBtns(containerId,items){
 const container=document.getElementById(containerId);
